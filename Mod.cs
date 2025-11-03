@@ -3,8 +3,6 @@
 
 namespace CustomSchoolCapacity
 {
-    using System.Collections.Generic;
-    using Colossal;
     using Colossal.IO.AssetDatabase;
     using Colossal.Logging;
     using Game;
@@ -13,59 +11,58 @@ namespace CustomSchoolCapacity
 
     public sealed class Mod : IMod
     {
+        // ---- Constants ----
         public const string ModName = "Custom School Capacity [CSC]";
-        public const string VersionShort = "1.3.0";
+        public const string VersionShort = "1.5.0";
 
+        // ---- Logging ----
         public static readonly ILog Log =
             LogManager.GetLogger("CustomSchoolCapacity").SetShowsErrorsInUI(false);
 
+        // ---- Settings instance ----
         public static Setting? Setting
         {
             get; private set;
         }
 
-        // guards so we don't add the same locale twice
-        private static readonly HashSet<string> s_InstalledLocales = new();
-
+        // ---- Lifecycle ----
         public void OnLoad(UpdateSystem updateSystem)
         {
             Log.Info($"{ModName} v{VersionShort} OnLoad");
 
-            // 1) create settings
             var setting = new Setting(this);
             Setting = setting;
 
-            // 2) add ONLY English for now
-            AddLocale("en-US", new LocaleEN(setting));
-            // (we'll re-enable FR/ES/ZH later)
+            // Register locales
+            var lm = GameManager.instance?.localizationManager;
+            if (lm == null)
+            {
+                Log.Warn("LocalizationManager is null; skipping locale registration.");
+            }
+            else
+            {
+                lm.AddSource("en-US", new LocaleEN(setting));
+                lm.AddSource("es-ES", new LocaleES(setting));
+                lm.AddSource("fr-FR", new LocaleFR(setting));
+                lm.AddSource("zh-HANS", new LocaleZH_CN(setting));
+                lm.AddSource("de-DE", new LocaleDE(setting));
+                lm.AddSource("it-IT", new LocaleIT(setting));
+                lm.AddSource("ja-JP", new LocaleJA(setting));
+                lm.AddSource("ko-KR", new LocaleKO(setting));
+                lm.AddSource("zh-HANT", new LocaleZH_HANT(setting));
+            }
 
-            // 3) load saved values
+            // Load saved settings, then show Options UI
             AssetDatabase.global.LoadSettings("CustomSchoolCapacity", setting, new Setting(this));
-
-            // 4) show in Options UI
             setting.RegisterInOptionsUI();
 
-            // 5) make sure our system runs in prefab phases (same pattern as original)
+            // Ensure system runs during prefab phases so prefabs & school extensions scale before placement
             updateSystem.UpdateBefore<CustomSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);
             updateSystem.UpdateBefore<CustomSchoolCapacitySystem>(SystemUpdatePhase.PrefabReferences);
-
-            // 6) listen for locale changes
-            var lm = GameManager.instance?.localizationManager;
-            if (lm != null)
-            {
-                lm.onActiveDictionaryChanged -= OnLocaleChanged;
-                lm.onActiveDictionaryChanged += OnLocaleChanged;
-            }
         }
 
         public void OnDispose()
         {
-            var lm = GameManager.instance?.localizationManager;
-            if (lm != null)
-            {
-                lm.onActiveDictionaryChanged -= OnLocaleChanged;
-            }
-
             if (Setting != null)
             {
                 Setting.UnregisterInOptionsUI();
@@ -73,47 +70,6 @@ namespace CustomSchoolCapacity
             }
 
             Log.Info("OnDispose");
-        }
-
-        private void OnLocaleChanged()
-        {
-            var lm = GameManager.instance?.localizationManager;
-            var active = lm?.activeLocaleId;
-            if (string.IsNullOrEmpty(active))
-            {
-                return;
-            }
-
-            EnsureLocaleInstalled(active!);
-
-            // keep options refreshed
-            Setting?.RegisterInOptionsUI();
-#if DEBUG
-            Log.Info($"[CSC] Locale changed → {active}");
-#endif
-        }
-
-        private static void AddLocale(string localeId, IDictionarySource source)
-        {
-            var lm = GameManager.instance?.localizationManager;
-            if (lm == null)
-            {
-                Log.Warn("No LocalizationManager; cannot add locale source.");
-                return;
-            }
-
-            if (!s_InstalledLocales.Add(localeId))
-            {
-                return; // already added
-            }
-
-            lm.AddSource(localeId, source);
-        }
-
-        private static void EnsureLocaleInstalled(string localeId)
-        {
-            // right now EN is the only active one
-            // later,  un-comment zh-HANS in Mod.cs, can add here
         }
     }
 }

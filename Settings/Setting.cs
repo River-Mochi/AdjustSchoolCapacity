@@ -1,8 +1,5 @@
 // Settings/Setting.cs
-// Options UI for "[CSC] Custom School Capacity".
-// Tabs: Actions + About
-// Actions = sliders (10% steps) + 2 preset buttons (side-by-side) + checkbox
-// About   = mod name + version + 2 support-link buttons (side-by-side)
+// Options UI for "Custom School Capacity [CSC]".
 
 namespace CustomSchoolCapacity
 {
@@ -14,49 +11,41 @@ namespace CustomSchoolCapacity
     using Unity.Entities;
     using UnityEngine;
 
-    [FileLocation("ModsSettings/CustomSchoolCapacity/CustomSchoolCapacity")]
+    [FileLocation("ModsSettings/CustomSchoolCapacity/CustomSchoolCapacity")]    // Saved settings path
     [SettingsUIGroupOrder(
         CapacityGroup,
         PresetGroup,
-        OptionsGroup,
         AboutInfoGroup,
         AboutLinksGroup
     )]
     [SettingsUIShowGroupName(
         CapacityGroup,
         PresetGroup,
-        OptionsGroup,
         AboutLinksGroup
     )]
     public sealed class Setting : ModSetting
     {
-        // ===== Tabs =====
+        // ---- Tabs ----
         public const string ActionsTab = "Actions";
         public const string AboutTab = "About";
 
-        // ===== Groups (Actions tab) =====
+        // ---- Groups Actions tab ----
         public const string CapacityGroup = "Student Capacity";
         public const string PresetGroup = "Presets";
-        public const string OptionsGroup = "Options";
 
-        // ===== Groups (About tab) =====
+        // ---- Groups About tab ----
         public const string AboutInfoGroup = "Info";
         public const string AboutLinksGroup = "Support Links";
 
-        // URLs for About
+        // ---- External links ----
         private const string UrlParadox = "https://mods.paradoxplaza.com/uploaded?orderBy=desc&sortBy=best&time=alltime";
         private const string UrlDiscord = "https://discord.gg/HTav7ARPs2";
 
-        private bool m_ScaleUpkeepWithCapacity = true;
-
-        public Setting(IMod mod)
-            : base(mod)
+        public Setting(IMod mod) : base(mod)
         {
-            // fresh install → seed defaults
+            // Fresh install → seed defaults
             if (ElementarySlider == 0)
-            {
                 SetDefaults();
-            }
         }
 
         public override void Apply()
@@ -65,18 +54,14 @@ namespace CustomSchoolCapacity
 
             var world = World.DefaultGameObjectInjectionWorld;
             if (world == null)
-            {
                 return;
-            }
 
             var system = world.GetExistingSystemManaged<CustomSchoolCapacitySystem>();
             if (system != null)
-            {
                 system.RequestReapplyFromSettings();
-            }
         }
 
-        // ===== Sliders (10–500%, step 10%) =====
+        // ---- Sliders (10–500%, step 10%) ----
 
         [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
@@ -106,7 +91,7 @@ namespace CustomSchoolCapacity
             get; set;
         }
 
-        // ===== Preset buttons (side-by-side) =====
+        // ---- Preset buttons, same group → side-by-side ----
 
         [SettingsUIButtonGroup(PresetGroup)]
         [SettingsUIButton]
@@ -136,27 +121,7 @@ namespace CustomSchoolCapacity
             }
         }
 
-        // ===== Options (checkbox) =====
-
-        [SettingsUISection(ActionsTab, OptionsGroup)]
-        public bool ScaleUpkeepWithCapacity
-        {
-            get => m_ScaleUpkeepWithCapacity;
-            set
-            {
-                m_ScaleUpkeepWithCapacity = value;
-                Extraneous = !value; // same trick from original
-            }
-        }
-
-        // hidden helper flag
-        [SettingsUIHidden]
-        public bool Extraneous
-        {
-            get; set;
-        }
-
-        // ===== About tab =====
+        // ---- About tab ----
 
         [SettingsUISection(AboutTab, AboutInfoGroup)]
         public string NameDisplay => Mod.ModName;
@@ -198,17 +163,15 @@ namespace CustomSchoolCapacity
             }
         }
 
-        // ===== Presets =====
+        // ---- Presets ----
 
         public override void SetDefaults()
         {
-            // your CSC defaults
+            // CSC defaults
             ElementarySlider = 200;
-            HighSchoolSlider = 130;
+            HighSchoolSlider = 150;
             CollegeSlider = 120;
             UniversitySlider = 120;
-            ScaleUpkeepWithCapacity = true;
-            Extraneous = false;
         }
 
         public void SetToVanilla()
@@ -217,7 +180,6 @@ namespace CustomSchoolCapacity
             HighSchoolSlider = 100;
             CollegeSlider = 100;
             UniversitySlider = 100;
-            ScaleUpkeepWithCapacity = true;
         }
     }
 }

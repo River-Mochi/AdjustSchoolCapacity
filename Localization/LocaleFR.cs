@@ -1,5 +1,5 @@
 // Localization/LocaleFR.cs
-// French strings for "[CSC] Custom School Capacity" - Options UI.
+// French (fr-FR) for Options UI.
 
 namespace CustomSchoolCapacity
 {
@@ -22,39 +22,75 @@ namespace CustomSchoolCapacity
             return new Dictionary<string, string>
             {
                 // Mod root in Options
-                { m_Setting.GetSettingsLocaleID(), "[CSC] Capacité Scolaire Personnalisée" },
+                { m_Setting.GetSettingsLocaleID(), "Custom School Capacity [CSC]" },
 
                 // Tabs
-                { m_Setting.GetOptionTabLocaleID(Setting.CapacitySection), "Principal" },
-                { m_Setting.GetOptionTabLocaleID(Setting.ResetSection),    "Réinitialiser" },
+                { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "Actions" },
+                { m_Setting.GetOptionTabLocaleID(Setting.AboutTab),   "À propos" },
 
-                // Groups
-                { m_Setting.GetOptionGroupLocaleID(Setting.CapacityGroup),     "Capacité des étudiants" },
-                { m_Setting.GetOptionGroupLocaleID(Setting.OtherOptionsGroup), "Options supplémentaires" },
+                // Groups - Actions
+                { m_Setting.GetOptionGroupLocaleID(Setting.CapacityGroup), "Capacité des élèves" },
+                { m_Setting.GetOptionGroupLocaleID(Setting.PresetGroup),   "Préréglages" },
+
+                // Groups - About
+                { m_Setting.GetOptionGroupLocaleID(Setting.AboutInfoGroup),  "Infos" },
+                { m_Setting.GetOptionGroupLocaleID(Setting.AboutLinksGroup), "Liens de support" },
 
                 // Sliders
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "École primaire" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),  "Définit la capacité des écoles primaires par rapport au jeu de base." },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
+                    "**École primaire** – régler la capacité entre 10% et 500% avec le curseur.\n" +
+                    "100% = capacité par défaut du jeu."
+                },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "Lycée" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),  "Définit la capacité des lycées par rapport au jeu de base." },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
+                    "**Lycée** – régler la capacité entre 10% et 500% avec le curseur.\n" +
+                    "100% = capacité par défaut du jeu."
+                },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.CollegeSlider)), "Collège" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.CollegeSlider)),  "Définit la capacité des collèges par rapport au jeu de base." },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.CollegeSlider)), "Collège / Campus" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.CollegeSlider)),
+                    "**Collège / campus** – régler la capacité entre 10% et 500% avec le curseur.\n" +
+                    "100% = capacité par défaut du jeu."
+                },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "Université" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),  "Définit la capacité des universités par rapport au jeu de base." },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
+                    "**Université** – régler la capacité entre 10% et 500% avec le curseur.\n" +
+                    "100% = capacité par défaut du jeu."
+                },
 
-                // Toggle
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ScaleUpkeepWithCapacity)), "Ajuster l’entretien selon la capacité" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.ScaleUpkeepWithCapacity)),  "Si activé, les coûts d’entretien seront également multipliés par la capacité choisie." },
+                // Preset buttons
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToVanilla)), "Réinitialiser en vanilla" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToVanilla)),
+                    "Remet tous les curseurs de capacité à 100% (valeur par défaut du jeu)."
+                },
 
-                // Buttons
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToVanilla)), "Réinitialiser aux valeurs de base" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToVanilla)),  "Ramène toutes les capacités à 100 %." },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Réglages par défaut CSC" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
+                    "Utiliser le preset de départ recommandé par CSC :\n" +
+                    "**200 / 150 / 120 / 120**"
+                },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Réinitialiser aux valeurs CSC" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),  "Applique les valeurs recommandées du mod (200 / 120 / 125 / 125)." },
+                // About tab
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.NameDisplay)),    "Mod" },
+                { m_Setting.GetOptionDescLocaleID(nameof(Setting.NameDisplay)),     "Nom de ce mod." },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.VersionDisplay)), "Version" },
+                { m_Setting.GetOptionDescLocaleID(nameof(Setting.VersionDisplay)),  "Version actuelle du mod." },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.OpenParadoxMods)), "Paradox Mods" },
+                { m_Setting.GetOptionDescLocaleID(nameof(Setting.OpenParadoxMods)),  "Ouvrir ce mod sur le site Paradox Mods." },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.OpenDiscord)), "Discord" },
+                { m_Setting.GetOptionDescLocaleID(nameof(Setting.OpenDiscord)),  "Ouvrir le Discord de la communauté dans le navigateur." },
             };
         }
 

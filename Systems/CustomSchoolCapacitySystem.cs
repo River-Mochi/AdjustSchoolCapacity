@@ -1,6 +1,6 @@
 // Systems/CustomSchoolCapacitySystem.cs
-// Applies CSC settings to all school entities.
-// Baselines once per entity, then reapply when settings change / on load.
+// Applies CSC settings to all school-related entities including school extensions.
+// Captures vanilla baselines once per entity, then reapplies when settings change / on load.
 
 namespace CustomSchoolCapacity
 {
@@ -13,12 +13,15 @@ namespace CustomSchoolCapacity
 
     public sealed partial class CustomSchoolCapacitySystem : GameSystemBase
     {
+        // ---- Baseline cache ----
         private readonly Dictionary<Entity, BaselineData> m_BaselineByEntity =
             new Dictionary<Entity, BaselineData>(128);
 
+        // ---- Queries & flags ----
         private EntityQuery m_SchoolQuery;
         private bool m_ReapplyRequested;
 
+        // ---- Lifecycle ----
         protected override void OnCreate()
         {
             base.OnCreate();
@@ -29,7 +32,7 @@ namespace CustomSchoolCapacity
 
             RequireForUpdate(m_SchoolQuery);
 
-            // only run when asked
+            // Run only when requested (load or settings Apply)
             Enabled = false;
         }
 
@@ -37,7 +40,7 @@ namespace CustomSchoolCapacity
         {
             base.OnGamePreload(purpose, mode);
 
-            // same behavior as the original mod: when you open a real game, do one pass
+            // When a city is loading, do one pass after prefabs are available
             if (mode == GameMode.Game)
             {
                 m_ReapplyRequested = true;
@@ -56,7 +59,8 @@ namespace CustomSchoolCapacity
             var schools = m_SchoolQuery.ToEntityArray(Allocator.Temp);
             if (!schools.IsCreated || schools.Length == 0)
             {
-                schools.Dispose();
+                if (schools.IsCreated)
+                    schools.Dispose();
                 m_ReapplyRequested = false;
                 Enabled = false;
                 return;
@@ -75,38 +79,24 @@ namespace CustomSchoolCapacity
             {
                 var entity = schools[i];
 
+                // Read current components
                 var schoolData = EntityManager.GetComponentData<SchoolData>(entity);
-                var consumptionData = EntityManager.GetComponentData<ConsumptionData>(entity);
 
-                // capture vanilla / prefab value once
+                // Cache baseline once
                 if (!m_BaselineByEntity.TryGetValue(entity, out var baseline))
                 {
                     baseline = new BaselineData
                     {
                         StudentCapacity = schoolData.m_StudentCapacity,
-                        Upkeep = consumptionData.m_Upkeep,
                         EducationLevel = schoolData.m_EducationLevel
                     };
                     m_BaselineByEntity.Add(entity, baseline);
                 }
 
+                // Compute scalar by level and apply to capacity
                 var scalar = GetScalar(setting, baseline.EducationLevel);
-
-                // capacity
                 schoolData.m_StudentCapacity = (int)(baseline.StudentCapacity * scalar);
                 EntityManager.SetComponentData(entity, schoolData);
-
-                // upkeep
-                if (setting.ScaleUpkeepWithCapacity)
-                {
-                    consumptionData.m_Upkeep = (int)(baseline.Upkeep * scalar);
-                }
-                else
-                {
-                    consumptionData.m_Upkeep = baseline.Upkeep;
-                }
-
-                EntityManager.SetComponentData(entity, consumptionData);
             }
 
             schools.Dispose();
@@ -115,7 +105,7 @@ namespace CustomSchoolCapacity
             Enabled = false;
         }
 
-        // called from Setting.Apply()
+        // ---- Public API (called from Setting.Apply) ----
         public void RequestReapplyFromSettings()
         {
             m_ReapplyRequested = true;
@@ -125,6 +115,7 @@ namespace CustomSchoolCapacity
 #endif
         }
 
+        // ---- Helpers ----
         private static double GetScalar(Setting setting, byte level)
         {
             switch ((SchoolLevel)level)
@@ -145,7 +136,6 @@ namespace CustomSchoolCapacity
         private struct BaselineData
         {
             public int StudentCapacity;
-            public int Upkeep;
             public byte EducationLevel;
         }
     }
