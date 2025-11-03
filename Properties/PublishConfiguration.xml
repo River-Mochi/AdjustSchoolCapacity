@@ -23,6 +23,11 @@ Customize how many students your schools can handle without adding more building
 - English, Français French, Deutsch German, Español Spanish, Italiano Italian
 - 日本語 Japanese, 한국어 Korean, 简体中文 Simplified Chinese, 繁體中文 Traditional Chinese                                                                                                                                                                                                                                                                                                                                                                                                       
 
+### Technical Notes
+- Safe to remove or disable at any time (just set the sliders to 100% for vanilla values)
+- Remove any other school capacity mods to avoid conflicts. 
+- Does not use Reflection or Harmony - means safe, lightweight, and more resilient to game updates.
+
 
 ### Feedback and Support
 - If the mod helps you, give it a Like :)

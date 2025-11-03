@@ -4,13 +4,12 @@
 
 ## Overview
 
-**[CSC] Custom School Capacity** lets you change how many students each school building can handle in *Cities: Skylines II*.
+**Custom School Capacity [CSC]** lets you change how many students each school building can handle
+in *Cities: Skylines II*.
 
 - Tweak capacity for **elementary**, **high school**, **college**, and **university**.
 - Use simple sliders from **10% to 500%** of the vanilla capacity.
 - One click to reset to **vanilla 100%**, or to **CSC starter defaults**.
-
-This mod only changes **capacity**. Upkeep and fees still follow the vanilla game logic (usage-based behavior, extensions, etc.).
 
 ---
 
@@ -59,22 +58,19 @@ Current languages:
 
 ## Compatibility
 
-- Built for **game version 1.3.6\*** and later.
-- Pure C# mod:
-  - **No Harmony patches**
-  - **No reflection hooks**
-- Designed to be safe and low-maintenance across game updates.
-- Remove any other mod that also changes school capacities to avoid conflicts.
+- Updated for game version 1.3.6* and Bridges DLC. 
+- Safe to remove at any time 
+- This mod does not use Reflection or Harmony; safe/compatible, less likely to break with game updates.
+- Remove any other school capacity mods to avoid conflicts. 
 - Plays nicely with other mods as long as they do not also rewrite `SchoolData` capacity for the same entities. 
 
 ---
 
 ## Technical Notes
 
-- Uses the official **ModSetting** system for the options UI.
-- Uses **IDictionarySource** for localization.
 - Settings are stored under `ModsSettings/CustomSchoolCapacity/CustomSchoolCapacity`.
-- Safe to enable or disable between sessions (it only manipulates capacity values when the city loads or when settings change).
+- Safe to make changes between sessions (it only manipulates capacity values when the city loads or when settings change).
+- This mod only changes **capacity**. Upkeep and fees still follow the vanilla game logic.
 
 ---
 
