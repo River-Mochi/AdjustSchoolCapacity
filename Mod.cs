@@ -13,7 +13,7 @@ namespace AdjustSchoolCapacity
     {
         // ---- Constants ----
         public const string ModName = "Adjust School Capacity [ASC]";
-        public const string VersionShort = "1.5.3";
+        public const string VersionShort = "1.5.4";
 
         // ---- Logging ----
         public static readonly ILog Log =
@@ -44,11 +44,13 @@ namespace AdjustSchoolCapacity
                 lm.AddSource("en-US", new LocaleEN(setting));
                 lm.AddSource("es-ES", new LocaleES(setting));
                 lm.AddSource("fr-FR", new LocaleFR(setting));
-                lm.AddSource("zh-HANS", new LocaleZH_CN(setting));
                 lm.AddSource("de-DE", new LocaleDE(setting));
                 lm.AddSource("it-IT", new LocaleIT(setting));
                 lm.AddSource("ja-JP", new LocaleJA(setting));
                 lm.AddSource("ko-KR", new LocaleKO(setting));
+                lm.AddSource("pl-PL", new LocalePL(setting));
+                lm.AddSource("pt-BR", new LocalePT_BR(setting));
+                lm.AddSource("zh-HANS", new LocaleZH_CN(setting));
                 lm.AddSource("zh-HANT", new LocaleZH_HANT(setting));
             }
 

@@ -14,7 +14,7 @@
 
 Customize how many students your schools can handle without adding more buildings.
 
-- Separate sliders for **Elementary**, **High School**, **College**, and **University**
+- **Separate sliders** for Elementary, High School, College, and University
 - Capacity range from **10% to 500%** of vanilla values
 - **Reset to Vanilla** button: all sliders back to 100% (game default)
 - **Quick Start values** button: reset to ASC Defaults button 200 / 150 / 120 / 120
@@ -54,15 +54,14 @@ Customize how many students your schools can handle without adding more building
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/adjust-school-capacity-redux.1866531/" />
 	<!--Version of the mod-->
-	<ModVersion Value="1.5.3" />
+	<ModVersion Value="1.5.4" />
 	<!--Recommended version of the base game to use the mod-->
 	<GameVersion Value="1.3.6*" />
 	<!--Dependency for the mod, can be set multiple times-->
 	<Dependency Id="" />
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
-	<ChangeLog>* change title
-
-</ChangeLog>
+	<ChangeLog>* Add Polish
+* Add Portuguese-Brazilian</ChangeLog>
 
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
 	<ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
