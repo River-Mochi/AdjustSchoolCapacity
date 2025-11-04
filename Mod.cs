@@ -13,7 +13,7 @@ namespace AdjustSchoolCapacity
     {
         // ---- Constants ----
         public const string ModName = "Adjust School Capacity [ASC]";
-        public const string VersionShort = "1.5.0";
+        public const string VersionShort = "1.5.1";
 
         // ---- Logging ----
         public static readonly ILog Log =

@@ -1,6 +1,6 @@
 ﻿# [ASC] Adjust School Capacity a mod for n *Cities: Skylines II*
 
-**Version:** 1.5.0  
+**Version:** 1.5.1  
 
 ## Overview
 
