@@ -1,15 +1,14 @@
-﻿# [CSC] Custom School Capacity
+﻿# [ASC] Adjust School Capacity a mod for n *Cities: Skylines II*
 
 **Version:** 1.5.0  
 
 ## Overview
 
-**Custom School Capacity [CSC]** lets you change how many students each school building can handle
-in *Cities: Skylines II*.
+**Adjust School Capacity [ASC]** lets you change how many students each school building can handle
 
 - Tweak capacity for **elementary**, **high school**, **college**, and **university**.
 - Use simple sliders from **10% to 500%** of the vanilla capacity.
-- One click to reset to **vanilla 100%**, or to **CSC starter defaults**.
+- One click to reset to **vanilla 100%**, or to **ASC starter defaults**.
 
 ---
 
@@ -19,7 +18,7 @@ in *Cities: Skylines II*.
 |--------|-------------|
 | Custom capacity sliders | Set each school level between **10% and 500%** of the vanilla capacity. |
 | Reset to Vanilla | Brings every slider back to **100%**, exactly matching the base game. |
-| Reset to CSC Defaults | Applies the CSC starter preset: **Elementary 200%**, **High School 150%**, **College 120%**, **University 120%**. |
+| Reset to ASC Defaults | Applies the ASC starter preset: **Elementary 200%**, **High School 150%**, **College 120%**, **University 120%**. |
 | Works with extensions | Capacity scaling applies to main school buildings and their extension upgrades. |
 
 ---
@@ -36,7 +35,7 @@ When you load a city:
 4. New schools you place later automatically use the same multiplier for their level.
 
 If you press **Reset to Vanilla**, all sliders return to 100% and capacity goes back to the normal game values.  
-If you press **Reset to CSC Defaults**, sliders jump to **200 / 150 / 120 / 120** for a “fewer buildings, more students” playstyle.
+If you press **Reset to ASC Defaults**, sliders jump to **200 / 150 / 120 / 120** for a “fewer buildings, more students” playstyle.
 
 ---
 
@@ -68,7 +67,7 @@ Current languages:
 
 ## Technical Notes
 
-- Settings are stored under `ModsSettings/CustomSchoolCapacity/CustomSchoolCapacity`.
+- Settings are stored under `ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity`.
 - Safe to make changes between sessions (it only manipulates capacity values when the city loads or when settings change).
 - This mod only changes **capacity**. Upkeep and fees still follow the vanilla game logic.
 
@@ -78,10 +77,10 @@ Current languages:
 
 Bugs, ideas, or feedback:
 
-- GitHub: [CustomSchoolCapacity repo](https://github.com/River-Mochi/CustomSchoolCapacity)
+- GitHub: [AdjustSchoolCapacity repo](https://github.com/River-Mochi/AdjustSchoolCapacity)
 - Discord Cities Skylines Modding: `https://discord.gg/HTav7ARPs2`
 - Paradox Mods: [Download Here](https://mods.paradoxplaza.com/uploaded?orderBy=desc&sortBy=best&time=alltime)
 
 ---
 
-Enjoy having fewer school buildings and more educated cims with **[CSC] Custom School Capacity**.
+Enjoy having fewer school buildings and more educated cims with **[ASC] Adjust School Capacity**.

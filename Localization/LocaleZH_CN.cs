@@ -1,7 +1,7 @@
 // Localization/LocaleZH_CN.cs
 // Simplified Chinese (zh-HANS) for Options UI.
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal;
@@ -22,7 +22,7 @@ namespace CustomSchoolCapacity
             return new Dictionary<string, string>
             {
                 // Mod root in Options
-                { m_Setting.GetSettingsLocaleID(), "Custom School Capacity [CSC]" },
+                { m_Setting.GetSettingsLocaleID(), "Adjust School Capacity [ASC]" },
 
                 // Tabs
                 { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "操作" },
@@ -72,10 +72,10 @@ namespace CustomSchoolCapacity
                     "把所有容量滑条重置为 100%（游戏默认）。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "重置为 CSC 预设" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "重置为 ASC 预设" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "使用 CSC 推荐预设：\n" +
+                    "使用 ASC 推荐预设：\n" +
                     "**200 / 150 / 120 / 120**"
                 },
 

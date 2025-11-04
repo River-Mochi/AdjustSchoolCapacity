@@ -1,7 +1,7 @@
 // Localization/LocaleKO.cs
 // Korean (ko-KR) for Options UI.
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal;
@@ -22,7 +22,7 @@ namespace CustomSchoolCapacity
             return new Dictionary<string, string>
             {
                 // Mod root in Options
-                { m_Setting.GetSettingsLocaleID(), "Custom School Capacity [CSC]" },
+                { m_Setting.GetSettingsLocaleID(), "Adjust School Capacity [ASC]" },
 
                 // Tabs
                 { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "동작" },
@@ -72,10 +72,10 @@ namespace CustomSchoolCapacity
                     "모든 수용 인원 슬라이더를 100% (게임 기본값)로 되돌립니다."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "CSC 기본값" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "ASC 기본값" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "CSC 추천 시작 프리셋 사용:\n" +
+                    "ASC 추천 시작 프리셋 사용:\n" +
                     "**200 / 150 / 120 / 120**"
                 },
 

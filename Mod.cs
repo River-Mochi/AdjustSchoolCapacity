@@ -1,7 +1,7 @@
 // Mod.cs
-// Entry point for "Custom School Capacity [CSC]".
+// Entry point for "Adjust School Capacity [ASC]".
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using Colossal.IO.AssetDatabase;
     using Colossal.Logging;
@@ -12,12 +12,12 @@ namespace CustomSchoolCapacity
     public sealed class Mod : IMod
     {
         // ---- Constants ----
-        public const string ModName = "Custom School Capacity [CSC]";
+        public const string ModName = "Adjust School Capacity [ASC]";
         public const string VersionShort = "1.5.0";
 
         // ---- Logging ----
         public static readonly ILog Log =
-            LogManager.GetLogger("CustomSchoolCapacity").SetShowsErrorsInUI(false);
+            LogManager.GetLogger("AdjustSchoolCapacity").SetShowsErrorsInUI(false);
 
         // ---- Settings instance ----
         public static Setting? Setting
@@ -53,12 +53,12 @@ namespace CustomSchoolCapacity
             }
 
             // Load saved settings, then show Options UI
-            AssetDatabase.global.LoadSettings("CustomSchoolCapacity", setting, new Setting(this));
+            AssetDatabase.global.LoadSettings("AdjustSchoolCapacity", setting, new Setting(this));
             setting.RegisterInOptionsUI();
 
             // Ensure system runs during prefab phases so prefabs & school extensions scale before placement
-            updateSystem.UpdateBefore<CustomSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);
-            updateSystem.UpdateBefore<CustomSchoolCapacitySystem>(SystemUpdatePhase.PrefabReferences);
+            updateSystem.UpdateBefore<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);
+            updateSystem.UpdateBefore<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabReferences);
         }
 
         public void OnDispose()

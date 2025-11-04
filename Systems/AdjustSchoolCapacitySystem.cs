@@ -1,8 +1,8 @@
-// Systems/CustomSchoolCapacitySystem.cs
-// Applies CSC settings to all school-related entities including school extensions.
+// Systems/AdjustSchoolCapacitySystem.cs
+// Applies ASC settings to all school-related entities including school extensions.
 // Captures vanilla baselines once per entity, then reapplies when settings change / on load.
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal.Serialization.Entities;
@@ -11,7 +11,7 @@ namespace CustomSchoolCapacity
     using Unity.Collections;
     using Unity.Entities;
 
-    public sealed partial class CustomSchoolCapacitySystem : GameSystemBase
+    public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
     {
         // ---- Baseline cache ----
         private readonly Dictionary<Entity, BaselineData> m_BaselineByEntity =
@@ -111,7 +111,7 @@ namespace CustomSchoolCapacity
             m_ReapplyRequested = true;
             Enabled = true;
 #if DEBUG
-            Mod.Log.Info("[CSC] Settings changed → reapply requested.");
+            Mod.Log.Info("[ASC] Settings changed → reapply requested.");
 #endif
         }
 

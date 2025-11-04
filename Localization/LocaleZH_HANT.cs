@@ -1,7 +1,7 @@
 // Localization/LocaleZH_HANT.cs
 // Traditional Chinese (zh-HANT) for Options UI.
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal;
@@ -22,7 +22,7 @@ namespace CustomSchoolCapacity
             return new Dictionary<string, string>
             {
                 // Mod root in Options
-                { m_Setting.GetSettingsLocaleID(), "Custom School Capacity [CSC]" },
+                { m_Setting.GetSettingsLocaleID(), "Adjust School Capacity [ASC]" },
 
                 // Tabs
                 { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "操作" },
@@ -72,10 +72,10 @@ namespace CustomSchoolCapacity
                     "將所有容量滑桿重設為 100%（遊戲預設）。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "重設為 CSC 預設" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "重設為 ASC 預設" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "使用 CSC 推薦起始預設：\n" +
+                    "使用 ASC 推薦起始預設：\n" +
                     "**200 / 150 / 120 / 120**"
                 },
 

@@ -1,7 +1,7 @@
 // Localization/LocaleIT.cs
 // Italian (it-IT) for Options UI.
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal;
@@ -22,7 +22,7 @@ namespace CustomSchoolCapacity
             return new Dictionary<string, string>
             {
                 // Mod root in Options
-                { m_Setting.GetSettingsLocaleID(), "Custom School Capacity [CSC]" },
+                { m_Setting.GetSettingsLocaleID(), "Adjust School Capacity [ASC]" },
 
                 // Tabs
                 { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "Azioni" },
@@ -72,10 +72,10 @@ namespace CustomSchoolCapacity
                     "Riporta tutti gli slider di capienza al 100% (valore base del gioco)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Preset CSC" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Preset ASC" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "Usa il preset iniziale consigliato da CSC:\n" +
+                    "Usa il preset iniziale consigliato da ASC:\n" +
                     "**200 / 150 / 120 / 120**"
                 },
 

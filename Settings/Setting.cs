@@ -1,7 +1,7 @@
 // Settings/Setting.cs
-// Options UI for "Custom School Capacity [CSC]".
+// Options UI for "Adjust School Capacity [ASC]".
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using System;
     using Colossal.IO.AssetDatabase;
@@ -11,7 +11,7 @@ namespace CustomSchoolCapacity
     using Unity.Entities;
     using UnityEngine;
 
-    [FileLocation("ModsSettings/CustomSchoolCapacity/CustomSchoolCapacity")]    // Saved settings path
+    [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]    // Saved settings path
     [SettingsUIGroupOrder(
         CapacityGroup,
         PresetGroup,
@@ -56,7 +56,7 @@ namespace CustomSchoolCapacity
             if (world == null)
                 return;
 
-            var system = world.GetExistingSystemManaged<CustomSchoolCapacitySystem>();
+            var system = world.GetExistingSystemManaged<AdjustSchoolCapacitySystem>();
             if (system != null)
                 system.RequestReapplyFromSettings();
         }
@@ -167,7 +167,7 @@ namespace CustomSchoolCapacity
 
         public override void SetDefaults()
         {
-            // CSC defaults
+            // ASC defaults
             ElementarySlider = 200;
             HighSchoolSlider = 150;
             CollegeSlider = 120;

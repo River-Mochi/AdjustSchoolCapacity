@@ -1,7 +1,7 @@
 // Localization/LocaleJA.cs
 // Japanese (ja-JP) for Options UI.
 
-namespace CustomSchoolCapacity
+namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal;
@@ -22,7 +22,7 @@ namespace CustomSchoolCapacity
             return new Dictionary<string, string>
             {
                 // Mod root in Options
-                { m_Setting.GetSettingsLocaleID(), "Custom School Capacity [CSC]" },
+                { m_Setting.GetSettingsLocaleID(), "Adjust School Capacity [ASC]" },
 
                 // Tabs
                 { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "アクション" },
@@ -72,10 +72,10 @@ namespace CustomSchoolCapacity
                     "すべてのスライダーを 100%（ゲーム標準）に戻します。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "CSC デフォルト" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "ASC デフォルト" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "CSC 推奨の初期プリセットを使用：\n" +
+                    "ASC 推奨の初期プリセットを使用：\n" +
                     "**200 / 150 / 120 / 120**"
                 },
 
