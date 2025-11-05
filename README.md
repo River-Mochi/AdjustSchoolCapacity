@@ -1,5 +1,4 @@
-﻿# [ASC] Adjust School Capacity is a mod for *Cities Skylines II*
-
+﻿## Adjust School Capacity [ASC] is a mod for *Cities Skylines II*
 
 ## Overview
 
