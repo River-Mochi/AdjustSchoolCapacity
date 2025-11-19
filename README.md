@@ -48,8 +48,12 @@ Current languages:
 - Italian (it-IT)
 - Japanese (ja-JP)
 - Korean (ko-KR)
+- Polish (pl-PL)
+- Portuguese - Brazil (pt-BR)
+- Portuguese - Portugal (pt-PT)
 - Simplified Chinese (zh-HANS)
 - Traditional Chinese (zh-HANT)
+- Turkish (tr-TR)
 
 ---
 
