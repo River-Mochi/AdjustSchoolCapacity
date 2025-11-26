@@ -77,7 +77,7 @@ Bugs, ideas, or feedback:
 
 - GitHub: [AdjustSchoolCapacity repo](https://github.com/River-Mochi/AdjustSchoolCapacity)
 - Discord Cities Skylines Modding: `https://discord.gg/HTav7ARPs2`
-- Paradox Mods: [Download Here](https://mods.paradoxplaza.com/uploaded?orderBy=desc&sortBy=best&time=alltime)
+- Paradox Mods: [Download Here](https://mods.paradoxplaza.com/authors/kimosabe1/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime)
 
 ---
 
