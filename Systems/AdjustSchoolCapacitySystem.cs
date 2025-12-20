@@ -1,7 +1,9 @@
 // File: Systems/AdjustSchoolCapacitySystem.cs
 // Applies ASC settings to all school-related entities including school extensions.
-// Uses PrefabBase (vanilla base values) as basis for multiplier calculations so values never stack.
-// PrefabRef: just a pointer to locate the prefab entity this instance came from; value can differ from vanilla base.
+// Notes to future self:
+// PrefabRef: pointer to locate the prefab entity this instance came from; value can differ from vanilla.
+// PrefabData is the lookup key, PrefabSystem is the bridge to PrefabBase,
+// PrefabBase holds the authoritative base component values - use this for multipliers to prevent stacking values.
 
 namespace AdjustSchoolCapacity
 {

@@ -32,8 +32,8 @@ Change how many students your schools can handle without adding more buildings.
 
 ### Credits
 - River-Mochi – author and maintainer
-- Necko1996 – code updates and testing
 - Inspired by Wayz's original School Capacity mod
+- Necko1996 – code update and testing
 
 tags: city schools, education capacity, automatic increase school size controller
 
@@ -58,9 +58,8 @@ tags: city schools, education capacity, automatic increase school size controlle
 	<ChangeLog>
 * fix paradox link
 * update all localizations
-* refactor for more safety checks.
+* refactor: more safety checks, better defaults handling.
 	</ChangeLog>
-
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
 	<ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
 	<ExternalLink Type="github" Url="https://github.com/River-Mochi/AdjustSchoolCapacity" />

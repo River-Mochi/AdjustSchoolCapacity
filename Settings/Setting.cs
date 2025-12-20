@@ -270,17 +270,11 @@ namespace AdjustSchoolCapacity
         public void SanitizeAfterLoad()
         {
             // Old / corrupt settings can load as 0 or out-of-range.
+            // Fix only the broken ones; keep valid user choices.
             ElementarySlider = SanitizePercent(ElementarySlider);
             HighSchoolSlider = SanitizePercent(HighSchoolSlider);
             CollegeSlider = SanitizePercent(CollegeSlider);
             UniversitySlider = SanitizePercent(UniversitySlider);
-
-            // If SettingsVersion, force it forward.
-            if (SettingsVersion < 1)
-            {
-                SettingsVersion = 1;
-            }
         }
-
     }
 }
