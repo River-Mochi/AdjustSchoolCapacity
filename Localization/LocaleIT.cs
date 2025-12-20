@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "Riporta tutti gli slider di capienza al 100% (valore base del gioco)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Preset ASC" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Preset di avvio rapido" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "Usa il preset iniziale consigliato da ASC:\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "Imposta il preset di avvio rapido:\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

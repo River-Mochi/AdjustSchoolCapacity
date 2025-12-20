@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "Setzt alle Kapazitätsregler auf 100% zurück (Standard im Spiel)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "ASC-Standardwerte" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Schnellstart-Presets" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "ASC-Einstiegspreset verwenden:\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "Schnellstart-Preset setzen:\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

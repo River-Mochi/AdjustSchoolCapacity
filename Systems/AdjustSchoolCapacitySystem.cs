@@ -1,10 +1,11 @@
-// Systems/AdjustSchoolCapacitySystem.cs
+// File: Systems/AdjustSchoolCapacitySystem.cs
 // Applies ASC settings to all school-related entities including school extensions.
-// Captures vanilla baselines once per entity, then reapplies when settings change / on load.
+// Uses PrefabBase (vanilla base values) as basis for multiplier calculations so values never stack.
+// PrefabRef: just a pointer to locate the prefab entity this instance came from; value can differ from vanilla base.
 
 namespace AdjustSchoolCapacity
 {
-    using System.Collections.Generic;
+    using Colossal.Entities;
     using Colossal.Serialization.Entities;
     using Game;
     using Game.Prefabs;
@@ -13,18 +14,16 @@ namespace AdjustSchoolCapacity
 
     public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
     {
-        // ---- Baseline cache ----
-        private readonly Dictionary<Entity, BaselineData> m_BaselineByEntity =
-            new Dictionary<Entity, BaselineData>(128);
+        private PrefabSystem m_PrefabSystem = null!;
 
-        // ---- Queries & flags ----
         private EntityQuery m_SchoolQuery;
         private bool m_ReapplyRequested;
 
-        // ---- Lifecycle ----
         protected override void OnCreate()
         {
             base.OnCreate();
+
+            m_PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
 
             m_SchoolQuery = GetEntityQuery(
                 ComponentType.ReadWrite<SchoolData>(),
@@ -32,20 +31,24 @@ namespace AdjustSchoolCapacity
 
             RequireForUpdate(m_SchoolQuery);
 
-            // Run only when requested (load or settings Apply)
             Enabled = false;
         }
 
-        protected override void OnGamePreload(Purpose purpose, GameMode mode)
+        protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
         {
-            base.OnGamePreload(purpose, mode);
+            base.OnGameLoadingComplete(purpose, mode);
 
-            // When a city is loading, do one pass after prefabs are available
-            if (mode == GameMode.Game)
+            bool isRealGame =
+                mode == GameMode.Game &&
+                (purpose == Purpose.NewGame || purpose == Purpose.LoadGame);
+
+            if (!isRealGame)
             {
-                m_ReapplyRequested = true;
-                Enabled = true;
+                return;
             }
+
+            m_ReapplyRequested = true;
+            Enabled = true;
         }
 
         protected override void OnUpdate()
@@ -55,6 +58,15 @@ namespace AdjustSchoolCapacity
                 Enabled = false;
                 return;
             }
+
+            if (Mod.Setting == null)
+            {
+                m_ReapplyRequested = false;
+                Enabled = false;
+                return;
+            }
+
+            Setting setting = Mod.Setting;
 
             NativeArray<Entity> schools = m_SchoolQuery.ToEntityArray(Allocator.Temp);
             if (!schools.IsCreated || schools.Length == 0)
@@ -69,37 +81,38 @@ namespace AdjustSchoolCapacity
                 return;
             }
 
-            Setting? setting = Mod.Setting;
-            if (setting == null)
-            {
-                schools.Dispose();
-                m_ReapplyRequested = false;
-                Enabled = false;
-                return;
-            }
-
             for (int i = 0; i < schools.Length; i++)
             {
                 Entity entity = schools[i];
 
-                // Read current components
                 SchoolData schoolData = EntityManager.GetComponentData<SchoolData>(entity);
 
-                // Cache baseline once
-                if (!m_BaselineByEntity.TryGetValue(entity, out BaselineData baseline))
+                double scalar = GetScalar(setting, schoolData.m_EducationLevel);
+
+                int baseCap;
+                if (!TryGetSchoolBaseCapacity(entity, out baseCap))
                 {
-                    baseline = new BaselineData
-                    {
-                        StudentCapacity = schoolData.m_StudentCapacity,
-                        EducationLevel = schoolData.m_EducationLevel
-                    };
-                    m_BaselineByEntity.Add(entity, baseline);
+                    // Fallback: use current if sane.
+                    baseCap = schoolData.m_StudentCapacity;
                 }
 
-                // Compute scalar by level and apply to capacity
-                double scalar = GetScalar(setting, baseline.EducationLevel);
-                schoolData.m_StudentCapacity = (int)(baseline.StudentCapacity * scalar);
-                EntityManager.SetComponentData(entity, schoolData);
+                if (baseCap <= 0)
+                {
+                    // Never write broken data.
+                    continue;
+                }
+
+                int newCap = (int)(baseCap * scalar);
+                if (newCap <= 0)
+                {
+                    newCap = baseCap; // vanilla-safe fallback
+                }
+
+                if (newCap != schoolData.m_StudentCapacity)
+                {
+                    schoolData.m_StudentCapacity = newCap;
+                    EntityManager.SetComponentData(entity, schoolData);
+                }
             }
 
             schools.Dispose();
@@ -108,7 +121,6 @@ namespace AdjustSchoolCapacity
             Enabled = false;
         }
 
-        // ---- Public API (called from Setting.Apply) ----
         public void RequestReapplyFromSettings()
         {
             m_ReapplyRequested = true;
@@ -118,28 +130,76 @@ namespace AdjustSchoolCapacity
 #endif
         }
 
-        // ---- Helpers ----
+        private bool TryGetSchoolBaseCapacity(Entity entity, out int baseCapacity)
+        {
+            baseCapacity = 0;
+
+            if (m_PrefabSystem == null)
+            {
+                return false;
+            }
+
+            // Case 1: entity itself is a prefab entity (has PrefabData)
+            if (m_PrefabSystem.TryGetPrefab(entity, out PrefabBase prefabBaseA))
+            {
+                if (prefabBaseA != null && prefabBaseA.TryGet(out School schoolA))
+                {
+                    baseCapacity = schoolA.m_StudentCapacity;
+                    return true;
+                }
+            }
+
+            // Case 2: entity is a runtime instance with PrefabRef pointer
+            if (EntityManager.TryGetComponent(entity, out PrefabRef prefabRef))
+            {
+                if (m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase prefabBaseB))
+                {
+                    if (prefabBaseB != null && prefabBaseB.TryGet(out School schoolB))
+                    {
+                        baseCapacity = schoolB.m_StudentCapacity;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         private static double GetScalar(Setting setting, byte level)
         {
+            int percent = 100;
+
             switch ((SchoolLevel)level)
             {
                 case SchoolLevel.Elementary:
-                    return setting.ElementarySlider / 100.0;
+                    percent = SanitizePercent(setting.ElementarySlider);
+                    break;
                 case SchoolLevel.HighSchool:
-                    return setting.HighSchoolSlider / 100.0;
+                    percent = SanitizePercent(setting.HighSchoolSlider);
+                    break;
                 case SchoolLevel.College:
-                    return setting.CollegeSlider / 100.0;
+                    percent = SanitizePercent(setting.CollegeSlider);
+                    break;
                 case SchoolLevel.University:
-                    return setting.UniversitySlider / 100.0;
+                    percent = SanitizePercent(setting.UniversitySlider);
+                    break;
                 default:
-                    return 1.0;
+                    percent = 100;
+                    break;
             }
+
+            return percent / 100.0;
         }
 
-        private struct BaselineData
+        private static int SanitizePercent(int value)
         {
-            public int StudentCapacity;
-            public byte EducationLevel;
+            // UI is 10..500, but disk can be anything. Invalid => vanilla-safe.
+            if (value < 10 || value > 500)
+            {
+                return 100;
+            }
+
+            return value;
         }
     }
 }

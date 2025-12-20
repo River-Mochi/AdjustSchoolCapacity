@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "모든 수용 인원 슬라이더를 100% (게임 기본값)로 되돌립니다."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "ASC 기본값" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "빠른 시작 프리셋" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "ASC 추천 시작 프리셋 사용:\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "빠른 시작 프리셋 적용:\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

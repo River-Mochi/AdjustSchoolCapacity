@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "Bring all capacity sliders back to 100% (game's default capacity)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Reset to ASC defaults" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Quick Start Presets" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "Set ASC starter preset:\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "Set Quick Start preset:\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

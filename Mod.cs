@@ -22,7 +22,7 @@ namespace AdjustSchoolCapacity
         private static bool s_BannerLogged;
 
         /// <summary>
-        /// Read &lt;Version&gt; from .csproj (3-part).
+        /// Read Version from .csproj (3-part).
         /// </summary>
         public static readonly string ModVersion =
             Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "1.0.0";
@@ -67,14 +67,17 @@ namespace AdjustSchoolCapacity
                 lm.AddSource("ko-KR", new LocaleKO(setting));
                 lm.AddSource("pl-PL", new LocalePL(setting));
                 lm.AddSource("pt-BR", new LocalePT_BR(setting));
-                lm.AddSource("pt-PT", new LocalePT_PT(setting));  // <– new European Portuguese
-                lm.AddSource("zh-HANS", new LocaleZH_CN(setting));
-                lm.AddSource("zh-HANT", new LocaleZH_HANT(setting));
+                lm.AddSource("pt-PT", new LocalePT_PT(setting));        // European Portuguese
+                lm.AddSource("zh-HANS", new LocaleZH_CN(setting));      // Simplified Chinese
+                lm.AddSource("zh-HANT", new LocaleZH_HANT(setting));    // Traditional Chinese
             }
 
-            // Load saved settings, then show Options UI
-            AssetDatabase.global.LoadSettings("AdjustSchoolCapacity", setting, new Setting(this));
-            setting.RegisterInOptionsUI();
+            // Load saved settings, then sanitize, then show Options UI
+            Setting defaults = new Setting(this); // seeds vanilla defaults
+            AssetDatabase.global.LoadSettings(ModId, setting, defaults);    // load saved settings
+
+            setting.SanitizeAfterLoad();    // ensure settings are valid (no 0%, edge cases)
+            setting.RegisterInOptionsUI();  // register after LoadSettings
 
             // Ensure system runs during prefab phases so prefabs & school extensions scale before placement
             updateSystem.UpdateBefore<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);

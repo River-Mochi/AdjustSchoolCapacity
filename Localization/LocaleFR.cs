@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "Remet tous les curseurs de capacité à 100% (valeur par défaut du jeu)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Réglages par défaut ASC" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Préréglages de démarrage rapide" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "Utiliser le preset de départ recommandé par ASC :\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "Appliquer le préréglage de démarrage rapide :\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

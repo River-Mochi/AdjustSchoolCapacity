@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "Leva todos os controles deslizantes de capacidade de volta a 100% (valores padrão do jogo)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Redefinir para Padrões ASC" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Predefinições de início rápido" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "Define os valores iniciais do ASC:\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "Aplicar predefinição de início rápido:\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

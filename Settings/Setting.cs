@@ -1,4 +1,4 @@
-// Settings/Setting.cs
+// File: Settings/Setting.cs
 // Options UI for "Adjust School Capacity [ASC]".
 
 namespace AdjustSchoolCapacity
@@ -25,6 +25,10 @@ namespace AdjustSchoolCapacity
     )]
     public sealed class Setting : ModSetting
     {
+        private const int MinPercent = 10;
+        private const int MaxPercent = 500;
+        private const int VanillaPercent = 100;
+
         // ---- Tabs ----
         public const string ActionsTab = "Actions";
         public const string AboutTab = "About";
@@ -38,29 +42,65 @@ namespace AdjustSchoolCapacity
         public const string AboutLinksGroup = "Support Links";
 
         // ---- External links ----
-        private const string UrlParadox = 
-            "https://mods.paradoxplaza.com/authors/kimosabe1/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime";
+        private const string UrlParadox =
+            "https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime";
         private const string UrlDiscord = "https://discord.gg/HTav7ARPs2";
+
+        // Optional: helps future migrations. Old files load this as 0.
+        public int SettingsVersion
+        {
+            get; set;
+        }
 
         public Setting(IMod mod) : base(mod)
         {
-            // Fresh install → seed defaults
-            if (ElementarySlider == 0)
+            // True first install: no .coc yet => all ints default to 0.
+            bool allZero =
+                ElementarySlider == 0 &&
+                HighSchoolSlider == 0 &&
+                CollegeSlider == 0 &&
+                UniversitySlider == 0;
+
+            if (SettingsVersion == 0)
             {
-                SetDefaults();
+                if (allZero)
+                {
+                    // First install should be vanilla to avoid confusion.
+                    SetDefaults();
+                }
+                else
+                {
+                    // Not first install: repair missing/invalid values to vanilla-safe.
+                    RepairAndClamp();
+                }
+
+                SettingsVersion = 1;
+            }
+            else
+            {
+                // Normal loads: keep user values, but sanitize just in case.
+                RepairAndClamp();
             }
         }
 
         public override void Apply()
         {
+            RepairAndClamp();
+
             base.Apply();
 
             World world = World.DefaultGameObjectInjectionWorld;
             if (world == null)
-            {    return; }
+            {
+                return;
+            }
 
             AdjustSchoolCapacitySystem system =
                 world.GetExistingSystemManaged<AdjustSchoolCapacitySystem>();
+            if (system == null)
+            {
+                return;
+            }
 
             system.RequestReapplyFromSettings();
         }
@@ -105,7 +145,9 @@ namespace AdjustSchoolCapacity
             set
             {
                 if (!value)
-                { return; }
+                {
+                    return;
+                }
 
                 SetToVanilla();
                 Apply();
@@ -120,9 +162,12 @@ namespace AdjustSchoolCapacity
             set
             {
                 if (!value)
-                {    return; }
+                {
+                    return;
+                }
 
-                SetDefaults();
+                // Keep the "Quick Start Presets" button behavior.
+                SetQuickStart();
                 Apply();
             }
         }
@@ -143,7 +188,9 @@ namespace AdjustSchoolCapacity
             set
             {
                 if (!value)
-                {     return;  }
+                {
+                    return;
+                }
 
                 try
                 {
@@ -163,7 +210,9 @@ namespace AdjustSchoolCapacity
             set
             {
                 if (!value)
-                {   return; }
+                {
+                    return;
+                }
 
                 try
                 {
@@ -175,23 +224,63 @@ namespace AdjustSchoolCapacity
             }
         }
 
-        // ---- Presets ----
+        // ---- Defaults / presets ----
 
         public override void SetDefaults()
         {
-            // ASC defaults
-            ElementarySlider = 200;
-            HighSchoolSlider = 150;
-            CollegeSlider = 120;
-            UniversitySlider = 120;
+            // Default install behavior: vanilla (no change unless user opts in).
+            SetToVanilla();
         }
 
         public void SetToVanilla()
         {
-            ElementarySlider = 100;
-            HighSchoolSlider = 100;
-            CollegeSlider = 100;
+            ElementarySlider = VanillaPercent;
+            HighSchoolSlider = VanillaPercent;
+            CollegeSlider = VanillaPercent;
+            UniversitySlider = VanillaPercent;
+        }
+
+        public void SetQuickStart()
+        {
+            ElementarySlider = 200;
+            HighSchoolSlider = 150;
+            CollegeSlider = 110;
             UniversitySlider = 100;
         }
+
+        private void RepairAndClamp()
+        {
+            ElementarySlider = SanitizePercent(ElementarySlider);
+            HighSchoolSlider = SanitizePercent(HighSchoolSlider);
+            CollegeSlider = SanitizePercent(CollegeSlider);
+            UniversitySlider = SanitizePercent(UniversitySlider);
+        }
+
+        private static int SanitizePercent(int value)
+        {
+            // Disk can be anything. Invalid => vanilla-safe.
+            if (value < MinPercent || value > MaxPercent)
+            {
+                return VanillaPercent;
+            }
+
+            return value;
+        }
+
+        public void SanitizeAfterLoad()
+        {
+            // Old / corrupt settings can load as 0 or out-of-range.
+            ElementarySlider = SanitizePercent(ElementarySlider);
+            HighSchoolSlider = SanitizePercent(HighSchoolSlider);
+            CollegeSlider = SanitizePercent(CollegeSlider);
+            UniversitySlider = SanitizePercent(UniversitySlider);
+
+            // If SettingsVersion, force it forward.
+            if (SettingsVersion < 1)
+            {
+                SettingsVersion = 1;
+            }
+        }
+
     }
 }

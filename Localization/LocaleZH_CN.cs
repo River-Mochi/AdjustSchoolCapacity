@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "把所有容量滑条重置为 100%（游戏默认）。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "重置为 ASC 预设" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "快速启动预设" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "使用 ASC 推荐预设：\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "设置快速启动预设：\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

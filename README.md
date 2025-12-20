@@ -16,7 +16,7 @@
 |--------|-------------|
 | Custom capacity sliders | Set each school level between **10% and 500%** of the vanilla capacity. |
 | Reset to Vanilla | Brings every slider back to **100%**, exactly matching the base game. |
-| Reset to ASC Defaults | Applies the ASC starter preset: **Elementary 200%**, **High School 150%**, **College 120%**, **University 120%**. |
+| Reset to ASC Defaults | Applies the ASC starter preset: **Elementary 200%**, **High School 150%**, **College 110%**, **University 100%**. |
 | Works with extensions | Capacity scaling applies to main school buildings and their extension upgrades. |
 
 ---
@@ -37,19 +37,11 @@ If you press **Reset to ASC Defaults**, sliders jump to **200 / 150 / 120 / 120*
 
 ---
 
-## Localization
-
-Current languages:
-
-- English (en-US)
-- Spanish (es-ES)
-- French (fr-FR)
-- German (de-DE)
-- Italian (it-IT)
-- Japanese (ja-JP)
-- Korean (ko-KR)
-- Simplified Chinese (zh-HANS)
-- Traditional Chinese (zh-HANT)
+### 11 languages
+- English, Français French, Deutsch German, Español Spanish, Italiano Italian
+- 日本語 Japanese, 한국어 Korean, 简体中文 Simplified Chinese
+- 繁體中文 Traditional Chinese, Polski Polish, Português-Brazilian
+- European Portuguese     
 
 ---
 

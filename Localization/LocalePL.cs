@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "Ustaw wszystkie suwaki pojemności z powrotem na 100% (domyślne wartości gry)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Ustaw domyślne ASC" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Presety szybkiego startu" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "Ustaw wartości startowe ASC:\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "Ustaw preset szybkiego startu:\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

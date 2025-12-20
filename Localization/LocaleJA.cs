@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "すべてのスライダーを 100%（ゲーム標準）に戻します。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "ASC デフォルト" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "クイックスタートプリセット" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "ASC 推奨の初期プリセットを使用：\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "クイックスタートのプリセットを設定：\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

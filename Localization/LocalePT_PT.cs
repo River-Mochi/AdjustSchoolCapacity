@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "Coloca todos os sliders de capacidade em 100% (capacidade padrão do jogo)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Repor para predefinições ASC" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Predefinições de arranque rápido" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "Define o preset inicial ASC:\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "Aplicar predefinição de arranque rápido:\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab

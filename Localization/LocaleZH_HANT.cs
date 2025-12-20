@@ -72,11 +72,11 @@ namespace AdjustSchoolCapacity
                     "將所有容量滑桿重設為 100%（遊戲預設）。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "重設為 ASC 預設" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "快速啟動預設" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
-                    "使用 ASC 推薦起始預設：\n" +
-                    "**200 / 150 / 120 / 120**"
+                    "設定快速啟動預設：\n" +
+                    "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab
