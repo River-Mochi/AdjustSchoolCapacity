@@ -1,9 +1,6 @@
 // File: Systems/AdjustSchoolCapacitySystem.cs
-// Applies ASC settings to all school-related entities including school extensions.
-// Notes to future self:
-// PrefabRef: pointer to locate the prefab entity this instance came from; value can differ from vanilla.
-// PrefabData is the lookup key, PrefabSystem is the bridge to PrefabBase,
-// PrefabBase holds the authoritative base component values - use this for multipliers to prevent stacking values.
+// Applies ASC settings to school entities.
+// Base capacity is read from PrefabBase (via PrefabSystem) to prevent stacking.
 
 namespace AdjustSchoolCapacity
 {
@@ -11,13 +8,13 @@ namespace AdjustSchoolCapacity
     using Colossal.Serialization.Entities;
     using Game;
     using Game.Prefabs;
+    using Game.SceneFlow;
     using Unity.Collections;
     using Unity.Entities;
 
     public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
     {
         private PrefabSystem m_PrefabSystem = null!;
-
         private EntityQuery m_SchoolQuery;
         private bool m_ReapplyRequested;
 
@@ -55,6 +52,14 @@ namespace AdjustSchoolCapacity
 
         protected override void OnUpdate()
         {
+            GameManager gm = GameManager.instance;
+            if (gm == null || !gm.gameMode.IsGame())
+            {
+                m_ReapplyRequested = false;
+                Enabled = false;
+                return;
+            }
+
             if (!m_ReapplyRequested)
             {
                 Enabled = false;
@@ -94,20 +99,22 @@ namespace AdjustSchoolCapacity
                 int baseCap;
                 if (!TryGetSchoolBaseCapacity(entity, out baseCap))
                 {
-                    // Fallback: use current if sane.
+                    // Last-resort fallback: use current if it’s sane.
                     baseCap = schoolData.m_StudentCapacity;
                 }
 
                 if (baseCap <= 0)
                 {
-                    // Never write broken data.
+                    // Never write broken values.
                     continue;
                 }
 
                 int newCap = (int)(baseCap * scalar);
+
+                // Never write 0/negative; fall back to base/vanilla.
                 if (newCap <= 0)
                 {
-                    newCap = baseCap; // vanilla-safe fallback
+                    newCap = baseCap;
                 }
 
                 if (newCap != schoolData.m_StudentCapacity)
@@ -141,35 +148,34 @@ namespace AdjustSchoolCapacity
                 return false;
             }
 
-            // Case 1: entity itself is a prefab entity (has PrefabData)
-            if (m_PrefabSystem.TryGetPrefab(entity, out PrefabBase prefabBaseA))
+            // Runtime instances should have PrefabRef -> use it to locate PrefabBase.
+            if (!EntityManager.TryGetComponent(entity, out PrefabRef prefabRef))
             {
-                if (prefabBaseA != null && prefabBaseA.TryGet(out School schoolA))
-                {
-                    baseCapacity = schoolA.m_StudentCapacity;
-                    return true;
-                }
+                return false;
             }
 
-            // Case 2: entity is a runtime instance with PrefabRef pointer
-            if (EntityManager.TryGetComponent(entity, out PrefabRef prefabRef))
+            if (!m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase prefabBase))
             {
-                if (m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase prefabBaseB))
-                {
-                    if (prefabBaseB != null && prefabBaseB.TryGet(out School schoolB))
-                    {
-                        baseCapacity = schoolB.m_StudentCapacity;
-                        return true;
-                    }
-                }
+                return false;
             }
 
-            return false;
+            if (prefabBase == null)
+            {
+                return false;
+            }
+
+            if (!prefabBase.TryGet(out School schoolPrefab))
+            {
+                return false;
+            }
+
+            baseCapacity = schoolPrefab.m_StudentCapacity;
+            return baseCapacity > 0;
         }
 
         private static double GetScalar(Setting setting, byte level)
         {
-            int percent = 100;
+            int percent;
 
             switch ((SchoolLevel)level)
             {

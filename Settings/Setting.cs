@@ -11,7 +11,7 @@ namespace AdjustSchoolCapacity
     using Unity.Entities;
     using UnityEngine;
 
-    [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]    // Saved settings path
+    [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]
     [SettingsUIGroupOrder(
         CapacityGroup,
         PresetGroup,
@@ -46,41 +46,11 @@ namespace AdjustSchoolCapacity
             "https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime";
         private const string UrlDiscord = "https://discord.gg/HTav7ARPs2";
 
-        // Optional: helps future migrations. Old files load this as 0.
-        public int SettingsVersion
-        {
-            get; set;
-        }
-
         public Setting(IMod mod) : base(mod)
         {
-            // True first install: no .coc yet => all ints default to 0.
-            bool allZero =
-                ElementarySlider == 0 &&
-                HighSchoolSlider == 0 &&
-                CollegeSlider == 0 &&
-                UniversitySlider == 0;
-
-            if (SettingsVersion == 0)
-            {
-                if (allZero)
-                {
-                    // First install should be vanilla to avoid confusion.
-                    SetDefaults();
-                }
-                else
-                {
-                    // Not first install: repair missing/invalid values to vanilla-safe.
-                    RepairAndClamp();
-                }
-
-                SettingsVersion = 1;
-            }
-            else
-            {
-                // Normal loads: keep user values, but sanitize just in case.
-                RepairAndClamp();
-            }
+            // Always start from vanilla defaults.
+            // If a .coc exists, LoadSettings will overwrite these.
+            SetDefaults();
         }
 
         public override void Apply()
@@ -166,7 +136,7 @@ namespace AdjustSchoolCapacity
                     return;
                 }
 
-                // Keep the "Quick Start Presets" button behavior.
+                // Keep button behavior as "Quick Start Presets".
                 SetQuickStart();
                 Apply();
             }
@@ -228,7 +198,7 @@ namespace AdjustSchoolCapacity
 
         public override void SetDefaults()
         {
-            // Default install behavior: vanilla (no change unless user opts in).
+            // First install default should be VANILLA (mod does nothing until user changes).
             SetToVanilla();
         }
 
@@ -248,6 +218,12 @@ namespace AdjustSchoolCapacity
             UniversitySlider = 100;
         }
 
+        // Called from Mod.cs AFTER LoadSettings, before RegisterInOptionsUI.
+        public void SanitizeAfterLoad()
+        {
+            RepairAndClamp();
+        }
+
         private void RepairAndClamp()
         {
             ElementarySlider = SanitizePercent(ElementarySlider);
@@ -265,16 +241,6 @@ namespace AdjustSchoolCapacity
             }
 
             return value;
-        }
-
-        public void SanitizeAfterLoad()
-        {
-            // Old / corrupt settings can load as 0 or out-of-range.
-            // Fix only the broken ones; keep valid user choices.
-            ElementarySlider = SanitizePercent(ElementarySlider);
-            HighSchoolSlider = SanitizePercent(HighSchoolSlider);
-            CollegeSlider = SanitizePercent(CollegeSlider);
-            UniversitySlider = SanitizePercent(UniversitySlider);
         }
     }
 }

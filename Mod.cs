@@ -1,4 +1,4 @@
-// Mod.cs
+// File: Mod.cs
 // Entry point for "Adjust School Capacity [ASC]".
 
 namespace AdjustSchoolCapacity
@@ -13,34 +13,25 @@ namespace AdjustSchoolCapacity
 
     public sealed class Mod : IMod
     {
-        // ---- PUBLIC CONSTANTS / METADATA ----
         public const string ModName = "Adjust School Capacity";
         public const string ModId = "AdjustSchoolCapacity";
         public const string ModTag = "[ASC]";
 
-        // ---- PRIVATE STATE ----
         private static bool s_BannerLogged;
 
-        /// <summary>
-        /// Read Version from .csproj (3-part).
-        /// </summary>
         public static readonly string ModVersion =
             Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "1.0.0";
 
-        // ---- Logging ----
         public static readonly ILog s_Log =
             LogManager.GetLogger("AdjustSchoolCapacity").SetShowsErrorsInUI(false);
 
-        // ---- Settings instance ----
         public static Setting? Setting
         {
             get; private set;
         }
 
-        // ---- Lifecycle ----
         public void OnLoad(UpdateSystem updateSystem)
         {
-            // Metadata banner (once per session).
             if (!s_BannerLogged)
             {
                 s_BannerLogged = true;
@@ -50,13 +41,8 @@ namespace AdjustSchoolCapacity
             Setting setting = new Setting(this);
             Setting = setting;
 
-            // Register locales
             LocalizationManager? lm = GameManager.instance?.localizationManager;
-            if (lm == null)
-            {
-                Mod.s_Log.Warn("LocalizationManager is null; skipping locale registration.");
-            }
-            else
+            if (lm != null)
             {
                 lm.AddSource("en-US", new LocaleEN(setting));
                 lm.AddSource("de-DE", new LocaleDE(setting));
@@ -67,21 +53,24 @@ namespace AdjustSchoolCapacity
                 lm.AddSource("ko-KR", new LocaleKO(setting));
                 lm.AddSource("pl-PL", new LocalePL(setting));
                 lm.AddSource("pt-BR", new LocalePT_BR(setting));
-                lm.AddSource("pt-PT", new LocalePT_PT(setting));        // European Portuguese
-                lm.AddSource("zh-HANS", new LocaleZH_CN(setting));      // Simplified Chinese
-                lm.AddSource("zh-HANT", new LocaleZH_HANT(setting));    // Traditional Chinese
+                lm.AddSource("pt-PT", new LocalePT_PT(setting));
+                lm.AddSource("zh-HANS", new LocaleZH_CN(setting));
+                lm.AddSource("zh-HANT", new LocaleZH_HANT(setting));
+            }
+            else
+            {
+                s_Log.Warn("LocalizationManager is null; skipping locale registration.");
             }
 
-            // Load saved settings, then sanitize, then show Options UI
-            Setting defaults = new Setting(this); // seeds vanilla defaults
-            AssetDatabase.global.LoadSettings(ModId, setting, defaults);    // load saved settings
+            // Load saved settings (if any), then sanitize, then register Options UI.
+            Setting defaults = new Setting(this);               // seeds vanilla defaults
+            AssetDatabase.global.LoadSettings(ModId, setting, defaults);
 
-            setting.SanitizeAfterLoad();    // ensure settings are valid (no 0%, edge cases)
-            setting.RegisterInOptionsUI();  // register after LoadSettings
+            setting.SanitizeAfterLoad();
+            setting.RegisterInOptionsUI();
 
-            // Ensure system runs during prefab phases so prefabs & school extensions scale before placement
-            updateSystem.UpdateBefore<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);
-            updateSystem.UpdateBefore<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabReferences);
+            // Intentionally NOT scheduling into prefab phases.
+            // System will run on GameLoadingComplete and on Apply().
         }
 
         public void OnDispose()
