@@ -245,7 +245,7 @@ namespace AdjustSchoolCapacity
 
         private static int SanitizePercent(int value)
         {
-            // Invalid settings file values becomes vanilla-safe.
+            // Invalid values are clamped to vanilla (100%).
             if (value < MinPercent || value > MaxPercent)
             {
                 return VanillaPercent;

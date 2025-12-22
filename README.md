@@ -1,76 +1,43 @@
-﻿## Adjust School Capacity [ASC] is a mod for *Cities Skylines II*
+﻿# Adjust School Capacity [ASC]
 
-## Overview
+A **Cities: Skylines II** mod that scales how many students each school can hold.
 
-**Adjust School Capacity [ASC]** lets you change how many students each school building can handle
+## What it does
+- Sliders for **Elementary / High School / College / University**
+- Range: **10% → 500%** of vanilla
+- Two quick buttons:
+  - **Reset to Vanilla (100%)**
+  - **Quick Start Presets:** **200 / 150 / 110 / 100**
+- Supports City switching (Load City / New City).
 
-- Tweak capacity for **elementary**, **high school**, **college**, and **university**.
-- Use simple sliders from **10% to 500%** of the vanilla capacity.
-- One click to reset to **vanilla 100%**, or to **ASC starter defaults**.
+## 12 Languages
+- English, French, German, Spanish, Italian
+- Japanese, Korean, Polish
+- Portuguese (Brazil), Portuguese (Portugal)
+- Simplified Chinese, Traditional Chinese
 
----
+## Compatibility notes
+- **No Harmony / no reflection.**
+- Avoid using multiple mods that change school capacity at the same time.
+- Safe to remove anytime. For clean vanilla numbers: set all sliders to **100%**.
+
+## Settings file
+`ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity.coc`
 
 ## Features
 
 | Feature | Description |
 |--------|-------------|
-| Custom capacity sliders | Set each school level between **10% and 500%** of the vanilla capacity. |
+| Custom capacity sliders | Set each school between **10% and 500%** of the vanilla capacity. |
 | Reset to Vanilla | Brings every slider back to **100%**, exactly matching the base game. |
-| Reset to ASC Defaults | Applies the ASC starter preset: **Elementary 200%**, **High School 150%**, **College 110%**, **University 100%**. |
+| Quick Start | Applies starter presets: **Elementary 200%**, **High School 150%**, **College 110%**, **University 100%**. |
 | Works with extensions | Capacity scaling applies to main school buildings and their extension upgrades. |
 
----
+## Links
+- [GitHub repo] (https://github.com/River-Mochi/AdjustSchoolCapacity)
+- [Paradox Mods] (https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime)
+- [Discord] (https://discord.gg/HTav7ARPs2)
 
-## How it works
+## License
 
-When you load a city:
-
-1. The mod scans all school-related prefabs (main buildings and their extensions).
-2. It records the **vanilla baseline** capacity for each education level.
-3. It applies your chosen percentage to that baseline:
-   - 100% = vanilla capacity  
-   - 200% = double the vanilla capacity, and so on
-4. New schools you place later automatically use the same multiplier for their level.
-
-If you press **Reset to Vanilla**, all sliders return to 100% and capacity goes back to the normal game values.  
-If you press **Reset to ASC Defaults**, sliders jump to **200 / 150 / 120 / 120** for a “fewer buildings, more students” playstyle.
-
----
-
-### 11 languages
-- English, Français French, Deutsch German, Español Spanish, Italiano Italian
-- 日本語 Japanese, 한국어 Korean, 简体中文 Simplified Chinese
-- 繁體中文 Traditional Chinese, Polski Polish, Português-Brazilian
-- European Portuguese     
-
----
-
-## Compatibility
-
-- Updated for game version 1.3.6* and Bridges DLC. 
-- Safe to remove at any time 
-- This mod does not use Reflection or Harmony; safe/compatible, less likely to break with game updates.
-- Remove any other school capacity mods to avoid conflicts. 
-- Plays nicely with other mods as long as they do not also rewrite `SchoolData` capacity for the same entities. 
-
----
-
-## Technical Notes
-
-- Settings are stored under `ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity`.
-- Safe to make changes between sessions (it only manipulates capacity values when the city loads or when settings change).
-- This mod only changes **capacity**. Upkeep and fees still follow the vanilla game logic.
-
----
-
-## Feedback
-
-Bugs, ideas, or feedback:
-
-- GitHub: [AdjustSchoolCapacity repo](https://github.com/River-Mochi/AdjustSchoolCapacity)
-- Discord Cities Skylines Modding: `https://discord.gg/HTav7ARPs2`
-- Paradox Mods: [Download Here](https://mods.paradoxplaza.com/authors/kimosabe1/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime)
-
----
-
-Enjoy having fewer school buildings and more educated cims with **[ASC] Adjust School Capacity**.
+MIT

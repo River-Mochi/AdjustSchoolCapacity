@@ -16,6 +16,7 @@ namespace AdjustSchoolCapacity
         public const string ModName = "Adjust School Capacity";
         public const string ModId = "AdjustSchoolCapacity";
         public const string ModTag = "[ASC]";
+        public const string ShortName = "Adjust School";
 
         private static bool s_BannerLogged;
 
@@ -35,7 +36,7 @@ namespace AdjustSchoolCapacity
             if (!s_BannerLogged)
             {
                 s_BannerLogged = true;
-                s_Log.Info($"{ModName} {ModTag} v{ModVersion} OnLoad");
+                s_Log.Info($"{ModId} {ModTag} v{ModVersion} OnLoad");
             }
 
             Setting setting = new Setting(this);
@@ -85,8 +86,8 @@ namespace AdjustSchoolCapacity
             if (changed)
             {
                 // Repair saved file immediately so same bad values are not re-detected every boot.
-                // Safe: only do it when invalid already detected.
-                setting.ApplyAndSave();
+                // Only done when invalid file already detected.
+                setting.ApplyAndSave();     // boot-time save heal.
 
                 // Keep this INFO (no UI noise/stack spam).
                 s_Log.Info(
