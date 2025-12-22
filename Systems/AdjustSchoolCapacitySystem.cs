@@ -9,6 +9,7 @@ namespace AdjustSchoolCapacity
     using Colossal.Serialization.Entities;
     using Game;
     using Game.Prefabs;
+    using Game.SceneFlow;
     using Unity.Entities;
 
     public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
@@ -23,7 +24,7 @@ namespace AdjustSchoolCapacity
 
             m_PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
 
-            // Cached query (recommended modern pattern).
+            // Cached query
             // Filter: entities that have SchoolData + ConsumptionData.
             m_SchoolQuery = SystemAPI.QueryBuilder()
                                      .WithAllRW<SchoolData>()
@@ -55,6 +56,16 @@ namespace AdjustSchoolCapacity
 
         protected override void OnUpdate()
         {
+            // Safety bail: never do work outside actual gameplay.
+            // Cheap guard against edge cases (menu transitions, rapid load/unload).
+            GameManager gm = GameManager.instance;
+            if (gm == null || !gm.gameMode.IsGame())
+            {
+                m_ReapplyRequested = false;
+                Enabled = false;
+                return;
+            }
+
             if (!m_ReapplyRequested)
             {
                 Enabled = false;
@@ -120,11 +131,6 @@ namespace AdjustSchoolCapacity
         {
             baseCapacity = 0;
 
-            if (m_PrefabSystem == null)
-            {
-                return false;
-            }
-
             // Path A: entity itself can sometimes be resolved as a prefab entity.
             if (m_PrefabSystem.TryGetPrefab(entity, out PrefabBase prefabBaseA))
             {
@@ -147,13 +153,8 @@ namespace AdjustSchoolCapacity
         {
             baseCapacity = 0;
 
-            if (prefabBase == null)
-            {
-                return false;
-            }
-
             // Authoritative base value comes from prefab component.
-            if (prefabBase.TryGet(out School schoolPrefab))
+            if (prefabBase != null && prefabBase.TryGet(out School schoolPrefab))
             {
                 baseCapacity = schoolPrefab.m_StudentCapacity;
                 return baseCapacity > 0;
