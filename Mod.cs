@@ -41,6 +41,7 @@ namespace AdjustSchoolCapacity
             Setting setting = new Setting(this);
             Setting = setting;
 
+            // Add more locales here as needed.
             LocalizationManager? lm = GameManager.instance?.localizationManager;
             if (lm != null)
             {
@@ -59,18 +60,48 @@ namespace AdjustSchoolCapacity
             }
             else
             {
-                s_Log.Warn("LocalizationManager is null; skipping locale registration.");
+                s_Log.Warn($"{ModTag} LocalizationManager is null; skipping locale registration.");
             }
 
-            // Load saved settings (if any), then sanitize, then register Options UI.
-            Setting defaults = new Setting(this);               // seeds vanilla defaults
+            // Load saved settings (if any), then sanitize.
+            // Note: LoadSettings is resilient (game's JSON.WriteInto is try/catched).
+            Setting defaults = new Setting(this);
             AssetDatabase.global.LoadSettings(ModId, setting, defaults);
 
+            // Only log if sanitize changes settings file.
+            int e0 = setting.ElementarySlider;
+            int h0 = setting.HighSchoolSlider;
+            int c0 = setting.CollegeSlider;
+            int u0 = setting.UniversitySlider;
+
             setting.SanitizeAfterLoad();
+
+            bool changed =
+                setting.ElementarySlider != e0 ||
+                setting.HighSchoolSlider != h0 ||
+                setting.CollegeSlider != c0 ||
+                setting.UniversitySlider != u0;
+
+            if (changed)
+            {
+                // Repair saved file immediately so same bad values are not re-detected every boot.
+                // Safe: only do it when invalid already detected.
+                setting.ApplyAndSave();
+
+                // Keep this INFO (no UI noise/stack spam).
+                s_Log.Info(
+                    $"{ModTag} Repaired invalid slider values to vanilla values in settings. " +
+                    $"Elementary {e0}->{setting.ElementarySlider}, " +
+                    $"HighSchool {h0}->{setting.HighSchoolSlider}, " +
+                    $"College {c0}->{setting.CollegeSlider}, " +
+                    $"University {u0}->{setting.UniversitySlider}.");
+            }
+
+            // Register in Options UI last.
             setting.RegisterInOptionsUI();
 
-            // Intentionally NOT scheduling into prefab phases.
-            // System will run on GameLoadingComplete and on Apply().
+            // Schedule after PrefabUpdate so PrefabSystem data is initialized.
+            updateSystem.UpdateAfter<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);
         }
 
         public void OnDispose()

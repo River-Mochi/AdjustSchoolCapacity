@@ -79,10 +79,7 @@ namespace AdjustSchoolCapacity
             if (!schools.IsCreated || schools.Length == 0)
             {
                 if (schools.IsCreated)
-                {
                     schools.Dispose();
-                }
-
                 m_ReapplyRequested = false;
                 Enabled = false;
                 return;
@@ -96,22 +93,18 @@ namespace AdjustSchoolCapacity
 
                 double scalar = GetScalar(setting, schoolData.m_EducationLevel);
 
-                int baseCap;
-                if (!TryGetSchoolBaseCapacity(entity, out baseCap))
+                // Must have a reliable base to avoid stacking.
+                if (!TryGetSchoolBaseCapacity(entity, out int baseCap))
                 {
-                    // Last-resort fallback: use current if it’s sane.
-                    baseCap = schoolData.m_StudentCapacity;
+                    continue;
                 }
 
                 if (baseCap <= 0)
                 {
-                    // Never write broken values.
                     continue;
                 }
 
                 int newCap = (int)(baseCap * scalar);
-
-                // Never write 0/negative; fall back to base/vanilla.
                 if (newCap <= 0)
                 {
                     newCap = baseCap;
@@ -148,29 +141,47 @@ namespace AdjustSchoolCapacity
                 return false;
             }
 
-            // Runtime instances should have PrefabRef -> use it to locate PrefabBase.
-            if (!EntityManager.TryGetComponent(entity, out PrefabRef prefabRef))
+            // Path A: sometimes PrefabSystem can resolve directly.
+            if (m_PrefabSystem.TryGetPrefab(entity, out PrefabBase prefabBaseA))
             {
-                return false;
+                if (TryReadBaseFromPrefabBase(prefabBaseA, out baseCapacity))
+                {
+                    return true;
+                }
             }
 
-            if (!m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase prefabBase))
+            // Path B: runtime instances often have PrefabRef.
+            if (EntityManager.TryGetComponent(entity, out PrefabRef prefabRef))
             {
-                return false;
+                if (m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase prefabBaseB))
+                {
+                    if (TryReadBaseFromPrefabBase(prefabBaseB, out baseCapacity))
+                    {
+                        return true;
+                    }
+                }
             }
+
+            return false;
+        }
+
+        private static bool TryReadBaseFromPrefabBase(PrefabBase prefabBase, out int baseCapacity)
+        {
+            baseCapacity = 0;
 
             if (prefabBase == null)
             {
                 return false;
             }
 
-            if (!prefabBase.TryGet(out School schoolPrefab))
+            // Preferred: read the prefab component values (authoritative base).
+            if (prefabBase.TryGet(out School schoolPrefab))
             {
-                return false;
+                baseCapacity = schoolPrefab.m_StudentCapacity;
+                return baseCapacity > 0;
             }
 
-            baseCapacity = schoolPrefab.m_StudentCapacity;
-            return baseCapacity > 0;
+            return false;
         }
 
         private static double GetScalar(Setting setting, byte level)
@@ -201,7 +212,6 @@ namespace AdjustSchoolCapacity
 
         private static int SanitizePercent(int value)
         {
-            // UI is 10..500, but disk can be anything. Invalid => vanilla-safe.
             if (value < 10 || value > 500)
             {
                 return 100;

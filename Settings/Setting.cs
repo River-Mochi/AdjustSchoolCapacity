@@ -5,7 +5,9 @@ namespace AdjustSchoolCapacity
 {
     using System;
     using Colossal.IO.AssetDatabase;
+    using Game;
     using Game.Modding;
+    using Game.SceneFlow;
     using Game.Settings;
     using Game.UI;
     using Unity.Entities;
@@ -48,7 +50,7 @@ namespace AdjustSchoolCapacity
 
         public Setting(IMod mod) : base(mod)
         {
-            // Always start from vanilla defaults.
+            // New Install starts with vanilla defaults.
             // If a .coc exists, LoadSettings will overwrite these.
             SetDefaults();
         }
@@ -57,7 +59,16 @@ namespace AdjustSchoolCapacity
         {
             RepairAndClamp();
 
+            // Apply in-memory settings + notify Options UI.
+            // (Sliders are persisted by Options UI pipeline.)
             base.Apply();
+
+            // Only poke ECS when city is running.
+            GameManager? gm = GameManager.instance;
+            if (gm == null || !gm.gameMode.IsGame())
+            {
+                return;
+            }
 
             World world = World.DefaultGameObjectInjectionWorld;
             if (world == null)
@@ -105,7 +116,7 @@ namespace AdjustSchoolCapacity
             get; set;
         }
 
-        // ---- Preset buttons, same group → side-by-side ----
+        // ---- Preset buttons, keep in same group for same row display ----
 
         [SettingsUIButtonGroup(PresetGroup)]
         [SettingsUIButton]
@@ -120,7 +131,8 @@ namespace AdjustSchoolCapacity
                 }
 
                 SetToVanilla();
-                Apply();
+                // Persist immediately (matches vanilla UI behavior for manual slider edits).
+                ApplyAndSave();
             }
         }
 
@@ -136,9 +148,8 @@ namespace AdjustSchoolCapacity
                     return;
                 }
 
-                // Keep button behavior as "Quick Start Presets".
                 SetQuickStart();
-                Apply();
+                ApplyAndSave(); // Persist immediately
             }
         }
 
@@ -198,7 +209,7 @@ namespace AdjustSchoolCapacity
 
         public override void SetDefaults()
         {
-            // First install default should be VANILLA (mod does nothing until user changes).
+            // First install set to game defaults (vanilla).
             SetToVanilla();
         }
 
@@ -234,7 +245,7 @@ namespace AdjustSchoolCapacity
 
         private static int SanitizePercent(int value)
         {
-            // Disk can be anything. Invalid => vanilla-safe.
+            // Invalid settings file values becomes vanilla-safe.
             if (value < MinPercent || value > MaxPercent)
             {
                 return VanillaPercent;
