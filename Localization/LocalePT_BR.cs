@@ -19,10 +19,19 @@ namespace AdjustSchoolCapacity
             IList<IDictionaryEntryError> errors,
             Dictionary<string, int> indexCounts)
         {
+            var title = Mod.ShortName;
+
+            // Show "Adjust School (1.6.2)" title
+            if (!string.IsNullOrEmpty(Mod.ModVersion))
+            {
+                title = title + " (" + Mod.ModVersion + ")";
+            }
+
             return new Dictionary<string, string>
             {
-                // Mod root in Options
-                { m_Setting.GetSettingsLocaleID(), "Ajustar Capacidade Escolar [ASC]" },
+
+                // Mod name in options
+                { m_Setting.GetSettingsLocaleID(), title },
 
                 // Tabs
                 { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "Ações" },

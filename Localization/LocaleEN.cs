@@ -21,15 +21,14 @@ namespace AdjustSchoolCapacity
         {
             var title = Mod.ShortName;
 
-            // Show "Adjust School 1.6.2" title
+            // Show "Adjust School (1.6.2)" title
             if (!string.IsNullOrEmpty(Mod.ModVersion))
             {
-                title = title + " " + (Mod.ModVersion);
+                title = title + " (" + Mod.ModVersion + ")";
             }
 
             return new Dictionary<string, string>
             {
-
 
                 // Mod name in options
                 { m_Setting.GetSettingsLocaleID(), title },

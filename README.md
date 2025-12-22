@@ -17,9 +17,10 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
 - Simplified Chinese, Traditional Chinese
 
 ## Compatibility notes
-- **No Harmony / no reflection.**
-- Avoid using multiple mods that change school capacity at the same time.
+
 - Safe to remove anytime. For clean vanilla numbers: set all sliders to **100%**.
+- No Harmony / no Reflection; safer more reliable on game patch days.
+- Avoid using multiple mods that change school capacity at the same time.
 
 ## Settings file
 `ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity.coc`
@@ -34,10 +35,10 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
 | Works with extensions | Capacity scaling applies to main school buildings and their extension upgrades. |
 
 ## Links
-- [GitHub repo] (https://github.com/River-Mochi/AdjustSchoolCapacity)
-- [Paradox Mods] (https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime)
-- [Discord] (https://discord.gg/HTav7ARPs2)
+- [GitHub repo](https://github.com/River-Mochi/AdjustSchoolCapacity)
+- [Paradox Mods](https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime)
+- [Discord](https://discord.gg/HTav7ARPs2)
 
 ## License
 
-MIT
+[MIT License](https://github.com/River-Mochi/AdjustSchoolCapacity?tab=MIT-1-ov-file#)
