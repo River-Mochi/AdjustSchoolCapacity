@@ -12,9 +12,9 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
 
 ## 12 Languages
 - English, French, German, Spanish, Italian
-- Japanese, Korean, Polish
-- Portuguese (Brazil), Portuguese (Portugal)
+- Japanese, Korean, Polish, Portuguese (Brazil),
 - Simplified Chinese, Traditional Chinese
+- WIP:Portuguese (Portugal)
 
 ## Compatibility notes
 
