@@ -1,6 +1,7 @@
 // File: Systems/AdjustSchoolCapacitySystem.cs
 // Applies ASC settings to school entities.
 // Base capacity is read from PrefabBase (via PrefabSystem) to prevent stacking.
+// Uses SystemAPI (QueryBuilder + Query) to avoid ToEntityArray allocations.
 
 namespace AdjustSchoolCapacity
 {
@@ -8,8 +9,6 @@ namespace AdjustSchoolCapacity
     using Colossal.Serialization.Entities;
     using Game;
     using Game.Prefabs;
-    using Game.SceneFlow;
-    using Unity.Collections;
     using Unity.Entities;
 
     public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
@@ -24,12 +23,16 @@ namespace AdjustSchoolCapacity
 
             m_PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
 
-            m_SchoolQuery = GetEntityQuery(
-                ComponentType.ReadWrite<SchoolData>(),
-                ComponentType.ReadWrite<ConsumptionData>());
+            // Cached query (recommended modern pattern).
+            // Filter: entities that have SchoolData + ConsumptionData.
+            m_SchoolQuery = SystemAPI.QueryBuilder()
+                                     .WithAllRW<SchoolData>()
+                                     .WithAll<ConsumptionData>()
+                                     .Build();
 
             RequireForUpdate(m_SchoolQuery);
 
+            // Run only when explicitly enabled (city load or settings change).
             Enabled = false;
         }
 
@@ -52,14 +55,6 @@ namespace AdjustSchoolCapacity
 
         protected override void OnUpdate()
         {
-            GameManager gm = GameManager.instance;
-            if (gm == null || !gm.gameMode.IsGame())
-            {
-                m_ReapplyRequested = false;
-                Enabled = false;
-                return;
-            }
-
             if (!m_ReapplyRequested)
             {
                 Enabled = false;
@@ -75,21 +70,13 @@ namespace AdjustSchoolCapacity
 
             Setting setting = Mod.Setting;
 
-            NativeArray<Entity> schools = m_SchoolQuery.ToEntityArray(Allocator.Temp);
-            if (!schools.IsCreated || schools.Length == 0)
+            // Iterate directly, no ToEntityArray.
+            foreach ((RefRW<SchoolData> schoolRef, Entity entity) in SystemAPI
+                         .Query<RefRW<SchoolData>>()
+                         .WithAll<ConsumptionData>()
+                         .WithEntityAccess())
             {
-                if (schools.IsCreated)
-                    schools.Dispose();
-                m_ReapplyRequested = false;
-                Enabled = false;
-                return;
-            }
-
-            for (int i = 0; i < schools.Length; i++)
-            {
-                Entity entity = schools[i];
-
-                SchoolData schoolData = EntityManager.GetComponentData<SchoolData>(entity);
+                ref SchoolData schoolData = ref schoolRef.ValueRW;
 
                 double scalar = GetScalar(setting, schoolData.m_EducationLevel);
 
@@ -113,11 +100,8 @@ namespace AdjustSchoolCapacity
                 if (newCap != schoolData.m_StudentCapacity)
                 {
                     schoolData.m_StudentCapacity = newCap;
-                    EntityManager.SetComponentData(entity, schoolData);
                 }
             }
-
-            schools.Dispose();
 
             m_ReapplyRequested = false;
             Enabled = false;
@@ -141,24 +125,18 @@ namespace AdjustSchoolCapacity
                 return false;
             }
 
-            // Path A: sometimes PrefabSystem can resolve directly.
+            // Path A: entity itself can sometimes be resolved as a prefab entity.
             if (m_PrefabSystem.TryGetPrefab(entity, out PrefabBase prefabBaseA))
             {
-                if (TryReadBaseFromPrefabBase(prefabBaseA, out baseCapacity))
-                {
-                    return true;
-                }
+                return TryReadBaseFromPrefabBase(prefabBaseA, out baseCapacity);
             }
 
-            // Path B: runtime instances often have PrefabRef.
+            // Path B: runtime instances usually have PrefabRef.
             if (EntityManager.TryGetComponent(entity, out PrefabRef prefabRef))
             {
                 if (m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase prefabBaseB))
                 {
-                    if (TryReadBaseFromPrefabBase(prefabBaseB, out baseCapacity))
-                    {
-                        return true;
-                    }
+                    return TryReadBaseFromPrefabBase(prefabBaseB, out baseCapacity);
                 }
             }
 
@@ -174,7 +152,7 @@ namespace AdjustSchoolCapacity
                 return false;
             }
 
-            // Preferred: read the prefab component values (authoritative base).
+            // Authoritative base value comes from prefab component.
             if (prefabBase.TryGet(out School schoolPrefab))
             {
                 baseCapacity = schoolPrefab.m_StudentCapacity;
@@ -186,38 +164,21 @@ namespace AdjustSchoolCapacity
 
         private static double GetScalar(Setting setting, byte level)
         {
-            int percent;
-
-            switch ((SchoolLevel)level)
+            int percent = (SchoolLevel)level switch
             {
-                case SchoolLevel.Elementary:
-                    percent = SanitizePercent(setting.ElementarySlider);
-                    break;
-                case SchoolLevel.HighSchool:
-                    percent = SanitizePercent(setting.HighSchoolSlider);
-                    break;
-                case SchoolLevel.College:
-                    percent = SanitizePercent(setting.CollegeSlider);
-                    break;
-                case SchoolLevel.University:
-                    percent = SanitizePercent(setting.UniversitySlider);
-                    break;
-                default:
-                    percent = 100;
-                    break;
-            }
+                SchoolLevel.Elementary => SanitizePercent(setting.ElementarySlider),
+                SchoolLevel.HighSchool => SanitizePercent(setting.HighSchoolSlider),
+                SchoolLevel.College => SanitizePercent(setting.CollegeSlider),
+                SchoolLevel.University => SanitizePercent(setting.UniversitySlider),
+                _ => 100,
+            };
 
             return percent / 100.0;
         }
 
         private static int SanitizePercent(int value)
         {
-            if (value < 10 || value > 500)
-            {
-                return 100;
-            }
-
-            return value;
+            return (value < 10 || value > 500) ? 100 : value;
         }
     }
 }

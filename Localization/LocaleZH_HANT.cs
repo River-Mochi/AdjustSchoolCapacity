@@ -19,7 +19,7 @@ namespace AdjustSchoolCapacity
             IList<IDictionaryEntryError> errors,
             Dictionary<string, int> indexCounts)
         {
-            var title = Mod.ShortName;
+            string title = Mod.ShortName;
 
             // Show "Adjust School (1.6.2)" title
             if (!string.IsNullOrEmpty(Mod.ModVersion))
@@ -60,10 +60,10 @@ namespace AdjustSchoolCapacity
                     "100% = 遊戲預設容量。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.CollegeSlider)), "學院 / College" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.CollegeSlider)), "學院 (College)" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.CollegeSlider)),
-                    "**學院 / College** – 用滑桿設定容量 10% - 500%。\n" +
+                    "**學院 (College)** – 用滑桿設定容量 10% - 500%。\n" +
                     "100% = 遊戲預設容量。"
                 },
 

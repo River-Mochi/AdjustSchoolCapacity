@@ -19,7 +19,7 @@ namespace AdjustSchoolCapacity
             IList<IDictionaryEntryError> errors,
             Dictionary<string, int> indexCounts)
         {
-            var title = Mod.ShortName;
+            string title = Mod.ShortName;
 
             // Show "Adjust School (1.6.2)" title
             if (!string.IsNullOrEmpty(Mod.ModVersion))
@@ -53,10 +53,10 @@ namespace AdjustSchoolCapacity
                     "100% = Standardkapazität des Spiels."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "Oberschule" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "Gymnasium" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
-                    "**Oberschule** – Kapazität mit dem Schieberegler auf 10% - 500% einstellen.\n" +
+                    "**Gymnasium** – Kapazität mit dem Schieberegler auf 10% - 500% einstellen.\n" +
                     "100% = Standardkapazität des Spiels."
                 },
 

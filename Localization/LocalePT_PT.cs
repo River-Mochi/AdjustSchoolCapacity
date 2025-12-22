@@ -19,7 +19,7 @@ namespace AdjustSchoolCapacity
             IList<IDictionaryEntryError> errors,
             Dictionary<string, int> indexCounts)
         {
-            var title = Mod.ShortName;
+            string title = Mod.ShortName;
 
             // Show "Adjust School (1.6.2)" title
             if (!string.IsNullOrEmpty(Mod.ModVersion))

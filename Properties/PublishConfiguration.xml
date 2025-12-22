@@ -4,7 +4,7 @@
 	<!--Name of the mod to display to players-->
 	<DisplayName Value="Adjust School Capacity" />
 	<!--Short description of the mod-->
-	<ShortDescription Value="Adjust school sizes; Increase the number of students." />
+	<ShortDescription Value="Adjust school sizes. Increase the number of students." />
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
 	<!--LongDescription Value="This is a long description" /-->
 	<LongDescription>### Adjust School Capacity (Redux)
@@ -12,13 +12,14 @@
 Change how many students your schools can handle without adding more buildings.
 
 - **Separate sliders** for Elementary, High School, College, and University
-- Can lower and increase number of students.
+- Lower or increase the number of students.
 - Convenient buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.                                                                                                                                                                                                                                                                                                                                                                   
 
 ### Notes
 - Safe to remove or disable any time (set sliders to 100% for vanilla values)
-- Remove other mods that do school student sizing to avoid conflicts/unexpected values.
-- Mod does not use Harmony or Reflection - means safer and more resilient to game updates.
+- Remove other mods that do school student sizing to avoid conflicts.
+- Mod is compatible with all my other mods.
+- Mod does not use Harmony or Reflection; more resilient to game updates.
 
 ### Support and Feedback
 - If the mod helps you, give it a Like :)
@@ -56,7 +57,7 @@ tags: city schools, education capacity, automatic increase school size controlle
 	<Dependency Id="" />
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<ChangeLog>
-* update settings defaults
+* Settings: buttons now save immediately; auto-repair invalid slider values.
 	</ChangeLog>
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
 	<ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />

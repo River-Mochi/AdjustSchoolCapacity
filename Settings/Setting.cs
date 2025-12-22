@@ -3,15 +3,15 @@
 
 namespace AdjustSchoolCapacity
 {
-    using System;
-    using Colossal.IO.AssetDatabase;
-    using Game;
-    using Game.Modding;
-    using Game.SceneFlow;
-    using Game.Settings;
-    using Game.UI;
-    using Unity.Entities;
-    using UnityEngine;
+    using System;                       // Exception
+    using Colossal.IO.AssetDatabase;    // FileLocation
+    using Game;                         // IsGame
+    using Game.Modding;                 // IMod, ModSetting
+    using Game.SceneFlow;               // GameManager
+    using Game.Settings;                // Settings UI attributes
+    using Game.UI;                      // Unit
+    using Unity.Entities;               // World
+    using UnityEngine;                  // Application URL
 
     [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]
     [SettingsUIGroupOrder(
@@ -63,7 +63,7 @@ namespace AdjustSchoolCapacity
             // (Sliders are persisted by Options UI pipeline.)
             base.Apply();
 
-            // Only poke ECS when city is running.
+            // Only poke ECS when a city is running.
             GameManager? gm = GameManager.instance;
             if (gm == null || !gm.gameMode.IsGame())
             {
