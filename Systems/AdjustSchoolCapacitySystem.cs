@@ -57,7 +57,7 @@ namespace AdjustSchoolCapacity
         protected override void OnUpdate()
         {
             // Safety bail: never do work outside actual gameplay.
-            // Cheap guard against edge cases (menu transitions, rapid load/unload).
+            // Cheap guard for edge cases.
             GameManager gm = GameManager.instance;
             if (gm == null || !gm.gameMode.IsGame())
             {

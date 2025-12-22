@@ -85,7 +85,7 @@ namespace AdjustSchoolCapacity
 
             if (changed)
             {
-                // Repair saved file immediately so same bad values are not re-detected every boot.
+                // Repair settings file immediately so same bad values are not re-detected every boot.
                 // Only done when invalid file already detected.
                 setting.ApplyAndSave();     // boot-time save heal.
 
