@@ -57,7 +57,10 @@ tags: city schools, education capacity, automatic increase school size controlle
 	<Dependency Id="" />
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<ChangeLog>
-* Settings: buttons now save immediately; auto-repair invalid slider values.
+* Settings: preset buttons now save immediately.
+* Settings: invalid slider values are auto-repaired on startup.
+* Updated translations.
+* Internal refactor: improved stability/minor performance.
 	</ChangeLog>
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
 	<ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
