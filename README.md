@@ -1,4 +1,4 @@
-﻿# Adjust School Capacity [ASC]
+# Adjust School Capacity [ASC]
 
 A **Cities: Skylines II** mod that scales how many students each school can hold.
 

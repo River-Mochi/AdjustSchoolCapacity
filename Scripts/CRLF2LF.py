@@ -1,4 +1,4 @@
-﻿# <copyright file="CRLF2LF.py" company="River-Mochi">
+# <copyright file="CRLF2LF.py" company="River-Mochi">
 # Copyright (c) 2026 River-Mochi. All rights reserved.
 # Licensed under the MIT License. You may not use this file except in compliance with this License.
 # See LICENSE file in the project root for full license information.
@@ -7,7 +7,7 @@
 # ================= </copyright> ======================
 
 # File: Scripts/CRLF2LF.py
-# Version: 0.2.0
+# Version: 0.2.1
 # Purpose: Convert common tracked text files from CRLF/mixed endings to LF.
 
 # Usage:
@@ -17,10 +17,13 @@
 # Behavior:
 #   Scans the current working directory recursively.
 #   Converts supported text files from CRLF/mixed endings to LF.
+#   Removes UTF-8 BOM from supported text files.
 #   Skips .git, .vs, bin, obj, and node_modules.
 
 from pathlib import Path
 
+
+UTF8_BOM = b"\xef\xbb\xbf"
 
 TEXT_EXTENSIONS = {
     ".bash",
@@ -76,11 +79,16 @@ for path in Path(".").rglob("*"):
     if path.suffix.lower() not in TEXT_EXTENSIONS and path.name not in TEXT_EXTENSIONS:
         continue
 
-    data = path.read_bytes()
+    original_data = path.read_bytes()
+    data = original_data
+
+    if data.startswith(UTF8_BOM):
+        data = data[len(UTF8_BOM):]
+
     if b"\0" in data:
         continue
 
     new_data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
-    if new_data != data:
+    if new_data != original_data:
         path.write_bytes(new_data)
         print(path)
