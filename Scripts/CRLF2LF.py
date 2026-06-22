@@ -1,4 +1,4 @@
-# <copyright file="CRLF2LF.py" company="River-Mochi">
+﻿# <copyright file="CRLF2LF.py" company="River-Mochi">
 # Copyright (c) 2026 River-Mochi. All rights reserved.
 # Licensed under the MIT License. You may not use this file except in compliance with this License.
 # See LICENSE file in the project root for full license information.
@@ -6,28 +6,55 @@
 # all copies or substantial portions of this code.
 # ================= </copyright> ======================
 
-# File: RoadRailSpeeds/Scripts/CRLF2LF.py
+# File: Scripts/CRLF2LF.py
+# Version: 0.2.0
 # Purpose: Convert common tracked text files from CRLF/mixed endings to LF.
+
+# Usage:
+#   Run from the repo/mod root:
+#     py -3 Scripts/CRLF2LF.py
+#
+# Behavior:
+#   Scans the current working directory recursively.
+#   Converts supported text files from CRLF/mixed endings to LF.
+#   Skips .git, .vs, bin, obj, and node_modules.
 
 from pathlib import Path
 
 
 TEXT_EXTENSIONS = {
+    ".bash",
     ".cs",
     ".csproj",
-    ".xml",
-    ".json",
-    ".tsx",
-    ".ts",
+    ".config",
     ".css",
-    ".md",
-    ".ps1",
-    ".props",
-    ".targets",
-    ".slnx",
     ".editorconfig",
     ".gitattributes",
     ".gitignore",
+    ".html",
+    ".js",
+    ".jsx",
+    ".json",
+    ".jsonc",
+    ".md",
+    ".mjs",
+    ".props",
+    ".ps1",
+    ".pubxml",
+    ".py",
+    ".resx",
+    ".ruleset",
+    ".sh",
+    ".sln",
+    ".slnx",
+    ".targets",
+    ".toml",
+    ".txt",
+    ".ts",
+    ".tsx",
+    ".xml",
+    ".yaml",
+    ".yml",
 }
 
 SKIP_PARTS = {
@@ -43,7 +70,7 @@ for path in Path(".").rglob("*"):
     if not path.is_file():
         continue
 
-    if any(part in SKIP_PARTS for part in path.parts):
+    if any(part.lower() in SKIP_PARTS for part in path.parts):
         continue
 
     if path.suffix.lower() not in TEXT_EXTENSIONS and path.name not in TEXT_EXTENSIONS:

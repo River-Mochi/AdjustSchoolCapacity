@@ -1,66 +1,66 @@
-﻿<Publish>
-	<!--Id must be set in order to update existed mod. it is not required for publishing mod for the first time-->
-	<ModId Value="123887" />
-	<!--Name of the mod to display to players-->
-	<DisplayName Value="Adjust School Capacity" />
-	<!--Short description of the mod-->
-	<ShortDescription Value="Adjust school sizes. Increase the number of students." />
-	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
-	<!--LongDescription Value="This is a long description" /-->
-	<LongDescription>
-	### Adjust School Capacity (Redux)
+<Publish>
+  <!--Id must be set in order to update existed mod. it is not required for publishing mod for the first time-->
+  <ModId Value="123887" />
+  <!--Name of the mod to display to players-->
+  <DisplayName Value="Adjust School Capacity" />
+  <!--Short description of the mod-->
+  <ShortDescription Value="Adjust school sizes. Increase the number of students." />
+  <!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
+  <!--LongDescription Value="This is a long description" /-->
+  <LongDescription>
+### Adjust School Capacity (Redux)
 
-	Change how many students your schools can handle without adding more buildings.
+Change how many students your schools can handle without adding more buildings.
 
-	- **Separate sliders** for Elementary, High School, College, and University
-	- Lower or increase the number of students.
-	- Convenient buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
+- **Separate sliders** for Elementary, High School, College, and University
+- Lower or increase the number of students.
+- Convenient buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
 
-	### Notes
+### Notes
 
-	- Safe to remove or disable any time (set sliders to 100% for vanilla values)
-	- Remove other mods that do school student sizing to avoid conflicts.
-	- Mod is compatible with all my other mods.
-	- Mod does not use Harmony or Reflection; more resilient to game updates.
+- Safe to remove or disable any time (set sliders to 100% for vanilla values)
+- Remove other mods that do school student sizing to avoid conflicts.
+- Mod is compatible with all my other mods.
+- Mod does not use Harmony or Reflection; more resilient to game updates.
 
-	### Support and Feedback
+### Support and Feedback
 
-	- If the mod helps you, give it a Like :)
-	- Report issues on Github link, Forum link, or Discord.
+- If the mod helps you, give it a Like :)
+- Report issues on Github link, Forum link, or Discord.
 
-	### 12 Languages
-	Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Olá
+### 12 Languages
+Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Olá
 
-	### Credits
+### Credits
 
-	- River-Mochi – mod author
-	- Inspired by Wayz's original School Capacity (retired)
-	- Necko1996 – code update and testing
+- River-Mochi – mod author
+- Inspired by Wayz's original School Capacity (retired)
+- Necko1996 – code update and testing
 
-	tags: city schools, education capacity, automatic increase school size controller
+tags: city schools, education capacity, automatic increase school size controller
 
-	</LongDescription>
-	<!--Thumbnail-->
-	<Thumbnail Value="Properties/Thumbnail-ASC.jpg" />
-	<!--Screenshot, can be set multiple times-->
-	<Screenshot Value="Properties/10-image-EN.jpg" />
-	<Screenshot Value="Properties/30-image-CN.jpg" />
-	<Screenshot Value="Properties/40-image-ElemSchool.jpg" />
-	<!--Tag, can be set multiple times-->
-	<Tag Value="Code Mod" />
-	<!--Link to the forum post where the mod can be discussed-->
-	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/adjust-school-capacity-redux.1866531/" />
-	<!--Version of the mod-->
-	<ModVersion Value="1.6.4" />
-	<!--Recommended version of the base game to use the mod-->
-	<GameVersion Value="1.6.*" />
-	<!--Dependency for the mod, can be set multiple times-->
-	<Dependency Id="" />
-	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
-	<ChangeLog>
+</LongDescription>
+  <!--Thumbnail-->
+  <Thumbnail Value="Properties/Thumbnail-ASC.jpg" />
+  <!--Screenshot, can be set multiple times-->
+  <Screenshot Value="Properties/10-image-EN.jpg" />
+  <Screenshot Value="Properties/30-image-CN.jpg" />
+  <Screenshot Value="Properties/40-image-ElemSchool.jpg" />
+  <!--Tag, can be set multiple times-->
+  <Tag Value="Code Mod" />
+  <!--Link to the forum post where the mod can be discussed-->
+  <ForumLink Value="https://forum.paradoxplaza.com/forum/threads/adjust-school-capacity-redux.1866531/" />
+  <!--Version of the mod-->
+  <ModVersion Value="1.6.4" />
+  <!--Recommended version of the base game to use the mod-->
+  <GameVersion Value="1.6.*" />
+  <!--Dependency for the mod, can be set multiple times-->
+  <Dependency Id="" />
+  <!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
+  <ChangeLog>
 * added thumbnail, update for game patch 1.6
-	</ChangeLog>
-	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
-	<ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
-	<ExternalLink Type="github" Url="https://github.com/River-Mochi/AdjustSchoolCapacity" />
+</ChangeLog>
+  <!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
+  <ExternalLink Type="discord" Url="https://discord.gg/HTav7ARPs2" />
+  <ExternalLink Type="github" Url="https://github.com/River-Mochi/AdjustSchoolCapacity" />
 </Publish>

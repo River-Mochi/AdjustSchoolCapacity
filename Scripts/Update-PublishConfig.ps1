@@ -7,7 +7,7 @@
 # ================= </copyright> ======================
 
 # File: Update-PublishConfig.ps1
-# Version: 0.5.0
+# Version: 0.5.1
 # Purpose:
 #   - Sync <ModVersion Value="..."/> in PublishConfiguration.xml to csproj <Version>.
 #   - Enforce consistent line endings (CRLF or LF) to prevent VS "MIXED" + popup.
@@ -29,7 +29,7 @@ param(
   [Parameter(Mandatory = $true)][string]$Version,
 
   # Enforced line ending style for PublishConfiguration.xml
-  [ValidateSet('crlf','lf')][string]$Eol = 'crlf',
+  [ValidateSet('crlf','lf')][string]$Eol = 'lf',
 
   # Enforced line ending style for mod.json files
   [ValidateSet('crlf','lf')][string]$ModJsonEol = 'lf',
@@ -72,6 +72,20 @@ function Normalize-Eol([string]$s, [string]$eolKind) {
   }
 
   return $s
+}
+
+function Ensure-FinalNewline([string]$s, [string]$eolKind) {
+  $eolText = "`n"
+
+  if ($eolKind -eq 'crlf') {
+    $eolText = "`r`n"
+  }
+
+  if ($s.EndsWith($eolText, [System.StringComparison]::Ordinal)) {
+    return $s
+  }
+
+  return $s + $eolText
 }
 
 function LeftAlignInnerBlock([string]$s, [string]$tagName) {
@@ -218,6 +232,7 @@ function Update-ModJsonVersions(
 
     # Keep JSON line endings consistent.
     $jsonUpdated = Normalize-Eol $jsonUpdated $jsonEol
+    $jsonUpdated = Ensure-FinalNewline $jsonUpdated $jsonEol
 
     if ($jsonUpdated -eq $jsonOriginal) {
       $relNoChange = Get-DisplayRelativePath $searchRoot $f.FullName
@@ -279,8 +294,9 @@ if ($rxMod.IsMatch($text)) {
   throw "Could not find <ModVersion ... Value=""..."" ...> in: $Path"
 }
 
-# Final normalize so output is guaranteed clean.
+# Final normalize so output is guaranteed clean and editorconfig-compliant.
 $text = Normalize-Eol $text $Eol
+$text = Ensure-FinalNewline $text $Eol
 
 # Safety check: if CRLF requested, refuse to write a mixed file.
 if ($Eol -eq 'crlf') {

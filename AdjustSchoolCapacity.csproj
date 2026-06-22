@@ -1,8 +1,9 @@
-﻿<!-- AdjustSchoolCapacity.csproj -->
+<!-- AdjustSchoolCapacity.csproj -->
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
+		<PublishConfigScript>$(MSBuildProjectDirectory)\Scripts\Update-PublishConfig.ps1</PublishConfigScript>
 		<CustomManagedPath></CustomManagedPath>
 		<Configurations>Debug;Release</Configurations>
 		<RootNamespace>AdjustSchoolCapacity</RootNamespace>
