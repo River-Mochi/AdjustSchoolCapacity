@@ -7,40 +7,37 @@
 	<ShortDescription Value="Adjust school sizes. Increase the number of students." />
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
 	<!--LongDescription Value="This is a long description" /-->
-	<LongDescription>### Adjust School Capacity (Redux)
+	<LongDescription>
+	### Adjust School Capacity (Redux)
 
-Change how many students your schools can handle without adding more buildings.
+	Change how many students your schools can handle without adding more buildings.
 
-- **Separate sliders** for Elementary, High School, College, and University
-- Lower or increase the number of students.
-- Convenient buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.                                                                                                                                                                                                                                                                                                                                                                   
+	- **Separate sliders** for Elementary, High School, College, and University
+	- Lower or increase the number of students.
+	- Convenient buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
 
-### Notes
+	### Notes
 
-- Safe to remove or disable any time (set sliders to 100% for vanilla values)
-- Remove other mods that do school student sizing to avoid conflicts.
-- Mod is compatible with all my other mods.
-- Mod does not use Harmony or Reflection; more resilient to game updates.
+	- Safe to remove or disable any time (set sliders to 100% for vanilla values)
+	- Remove other mods that do school student sizing to avoid conflicts.
+	- Mod is compatible with all my other mods.
+	- Mod does not use Harmony or Reflection; more resilient to game updates.
 
-### Support and Feedback
+	### Support and Feedback
 
-- If the mod helps you, give it a Like :)
-- Report issues on Github link, Forum link, or Discord.
+	- If the mod helps you, give it a Like :)
+	- Report issues on Github link, Forum link, or Discord.
 
-### 11 languages
+	### 12 Languages
+	Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Olá
 
-- English, Français French, Deutsch German, Español Spanish, Italiano Italian
-- 日本語 Japanese, 한국어 Korean, 简体中文 Simplified Chinese
-- 繁體中文 Traditional Chinese, Polski Polish, Português-Brazilian
-- WIP: European Portuguese      
+	### Credits
 
-### Credits
+	- River-Mochi – mod author
+	- Inspired by Wayz's original School Capacity (retired)
+	- Necko1996 – code update and testing
 
-- River-Mochi – mod author
-- Inspired by Wayz's original School Capacity (retired)
-- Necko1996 – code update and testing
-
-tags: city schools, education capacity, automatic increase school size controller
+	tags: city schools, education capacity, automatic increase school size controller
 
 	</LongDescription>
 	<!--Thumbnail-->
@@ -54,9 +51,9 @@ tags: city schools, education capacity, automatic increase school size controlle
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/adjust-school-capacity-redux.1866531/" />
 	<!--Version of the mod-->
-	<ModVersion Value="1.6.2" />
+	<ModVersion Value="1.6.3" />
 	<!--Recommended version of the base game to use the mod-->
-	<GameVersion Value="1.5.*" />
+	<GameVersion Value="1.6.*" />
 	<!--Dependency for the mod, can be set multiple times-->
 	<Dependency Id="" />
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
