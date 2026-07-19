@@ -76,9 +76,9 @@ namespace AdjustSchoolCapacity
                     "100% = capacidade padrão do jogo."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "Universidade" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "Universidade" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
                     "**Universidade** – ajuste a capacidade entre 10% e 500% usando o controle deslizante.\n" +
                     "100% = capacidade padrão do jogo."
                 },

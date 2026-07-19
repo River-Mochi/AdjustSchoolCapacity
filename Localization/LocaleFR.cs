@@ -75,9 +75,9 @@ namespace AdjustSchoolCapacity
                     "100% = capacité par défaut du jeu."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "Université" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "Université" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
                     "**Université** – régler la capacité entre 10% et 500% avec le curseur.\n" +
                     "100% = capacité par défaut du jeu."
                 },

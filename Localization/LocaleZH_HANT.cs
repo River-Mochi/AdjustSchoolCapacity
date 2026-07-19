@@ -76,9 +76,9 @@ namespace AdjustSchoolCapacity
                     "100% = 遊戲預設容量。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "大學" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "大學" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
                     "**大學** – 用滑桿設定容量 10% - 500%。\n" +
                     "100% = 遊戲預設容量。"
                 },

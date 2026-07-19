@@ -141,7 +141,7 @@ namespace AdjustSchoolCapacity
                 SchoolLevel.Elementary => setting.ElementarySlider / 100.0,
                 SchoolLevel.HighSchool => setting.HighSchoolSlider / 100.0,
                 SchoolLevel.College => setting.CollegeSlider / 100.0,
-                SchoolLevel.University => setting.UniSlider / 100.0,
+                SchoolLevel.University => setting.UniversitySlider / 100.0,
                 _ => 1.0,
             };
         }

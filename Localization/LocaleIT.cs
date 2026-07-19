@@ -76,9 +76,9 @@ namespace AdjustSchoolCapacity
                     "100% = capienza predefinita del gioco."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "Università" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "Università" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
                     "**Università** – imposta la capienza tra 10% e 500% con lo slider.\n" +
                     "100% = capienza predefinita del gioco."
                 },

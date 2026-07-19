@@ -114,7 +114,7 @@ namespace AdjustSchoolCapacity
 
         [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
-        public int UniSlider
+        public int UniversitySlider
         {
             get; set;
         }
@@ -218,7 +218,7 @@ namespace AdjustSchoolCapacity
             ElementarySlider = 100;
             HighSchoolSlider = 100;
             CollegeSlider = 100;
-            UniSlider = 100;
+            UniversitySlider = 100;
         }
 
         public void SetQuickStart()
@@ -226,7 +226,7 @@ namespace AdjustSchoolCapacity
             ElementarySlider = 200;
             HighSchoolSlider = 150;
             CollegeSlider = 110;
-            UniSlider = 100;
+            UniversitySlider = 100;
         }
 
         internal bool RepairInvalidValues()
@@ -234,18 +234,18 @@ namespace AdjustSchoolCapacity
             int elementary = SanitizePercent(ElementarySlider, 1000);
             int highSchool = SanitizePercent(HighSchoolSlider, 1000);
             int college = SanitizePercent(CollegeSlider, 500);
-            int uni = SanitizePercent(UniSlider, 500);
+            int uni = SanitizePercent(UniversitySlider, 500);
 
             bool changed =
                 elementary != ElementarySlider ||
                 highSchool != HighSchoolSlider ||
                 college != CollegeSlider ||
-                uni != UniSlider;
+                uni != UniversitySlider;
 
             ElementarySlider = elementary;
             HighSchoolSlider = highSchool;
             CollegeSlider = college;
-            UniSlider = uni;
+            UniversitySlider = uni;
 
             return changed;
         }

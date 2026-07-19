@@ -76,9 +76,9 @@ namespace AdjustSchoolCapacity
                     "100% = 게임 기본 수용 인원."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "대학교" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "대학교" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
                     "**대학교** – 슬라이더로 수용 인원을 10% - 500% 사이로 설정.\n" +
                     "100% = 게임 기본 수용 인원."
                 },
