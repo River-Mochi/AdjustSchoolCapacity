@@ -4,22 +4,23 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
 
 ## What it does
 - Sliders for **Elementary / High School / College / University**
-- Range: **10% → 500%** of vanilla
+- **Elementary / High School:** **10% → 1000%** of vanilla
+- **College / University:** **10% → 500%** of vanilla
 - Two quick buttons:
   - **Reset to Vanilla (100%)**
   - **Quick Start Presets:** **200 / 150 / 110 / 100**
-- Supports City switching (Load City / New City).
+- Supports city switching (Load City / New City).
 
 ## 12 Languages
 - English, French, German, Spanish, Italian
-- Japanese, Korean, Polish, Portuguese (Brazil),
+- Japanese, Korean, Polish, Portuguese (Brazil)
 - Simplified Chinese, Traditional Chinese
-- WIP:Portuguese (Portugal)
+- WIP: Portuguese (Portugal)
 
 ## Compatibility notes
 
 - Safe to remove anytime. For clean vanilla numbers: set all sliders to **100%**.
-- No Harmony / no Reflection; safer more reliable on game patch days.
+- No Harmony / no Reflection; safer and more reliable on game patch days.
 - Avoid using multiple mods that change school capacity at the same time.
 
 ## Settings file
@@ -29,7 +30,7 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
 
 | Feature | Description |
 |--------|-------------|
-| Custom capacity sliders | Set each school between **10% and 500%** of the vanilla capacity. |
+| Custom capacity sliders | Elementary and High School: **10%–1000%**. College and University: **10%–500%** of vanilla capacity. |
 | Reset to Vanilla | Brings every slider back to **100%**, exactly matching the base game. |
 | Quick Start | Applies starter presets: **Elementary 200%**, **High School 150%**, **College 110%**, **University 100%**. |
 | Works with extensions | Capacity scaling applies to main school buildings and their extension upgrades. |

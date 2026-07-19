@@ -52,7 +52,6 @@ namespace AdjustSchoolCapacity
             Setting setting = new Setting(this);
             Setting = setting;
 
-            // Add more locales here as needed.
             LocalizationManager? lm = GameManager.instance?.localizationManager;
             if (lm != null)
             {
@@ -74,44 +73,18 @@ namespace AdjustSchoolCapacity
                 s_Log.Warn($"{ModTag} LocalizationManager is null; skipping locale registration.");
             }
 
-            // Load saved settings (if any), then sanitize.
-            // Note: LoadSettings is resilient (game's JSON.WriteInto is try/catched).
-            Setting defaults = new Setting(this);
-            AssetDatabase.global.LoadSettings(ModId, setting, defaults);
+            AssetDatabase.global.LoadSettings(ModId, setting, new Setting(this));
 
-            // Only log if sanitize changes settings file.
-            int e0 = setting.ElementarySlider;
-            int h0 = setting.HighSchoolSlider;
-            int c0 = setting.CollegeSlider;
-            int u0 = setting.UniSlider;
-
-            setting.SanitizeAfterLoad();
-
-            bool changed =
-                setting.ElementarySlider != e0 ||
-                setting.HighSchoolSlider != h0 ||
-                setting.CollegeSlider != c0 ||
-                setting.UniSlider != u0;
-
-            if (changed)
+            // Save only when invalid values were repaired.
+            if (setting.RepairInvalidValues())
             {
-                // Repair settings file immediately so same bad values are not re-detected every boot.
-                // Only done when invalid file already detected.
-                setting.ApplyAndSave();     // boot-time save heal.
-
-                // Keep this INFO (no UI noise/stack spam).
-                s_Log.Info(
-                    $"{ModTag} Repaired invalid slider values to vanilla values in settings. " +
-                    $"Elementary {e0}->{setting.ElementarySlider}, " +
-                    $"HighSchool {h0}->{setting.HighSchoolSlider}, " +
-                    $"College {c0}->{setting.CollegeSlider}, " +
-                    $"University {u0}->{setting.UniSlider}.");
+                setting.ApplyAndSave();
+                s_Log.Info($"{ModTag} Repaired invalid slider values to vanilla settings.");
             }
 
-            // Register in Options UI last.
             setting.RegisterInOptionsUI();
 
-            // Schedule after PrefabUpdate so PrefabSystem data is initialized.
+            // Prefab data must be ready before capacities are applied.
             updateSystem.UpdateAfter<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);
         }
 

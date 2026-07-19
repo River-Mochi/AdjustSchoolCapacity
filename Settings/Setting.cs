@@ -23,7 +23,7 @@ namespace AdjustSchoolCapacity
 
     using Unity.Entities;               // World
 
-    using UnityEngine;                  // Application URL
+    using UnityEngine;                  // Application.OpenURL
 
     [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]
     [SettingsUIGroupOrder(
@@ -39,44 +39,34 @@ namespace AdjustSchoolCapacity
     )]
     public sealed class Setting : ModSetting
     {
-        internal const int MinPercent = 10;
-        internal const int ElementaryHighMaxPercent = 1000;
-        internal const int CollegeUniMaxPercent = 500;
-        internal const int VanillaPercent = 100;
-
         // ---- Tabs ----
         public const string ActionsTab = "Actions";
         public const string AboutTab = "About";
 
-        // ---- Groups Actions tab ----
+        // ---- Groups: Actions tab ----
         public const string CapacityGroup = "Student Capacity";
         public const string PresetGroup = "Presets";
 
-        // ---- Groups About tab ----
+        // ---- Groups: About tab ----
         public const string AboutInfoGroup = "Info";
         public const string AboutLinksGroup = "Support Links";
 
-        // ---- External links ----
         private const string UrlParadox =
             "https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime";
         private const string UrlDiscord = "https://discord.gg/HTav7ARPs2";
 
         public Setting(IMod mod) : base(mod)
         {
-            // New Install starts with vanilla defaults.
-            // If a .coc exists, LoadSettings will overwrite these.
+            // Existing .coc values overwrite these defaults during LoadSettings.
             SetDefaults();
         }
 
         public override void Apply()
         {
-            RepairAndClamp();
-
-            // Apply in-memory settings + notify Options UI.
-            // (Sliders are persisted by Options UI pipeline.)
+            RepairInvalidValues();
             base.Apply();
 
-            // Only poke ECS when a city is running.
+            // Options can also be applied from the main menu; only wake ECS in a city.
             GameManager? gm = GameManager.instance;
             if (gm == null || !gm.gameMode.IsGame())
             {
@@ -99,61 +89,37 @@ namespace AdjustSchoolCapacity
             system.RequestReapplyFromSettings();
         }
 
-        // ---- Sliders (step 10%) ----
-        // Elementary / High School: 10–1000%
-        // College / University: 10–500%
+        // Elementary / High School: 10–1000%. College / University: 10–500%.
 
-        [SettingsUISlider(
-            min = MinPercent,
-            max = ElementaryHighMaxPercent,
-            step = 10,
-            scalarMultiplier = 1,
-            unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 1000, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int ElementarySlider
         {
             get; set;
         }
 
-        [SettingsUISlider(
-            min = MinPercent,
-            max = ElementaryHighMaxPercent,
-            step = 10,
-            scalarMultiplier = 1,
-            unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 1000, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int HighSchoolSlider
         {
             get; set;
         }
 
-        [SettingsUISlider(
-            min = MinPercent,
-            max = CollegeUniMaxPercent,
-            step = 10,
-            scalarMultiplier = 1,
-            unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int CollegeSlider
         {
             get; set;
         }
 
-        [SettingsUISlider(
-            min = MinPercent,
-            max = CollegeUniMaxPercent,
-            step = 10,
-            scalarMultiplier = 1,
-            unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int UniSlider
         {
             get; set;
         }
 
-
-        // ---- Preset buttons, keep in same group for same row display ----
-
+        // Keep both buttons in the same UI row.
         [SettingsUIButtonGroup(PresetGroup)]
         [SettingsUIButton]
         [SettingsUISection(ActionsTab, PresetGroup)]
@@ -167,8 +133,7 @@ namespace AdjustSchoolCapacity
                 }
 
                 SetToVanilla();
-                // Persist immediately (matches vanilla UI behavior for manual slider edits).
-                ApplyAndSave();
+                ApplyAndSave(); // Save immediately when the button is pressed.
             }
         }
 
@@ -185,7 +150,7 @@ namespace AdjustSchoolCapacity
                 }
 
                 SetQuickStart();
-                ApplyAndSave(); // Persist immediately
+                ApplyAndSave(); // Save immediately when the button is pressed.
             }
         }
 
@@ -245,16 +210,15 @@ namespace AdjustSchoolCapacity
 
         public override void SetDefaults()
         {
-            // First install set to game defaults (vanilla).
             SetToVanilla();
         }
 
         public void SetToVanilla()
         {
-            ElementarySlider = VanillaPercent;
-            HighSchoolSlider = VanillaPercent;
-            CollegeSlider = VanillaPercent;
-            UniSlider = VanillaPercent;
+            ElementarySlider = 100;
+            HighSchoolSlider = 100;
+            CollegeSlider = 100;
+            UniSlider = 100;
         }
 
         public void SetQuickStart()
@@ -265,37 +229,31 @@ namespace AdjustSchoolCapacity
             UniSlider = 100;
         }
 
-        // Called from Mod.cs AFTER LoadSettings, before RegisterInOptionsUI.
-        public void SanitizeAfterLoad()
+        internal bool RepairInvalidValues()
         {
-            RepairAndClamp();
-        }
+            int elementary = SanitizePercent(ElementarySlider, 1000);
+            int highSchool = SanitizePercent(HighSchoolSlider, 1000);
+            int college = SanitizePercent(CollegeSlider, 500);
+            int uni = SanitizePercent(UniSlider, 500);
 
-        private void RepairAndClamp()
-        {
-            ElementarySlider =
-                SanitizePercent(ElementarySlider, ElementaryHighMaxPercent);
+            bool changed =
+                elementary != ElementarySlider ||
+                highSchool != HighSchoolSlider ||
+                college != CollegeSlider ||
+                uni != UniSlider;
 
-            HighSchoolSlider =
-                SanitizePercent(HighSchoolSlider, ElementaryHighMaxPercent);
+            ElementarySlider = elementary;
+            HighSchoolSlider = highSchool;
+            CollegeSlider = college;
+            UniSlider = uni;
 
-            CollegeSlider =
-                SanitizePercent(CollegeSlider, CollegeUniMaxPercent);
-
-            UniSlider =
-                SanitizePercent(UniSlider, CollegeUniMaxPercent);
+            return changed;
         }
 
         private static int SanitizePercent(int value, int maxPercent)
         {
-            // Invalid values return to vanilla capacity.
-            if (value < MinPercent || value > maxPercent)
-            {
-                return VanillaPercent;
-            }
-
-            return value;
+            // Invalid file values return to vanilla instead of an extreme limit.
+            return value < 10 || value > maxPercent ? 100 : value;
         }
-      
     }
 }

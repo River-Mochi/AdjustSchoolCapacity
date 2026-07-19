@@ -8,8 +8,7 @@
 
 // File: Systems/AdjustSchoolCapacitySystem.cs
 // Applies ASC settings to school entities.
-// Base capacity is read from PrefabBase (via PrefabSystem) to prevent stacking.
-// Uses SystemAPI (QueryBuilder + Query) to avoid ToEntityArray allocations.
+// Base capacity is read from PrefabBase to prevent repeated multiplication.
 
 namespace AdjustSchoolCapacity
 {
@@ -18,15 +17,12 @@ namespace AdjustSchoolCapacity
 
     using Game;
     using Game.Prefabs;
-    using Game.SceneFlow;
 
     using Unity.Entities;
 
     public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
     {
         private PrefabSystem m_PrefabSystem = null!;
-        private EntityQuery m_SchoolQuery;
-        private bool m_ReapplyRequested;
 
         protected override void OnCreate()
         {
@@ -34,16 +30,14 @@ namespace AdjustSchoolCapacity
 
             m_PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
 
-            // Cached query with filters.
-            m_SchoolQuery = SystemAPI.QueryBuilder()
-                                     .WithAllRW<SchoolData>()
-                                     .WithAll<ConsumptionData>()
-                                     .Build();
+            // Do not update until school service entities exist.
+            RequireForUpdate(
+                SystemAPI.QueryBuilder()
+                    .WithAllRW<SchoolData>()
+                    .WithAll<ConsumptionData>()
+                    .Build());
 
-            RequireForUpdate(m_SchoolQuery);
-
-            // Run only when explicitly enabled (city load or settings change).
-            Enabled = false;
+            Enabled = false; // Run once only when a city loads or settings change.
         }
 
         protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
@@ -59,38 +53,19 @@ namespace AdjustSchoolCapacity
                 return;
             }
 
-            m_ReapplyRequested = true;
             Enabled = true;
         }
 
         protected override void OnUpdate()
         {
-            // Safety bail: never do work outside actual gameplay.
-            // Cheap guard for edge cases.
-            GameManager gm = GameManager.instance;
-            if (gm == null || !gm.gameMode.IsGame())
-            {
-                m_ReapplyRequested = false;
-                Enabled = false;
-                return;
-            }
-
-            if (!m_ReapplyRequested)
+            Setting? setting = Mod.Setting;
+            if (setting == null)
             {
                 Enabled = false;
                 return;
             }
 
-            if (Mod.Setting == null)
-            {
-                m_ReapplyRequested = false;
-                Enabled = false;
-                return;
-            }
-
-            Setting setting = Mod.Setting;
-
-            // Iterate directly, no ToEntityArray.
+            // Iterate directly without creating a temporary entity array.
             foreach ((RefRW<SchoolData> schoolRef, Entity entity) in SystemAPI
                          .Query<RefRW<SchoolData>>()
                          .WithAll<ConsumptionData>()
@@ -98,38 +73,26 @@ namespace AdjustSchoolCapacity
             {
                 ref SchoolData schoolData = ref schoolRef.ValueRW;
 
-                double scalar = GetScalar(setting, schoolData.m_EducationLevel);
-
-                // reliable base to avoid stacking.
-                if (!TryGetSchoolBaseCapacity(entity, out int baseCap))
+                // Always scale the prefab value, never the already-modified runtime value.
+                if (!TryGetSchoolBaseCapacity(entity, out int baseCapacity))
                 {
                     continue;
                 }
 
-                if (baseCap <= 0)
-                {
-                    continue;
-                }
+                int newCapacity =
+                    (int)(baseCapacity * GetScalar(setting, schoolData.m_EducationLevel));
 
-                int newCap = (int)(baseCap * scalar);
-                if (newCap <= 0)
+                if (newCapacity != schoolData.m_StudentCapacity)
                 {
-                    newCap = baseCap;
-                }
-
-                if (newCap != schoolData.m_StudentCapacity)
-                {
-                    schoolData.m_StudentCapacity = newCap;
+                    schoolData.m_StudentCapacity = newCapacity;
                 }
             }
 
-            m_ReapplyRequested = false;
             Enabled = false;
         }
 
         public void RequestReapplyFromSettings()
         {
-            m_ReapplyRequested = true;
             Enabled = true;
 #if DEBUG
             Mod.s_Log.Info("[ASC] Settings changed → reapply requested.");
@@ -140,29 +103,28 @@ namespace AdjustSchoolCapacity
         {
             baseCapacity = 0;
 
-            // Path A: entity itself can sometimes be resolved as a prefab entity.
-            if (m_PrefabSystem.TryGetPrefab(entity, out PrefabBase prefabBaseA))
+            // Prefab entities may resolve directly.
+            if (m_PrefabSystem.TryGetPrefab(entity, out PrefabBase directPrefab) &&
+                TryReadBaseCapacity(directPrefab, out baseCapacity))
             {
-                return TryReadBaseFromPrefabBase(prefabBaseA, out baseCapacity);
+                return true;
             }
 
-            // Path B: runtime instances usually have PrefabRef.
-            if (EntityManager.TryGetComponent(entity, out PrefabRef prefabRef))
+            // Runtime school entities normally point to their prefab through PrefabRef.
+            if (EntityManager.TryGetComponent(entity, out PrefabRef prefabRef) &&
+                m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase referencedPrefab) &&
+                TryReadBaseCapacity(referencedPrefab, out baseCapacity))
             {
-                if (m_PrefabSystem.TryGetPrefab(prefabRef, out PrefabBase prefabBaseB))
-                {
-                    return TryReadBaseFromPrefabBase(prefabBaseB, out baseCapacity);
-                }
+                return true;
             }
 
             return false;
         }
 
-        private static bool TryReadBaseFromPrefabBase(PrefabBase prefabBase, out int baseCapacity)
+        private static bool TryReadBaseCapacity(PrefabBase prefabBase, out int baseCapacity)
         {
             baseCapacity = 0;
 
-            // Authoritative base value from prefab component.
             if (prefabBase != null && prefabBase.TryGet(out School schoolPrefab))
             {
                 baseCapacity = schoolPrefab.m_StudentCapacity;
@@ -174,35 +136,14 @@ namespace AdjustSchoolCapacity
 
         private static double GetScalar(Setting setting, byte level)
         {
-            int percent = (SchoolLevel)level switch
+            return (SchoolLevel)level switch
             {
-                SchoolLevel.Elementary => SanitizePercent(
-                    setting.ElementarySlider,
-                    Setting.ElementaryHighMaxPercent),
-
-                SchoolLevel.HighSchool => SanitizePercent(
-                    setting.HighSchoolSlider,
-                    Setting.ElementaryHighMaxPercent),
-
-                SchoolLevel.College => SanitizePercent(
-                    setting.CollegeSlider,
-                    Setting.CollegeUniMaxPercent),
-
-                SchoolLevel.University => SanitizePercent(
-                    setting.UniSlider,
-                    Setting.CollegeUniMaxPercent),
-
-                _ => Setting.VanillaPercent,
+                SchoolLevel.Elementary => setting.ElementarySlider / 100.0,
+                SchoolLevel.HighSchool => setting.HighSchoolSlider / 100.0,
+                SchoolLevel.College => setting.CollegeSlider / 100.0,
+                SchoolLevel.University => setting.UniSlider / 100.0,
+                _ => 1.0,
             };
-
-            return percent / 100.0;
-        }
-
-        private static int SanitizePercent(int value, int maxPercent)
-        {
-            return value < Setting.MinPercent || value > maxPercent
-                ? Setting.VanillaPercent
-                : value;
         }
     }
 }
