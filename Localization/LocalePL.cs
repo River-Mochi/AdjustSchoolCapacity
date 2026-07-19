@@ -58,14 +58,14 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "Szkoła podstawowa" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
-                    "**Szkoła podstawowa** – dostosuj pojemność od 10% do 500% suwakiem.\n" +
+                    "**Szkoła podstawowa** – dostosuj pojemność od 10% do 1000% suwakiem.\n" +
                     "100% = domyślna pojemność gry."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "Liceum" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
-                    "**Liceum** – dostosuj pojemność od 10% do 500% suwakiem.\n" +
+                    "**Liceum** – dostosuj pojemność od 10% do 1000% suwakiem.\n" +
                     "100% = domyślna pojemność gry."
                 },
 

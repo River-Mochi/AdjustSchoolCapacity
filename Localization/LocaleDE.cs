@@ -58,14 +58,14 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "Grundschule" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
-                    "**Grundschule** – Kapazität mit dem Schieberegler auf 10% - 500% einstellen.\n" +
+                    "**Grundschule** – Kapazität mit dem Schieberegler auf 10% - 1000% einstellen.\n" +
                     "100% = Standardkapazität des Spiels."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "Gymnasium" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
-                    "**Gymnasium** – Kapazität mit dem Schieberegler auf 10% - 500% einstellen.\n" +
+                    "**Gymnasium** – Kapazität mit dem Schieberegler auf 10% - 1000% einstellen.\n" +
                     "100% = Standardkapazität des Spiels."
                 },
 

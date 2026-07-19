@@ -58,14 +58,14 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "초등학교" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
-                    "**초등학교** – 슬라이더로 수용 인원을 10% - 500% 사이로 설정.\n" +
+                    "**초등학교** – 슬라이더로 수용 인원을 10% - 1000% 사이로 설정.\n" +
                     "100% = 게임 기본 수용 인원."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "고등학교" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
-                    "**고등학교** – 슬라이더로 수용 인원을 10% - 500% 사이로 설정.\n" +
+                    "**고등학교** – 슬라이더로 수용 인원을 10% - 1000% 사이로 설정.\n" +
                     "100% = 게임 기본 수용 인원."
                 },
 

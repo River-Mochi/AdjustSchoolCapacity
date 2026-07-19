@@ -58,14 +58,14 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "小学" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
-                    "**小学** – 用滑条设置容量 10% - 500%。\n" +
+                    "**小学** – 用滑条设置容量 10% - 1000%。\n" +
                     "100% = 游戏默认容量。"
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "高中" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
-                    "**高中** – 用滑条设置容量 10% - 500%。\n" +
+                    "**高中** – 用滑条设置容量 10% - 1000%。\n" +
                     "100% = 游戏默认容量。"
                 },
 

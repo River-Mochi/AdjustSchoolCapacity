@@ -58,14 +58,14 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "小学校" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
-                    "**小学校** – スライダーで収容人数を 10% ～ 500% に設定。\n" +
+                    "**小学校** – スライダーで収容人数を 10% ～ 1000% に設定。\n" +
                     "100% = ゲームのデフォルト収容人数。"
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "高校" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
-                    "**高校** – スライダーで収容人数を 10% ～ 500% に設定。\n" +
+                    "**高校** – スライダーで収容人数を 10% ～ 1000% に設定。\n" +
                     "100% = ゲームのデフォルト収容人数。"
                 },
 

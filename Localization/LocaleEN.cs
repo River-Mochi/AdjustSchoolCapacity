@@ -58,14 +58,14 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "Elementary" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
-                    "**Elementary school** – customize capacity 10% - 500% using the slider.\n" +
+                    "**Elementary school** – customize capacity 10% - 1000% using the slider.\n" +
                     "100% = game's default capacity."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "High School" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
-                    "**High school** – customize capacity 10% - 500% using the slider.\n" +
+                    "**High school** – customize capacity 10% - 1000% using the slider.\n" +
                     "100% = game's default capacity."
                 },
 

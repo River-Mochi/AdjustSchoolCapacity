@@ -34,8 +34,7 @@ namespace AdjustSchoolCapacity
 
             m_PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
 
-            // Cached query
-            // Filter: entities that have SchoolData + ConsumptionData.
+            // Cached query with filters.
             m_SchoolQuery = SystemAPI.QueryBuilder()
                                      .WithAllRW<SchoolData>()
                                      .WithAll<ConsumptionData>()
@@ -101,7 +100,7 @@ namespace AdjustSchoolCapacity
 
                 double scalar = GetScalar(setting, schoolData.m_EducationLevel);
 
-                // Must have a reliable base to avoid stacking.
+                // reliable base to avoid stacking.
                 if (!TryGetSchoolBaseCapacity(entity, out int baseCap))
                 {
                     continue;
@@ -163,7 +162,7 @@ namespace AdjustSchoolCapacity
         {
             baseCapacity = 0;
 
-            // Authoritative base value comes from prefab component.
+            // Authoritative base value from prefab component.
             if (prefabBase != null && prefabBase.TryGet(out School schoolPrefab))
             {
                 baseCapacity = schoolPrefab.m_StudentCapacity;
@@ -177,19 +176,33 @@ namespace AdjustSchoolCapacity
         {
             int percent = (SchoolLevel)level switch
             {
-                SchoolLevel.Elementary => SanitizePercent(setting.ElementarySlider),
-                SchoolLevel.HighSchool => SanitizePercent(setting.HighSchoolSlider),
-                SchoolLevel.College => SanitizePercent(setting.CollegeSlider),
-                SchoolLevel.University => SanitizePercent(setting.UniSlider),
-                _ => 100,
+                SchoolLevel.Elementary => SanitizePercent(
+                    setting.ElementarySlider,
+                    Setting.ElementaryHighMaxPercent),
+
+                SchoolLevel.HighSchool => SanitizePercent(
+                    setting.HighSchoolSlider,
+                    Setting.ElementaryHighMaxPercent),
+
+                SchoolLevel.College => SanitizePercent(
+                    setting.CollegeSlider,
+                    Setting.CollegeUniMaxPercent),
+
+                SchoolLevel.University => SanitizePercent(
+                    setting.UniSlider,
+                    Setting.CollegeUniMaxPercent),
+
+                _ => Setting.VanillaPercent,
             };
 
             return percent / 100.0;
         }
 
-        private static int SanitizePercent(int value)
+        private static int SanitizePercent(int value, int maxPercent)
         {
-            return (value < 10 || value > 500) ? 100 : value;
+            return value < Setting.MinPercent || value > maxPercent
+                ? Setting.VanillaPercent
+                : value;
         }
     }
 }
