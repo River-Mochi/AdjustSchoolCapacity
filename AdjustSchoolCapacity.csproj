@@ -4,15 +4,25 @@
 	<PropertyGroup>
 		<PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
 		<PublishConfigScript>$(MSBuildProjectDirectory)\Scripts\Update-PublishConfig.ps1</PublishConfigScript>
+
 		<CustomManagedPath></CustomManagedPath>
 		<Configurations>Debug;Release</Configurations>
-		<RootNamespace>AdjustSchoolCapacity</RootNamespace>
+
 		<Nullable>enable</Nullable>
 
   <!-- Single source of truth -->
-	  <Version>1.6.4</Version>
-	<AssemblyVersion>$(Version).0</AssemblyVersion>
-	<FileVersion>$(Version).0</FileVersion>  <!-- for file properties -->
+	  <Version>1.7.0</Version>
+	  <AssemblyVersion>$(Version).0</AssemblyVersion>
+	  <FileVersion>$(Version).0</FileVersion>  <!-- file properties -->
+
+        <GameVersion>1.6.*</GameVersion>
+
+        <!-- Assembly DLL name and default namespace -->
+        <RootNamespace>AdjustSchoolCapacity</RootNamespace>
+        <AssemblyName>AdjustSchoolCapacity</AssemblyName>
+        <AssemblyTitle>Adjust School Capacity</AssemblyTitle>
+        <Product>Adjust School Capacity</Product>
+        <Copyright>Copyright © 2025-26 River-Mochi</Copyright>
 
 	</PropertyGroup>
 
@@ -67,12 +77,12 @@
 		<None Include="$(ModTargetsFile)" Link="Properties\Mod.targets" />
 	</ItemGroup>
 
-	<!-- AUTO UPDATE PublishConfiguration.xml ModVersion + nested mod.json "version" from $(Version). -->
-	<Target Name="UpdatePublishConfigVersion" BeforeTargets="PrepareForBuild" Condition="Exists('$(PublishConfigScript)') AND Exists('$(MSBuildProjectDirectory)\$(PublishConfigurationPath)')">
+    <!-- AUTO UPDATE PublishConfiguration.xml GameVersion + ModVersion + nested mod.json "version" from $(Version). -->
+    <Target Name="UpdatePublishConfigVersion" BeforeTargets="PrepareForBuild" Condition="Exists('$(PublishConfigScript)') AND Exists('$(MSBuildProjectDirectory)\$(PublishConfigurationPath)')">
 
-		<Message Text="$(AssemblyTitle) PublishConfig: syncing ModVersion + normalizing EOL/BOM + left-aligning blocks..." Importance="high" />
+        <Message Text="$(AssemblyTitle) PublishConfig: syncing ModVersion/GameVersion + normalizing EOL/BOM + left-aligning blocks..." Importance="high" />
 
-		<Exec Command="&quot;$(SystemRoot)\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -ExecutionPolicy Bypass -File &quot;$(PublishConfigScript)&quot; -Path &quot;$(MSBuildProjectDirectory)\$(PublishConfigurationPath)&quot; -Version &quot;$(Version)&quot; -Eol lf -LeftAlignBlocks" />
-	</Target>
+        <Exec Command="&quot;$(SystemRoot)\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -ExecutionPolicy Bypass -File &quot;$(PublishConfigScript)&quot; -Path &quot;$(MSBuildProjectDirectory)\$(PublishConfigurationPath)&quot; -Version &quot;$(Version)&quot; -GameVersion &quot;$(GameVersion)&quot; -Eol lf -LeftAlignBlocks" />
+    </Target>
 
 </Project>
