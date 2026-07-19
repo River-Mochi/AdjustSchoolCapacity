@@ -12,6 +12,7 @@
 namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
+
     using Colossal;
 
     public sealed class LocalePL : IDictionarySource
@@ -75,9 +76,9 @@ namespace AdjustSchoolCapacity
                     "100% = domyślna pojemność gry."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "Uniwersytet" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "Uniwersytet" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
                     "**Uniwersytet** – dostosuj pojemność od 10% do 500% suwakiem.\n" +
                     "100% = domyślna pojemność gry."
                 },

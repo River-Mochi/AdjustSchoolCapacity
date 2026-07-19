@@ -12,9 +12,11 @@
 namespace AdjustSchoolCapacity
 {
     using System.Reflection;
+
     using Colossal.IO.AssetDatabase;
     using Colossal.Localization;
     using Colossal.Logging;
+
     using Game;
     using Game.Modding;
     using Game.SceneFlow;
@@ -81,7 +83,7 @@ namespace AdjustSchoolCapacity
             int e0 = setting.ElementarySlider;
             int h0 = setting.HighSchoolSlider;
             int c0 = setting.CollegeSlider;
-            int u0 = setting.UniversitySlider;
+            int u0 = setting.UniSlider;
 
             setting.SanitizeAfterLoad();
 
@@ -89,7 +91,7 @@ namespace AdjustSchoolCapacity
                 setting.ElementarySlider != e0 ||
                 setting.HighSchoolSlider != h0 ||
                 setting.CollegeSlider != c0 ||
-                setting.UniversitySlider != u0;
+                setting.UniSlider != u0;
 
             if (changed)
             {
@@ -103,7 +105,7 @@ namespace AdjustSchoolCapacity
                     $"Elementary {e0}->{setting.ElementarySlider}, " +
                     $"HighSchool {h0}->{setting.HighSchoolSlider}, " +
                     $"College {c0}->{setting.CollegeSlider}, " +
-                    $"University {u0}->{setting.UniversitySlider}.");
+                    $"University {u0}->{setting.UniSlider}.");
             }
 
             // Register in Options UI last.

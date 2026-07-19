@@ -12,6 +12,7 @@
 namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
+
     using Colossal;
 
     public sealed class LocaleFR : IDictionarySource
@@ -74,9 +75,9 @@ namespace AdjustSchoolCapacity
                     "100% = capacité par défaut du jeu."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "Université" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "Université" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
                     "**Université** – régler la capacité entre 10% et 500% avec le curseur.\n" +
                     "100% = capacité par défaut du jeu."
                 },

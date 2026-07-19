@@ -12,6 +12,7 @@
 namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
+
     using Colossal;
 
     public sealed class LocaleZH_CN : IDictionarySource
@@ -75,9 +76,9 @@ namespace AdjustSchoolCapacity
                     "100% = 游戏默认容量。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "大学" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "大学" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
                     "**大学** – 用滑条设置容量 10% - 500%。\n" +
                     "100% = 游戏默认容量。"
                 },

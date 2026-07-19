@@ -12,6 +12,7 @@
 namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
+
     using Colossal;
 
     public sealed class LocaleJA : IDictionarySource
@@ -75,9 +76,9 @@ namespace AdjustSchoolCapacity
                     "100% = ゲームのデフォルト収容人数。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "大学" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniSlider)), "大学" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniSlider)),
                     "**大学** – スライダーで収容人数を 10% ～ 500% に設定。\n" +
                     "100% = ゲームのデフォルト収容人数。"
                 },

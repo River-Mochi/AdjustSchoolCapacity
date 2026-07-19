@@ -15,9 +15,11 @@ namespace AdjustSchoolCapacity
 {
     using Colossal.Entities;
     using Colossal.Serialization.Entities;
+
     using Game;
     using Game.Prefabs;
     using Game.SceneFlow;
+
     using Unity.Entities;
 
     public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
@@ -178,7 +180,7 @@ namespace AdjustSchoolCapacity
                 SchoolLevel.Elementary => SanitizePercent(setting.ElementarySlider),
                 SchoolLevel.HighSchool => SanitizePercent(setting.HighSchoolSlider),
                 SchoolLevel.College => SanitizePercent(setting.CollegeSlider),
-                SchoolLevel.University => SanitizePercent(setting.UniversitySlider),
+                SchoolLevel.University => SanitizePercent(setting.UniSlider),
                 _ => 100,
             };
 

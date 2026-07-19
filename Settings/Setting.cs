@@ -12,13 +12,17 @@
 namespace AdjustSchoolCapacity
 {
     using System;                       // Exception
+
     using Colossal.IO.AssetDatabase;    // FileLocation
+
     using Game;                         // IsGame
     using Game.Modding;                 // IMod, ModSetting
     using Game.SceneFlow;               // GameManager
     using Game.Settings;                // Settings UI attributes
     using Game.UI;                      // Unit
+
     using Unity.Entities;               // World
+
     using UnityEngine;                  // Application URL
 
     [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]
@@ -35,9 +39,10 @@ namespace AdjustSchoolCapacity
     )]
     public sealed class Setting : ModSetting
     {
-        private const int MinPercent = 10;
-        private const int MaxPercent = 500;
-        private const int VanillaPercent = 100;
+        internal const int MinPercent = 10;
+        internal const int ElementaryHighMaxPercent = 1000;
+        internal const int CollegeUniMaxPercent = 500;
+        internal const int VanillaPercent = 100;
 
         // ---- Tabs ----
         public const string ActionsTab = "Actions";
@@ -94,35 +99,58 @@ namespace AdjustSchoolCapacity
             system.RequestReapplyFromSettings();
         }
 
-        // ---- Sliders (10–500%, step 10%) ----
+        // ---- Sliders (step 10%) ----
+        // Elementary / High School: 10–1000%
+        // College / University: 10–500%
 
-        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(
+            min = MinPercent,
+            max = ElementaryHighMaxPercent,
+            step = 10,
+            scalarMultiplier = 1,
+            unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int ElementarySlider
         {
             get; set;
         }
 
-        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(
+            min = MinPercent,
+            max = ElementaryHighMaxPercent,
+            step = 10,
+            scalarMultiplier = 1,
+            unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int HighSchoolSlider
         {
             get; set;
         }
 
-        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(
+            min = MinPercent,
+            max = CollegeUniMaxPercent,
+            step = 10,
+            scalarMultiplier = 1,
+            unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int CollegeSlider
         {
             get; set;
         }
 
-        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(
+            min = MinPercent,
+            max = CollegeUniMaxPercent,
+            step = 10,
+            scalarMultiplier = 1,
+            unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
-        public int UniversitySlider
+        public int UniSlider
         {
             get; set;
         }
+
 
         // ---- Preset buttons, keep in same group for same row display ----
 
@@ -226,7 +254,7 @@ namespace AdjustSchoolCapacity
             ElementarySlider = VanillaPercent;
             HighSchoolSlider = VanillaPercent;
             CollegeSlider = VanillaPercent;
-            UniversitySlider = VanillaPercent;
+            UniSlider = VanillaPercent;
         }
 
         public void SetQuickStart()
@@ -234,7 +262,7 @@ namespace AdjustSchoolCapacity
             ElementarySlider = 200;
             HighSchoolSlider = 150;
             CollegeSlider = 110;
-            UniversitySlider = 100;
+            UniSlider = 100;
         }
 
         // Called from Mod.cs AFTER LoadSettings, before RegisterInOptionsUI.
@@ -245,21 +273,29 @@ namespace AdjustSchoolCapacity
 
         private void RepairAndClamp()
         {
-            ElementarySlider = SanitizePercent(ElementarySlider);
-            HighSchoolSlider = SanitizePercent(HighSchoolSlider);
-            CollegeSlider = SanitizePercent(CollegeSlider);
-            UniversitySlider = SanitizePercent(UniversitySlider);
+            ElementarySlider =
+                SanitizePercent(ElementarySlider, ElementaryHighMaxPercent);
+
+            HighSchoolSlider =
+                SanitizePercent(HighSchoolSlider, ElementaryHighMaxPercent);
+
+            CollegeSlider =
+                SanitizePercent(CollegeSlider, CollegeUniMaxPercent);
+
+            UniSlider =
+                SanitizePercent(UniSlider, CollegeUniMaxPercent);
         }
 
-        private static int SanitizePercent(int value)
+        private static int SanitizePercent(int value, int maxPercent)
         {
-            // Invalid values are clamped to vanilla (100%).
-            if (value < MinPercent || value > MaxPercent)
+            // Invalid values return to vanilla capacity.
+            if (value < MinPercent || value > maxPercent)
             {
                 return VanillaPercent;
             }
 
             return value;
         }
+      
     }
 }
