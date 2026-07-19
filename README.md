@@ -37,8 +37,9 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
 
 ## Links
 - [GitHub repo](https://github.com/River-Mochi/AdjustSchoolCapacity)
+- [Discord](https://discord.gg/gwXgvtyhjc)
 - [Paradox Mods](https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime)
-- [Discord](https://discord.gg/HTav7ARPs2)
+
 
 ## License
 

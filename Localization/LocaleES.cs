@@ -30,7 +30,7 @@ namespace AdjustSchoolCapacity
         {
             string title = Mod.ShortName;
 
-            // Show "Adjust School (1.6.2)" title
+            // Include the current mod version in the Options title.
             if (!string.IsNullOrEmpty(Mod.ModVersion))
             {
                 title = title + " (" + Mod.ModVersion + ")";
