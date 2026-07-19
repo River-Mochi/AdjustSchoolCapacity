@@ -122,8 +122,6 @@ namespace AdjustSchoolCapacity
                 Setting.UnregisterInOptionsUI();
                 Setting = null;
             }
-
-            s_Log.Info("OnDispose");
         }
     }
 }
