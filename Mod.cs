@@ -36,7 +36,7 @@ namespace AdjustSchoolCapacity
         public static readonly ILog s_Log =
             LogManager.GetLogger("AdjustSchoolCapacity").SetShowsErrorsInUI(false);
 
-        public static Setting? Setting
+        public static ASCSetting? Setting
         {
             get; private set;
         }
@@ -49,7 +49,7 @@ namespace AdjustSchoolCapacity
                 s_Log.Info($"{ModId} {ModTag} v{ModVersion} OnLoad");
             }
 
-            Setting setting = new Setting(this);
+            ASCSetting setting = new ASCSetting(this);
             Setting = setting;
 
             LocalizationManager? lm = GameManager.instance?.localizationManager;
@@ -73,7 +73,7 @@ namespace AdjustSchoolCapacity
                 s_Log.Warn($"{ModTag} LocalizationManager is null; skipping locale registration.");
             }
 
-            AssetDatabase.global.LoadSettings(ModId, setting, new Setting(this));
+            AssetDatabase.global.LoadSettings(ModId, setting, new ASCSetting(this));
 
             // Save only when invalid values were repaired.
             if (setting.RepairInvalidValues())

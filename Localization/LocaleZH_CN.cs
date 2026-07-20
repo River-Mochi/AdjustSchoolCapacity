@@ -1,4 +1,4 @@
-// <copyright file="LocaleZH_CN.cs" company="River-Mochi">
+﻿// <copyright file="LocaleZH_CN.cs" company="River-Mochi">
 // Copyright (c) 2026 River-Mochi. All rights reserved.
 // Licensed under the MIT License. You may not use this file except in compliance with this License.
 // See LICENSE file in the project root for full license information.
@@ -17,9 +17,9 @@ namespace AdjustSchoolCapacity
 
     public sealed class LocaleZH_CN : IDictionarySource
     {
-        private readonly Setting m_Setting;
+        private readonly ASCSetting m_Setting;
 
-        public LocaleZH_CN(Setting setting)
+        public LocaleZH_CN(ASCSetting setting)
         {
             m_Setting = setting;
         }
@@ -43,72 +43,72 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetSettingsLocaleID(), title },
 
                 // Tabs
-                { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "操作" },
-                { m_Setting.GetOptionTabLocaleID(Setting.AboutTab),   "关于" },
+                { m_Setting.GetOptionTabLocaleID(ASCSetting.ActionsTab), "操作" },
+                { m_Setting.GetOptionTabLocaleID(ASCSetting.AboutTab),   "关于" },
 
                 // Groups - Actions
-                { m_Setting.GetOptionGroupLocaleID(Setting.CapacityGroup), "学生容量" },
-                { m_Setting.GetOptionGroupLocaleID(Setting.PresetGroup),   "预设" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.CapacityGroup), "学生容量" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.PresetGroup),   "预设" },
 
                 // Groups - About
-                { m_Setting.GetOptionGroupLocaleID(Setting.AboutInfoGroup),  "信息" },
-                { m_Setting.GetOptionGroupLocaleID(Setting.AboutLinksGroup), "支持链接" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutInfoGroup),  "信息" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutLinksGroup), "支持链接" },
 
                 // Sliders
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "小学" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementarySlider)), "小学" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementarySlider)),
                     "**小学** – 用滑条设置容量 10% - 1000%。\n" +
                     "100% = 游戏默认容量。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "高中" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolSlider)), "高中" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolSlider)),
                     "**高中** – 用滑条设置容量 10% - 1000%。\n" +
                     "100% = 游戏默认容量。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.CollegeSlider)), "学院 (College)" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.CollegeSlider)), "学院 (College)" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.CollegeSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.CollegeSlider)),
                     "**学院** – 用滑条设置容量 10% - 500%。\n" +
                     "100% = 游戏默认容量。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "大学" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.UniversitySlider)), "大学" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.UniversitySlider)),
                     "**大学** – 用滑条设置容量 10% - 500%。\n" +
                     "100% = 游戏默认容量。"
                 },
 
                 // Preset buttons
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToVanilla)), "重置为原版" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToVanilla)), "重置为原版" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToVanilla)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToVanilla)),
                     "把所有容量滑条重置为 100%（游戏默认）。"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "快速启动预设" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToModDefault)), "快速启动预设" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToModDefault)),
                     "设置快速启动预设：\n" +
                     "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.NameDisplay)),    "模组" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.NameDisplay)),     "这个模组的名称。" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.NameDisplay)),    "模组" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.NameDisplay)),     "这个模组的名称。" },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.VersionDisplay)), "版本" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.VersionDisplay)),  "当前模组版本。" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.VersionDisplay)), "版本" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.VersionDisplay)),  "当前模组版本。" },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.OpenParadoxMods)), "Paradox Mods" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.OpenParadoxMods)),  "在浏览器中打开 Paradox Mods 上的这个模组页面。" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.OpenParadoxMods)), "Paradox Mods" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenParadoxMods)),  "在浏览器中打开 Paradox Mods 上的这个模组页面。" },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.OpenDiscord)), "Discord" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.OpenDiscord)),  "在浏览器中打开社区 Discord。" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.OpenDiscord)), "Discord" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenDiscord)),  "在浏览器中打开社区 Discord。" },
             };
         }
 

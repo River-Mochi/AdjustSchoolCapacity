@@ -33,7 +33,7 @@ namespace AdjustSchoolCapacity
         PresetGroup,
         AboutLinksGroup
     )]
-    public sealed class Setting : ModSetting
+    public sealed class ASCSetting : ModSetting
     {
         // ---- Tabs ----
         public const string ActionsTab = "Actions";
@@ -51,7 +51,7 @@ namespace AdjustSchoolCapacity
             "https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime";
         private const string UrlDiscord = "https://discord.gg/gwXgvtyhjc";
 
-        public Setting(IMod mod) : base(mod)
+        public ASCSetting(IMod mod) : base(mod)
         {
             // Existing .coc values overwrite these defaults during LoadSettings.
             SetDefaults();

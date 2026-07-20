@@ -1,4 +1,4 @@
-// <copyright file="LocalePT_PT.cs" company="River-Mochi">
+﻿// <copyright file="LocalePT_PT.cs" company="River-Mochi">
 // Copyright (c) 2026 River-Mochi. All rights reserved.
 // Licensed under the MIT License. You may not use this file except in compliance with this License.
 // See LICENSE file in the project root for full license information.
@@ -17,9 +17,9 @@ namespace AdjustSchoolCapacity
 
     public sealed class LocalePT_PT : IDictionarySource
     {
-        private readonly Setting m_Setting;
+        private readonly ASCSetting m_Setting;
 
-        public LocalePT_PT(Setting setting)
+        public LocalePT_PT(ASCSetting setting)
         {
             m_Setting = setting;
         }
@@ -43,72 +43,72 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetSettingsLocaleID(), title },
 
                 // Tabs
-                { m_Setting.GetOptionTabLocaleID(Setting.ActionsTab), "Ações" },
-                { m_Setting.GetOptionTabLocaleID(Setting.AboutTab),   "Sobre" },
+                { m_Setting.GetOptionTabLocaleID(ASCSetting.ActionsTab), "Ações" },
+                { m_Setting.GetOptionTabLocaleID(ASCSetting.AboutTab),   "Sobre" },
 
                 // Groups - Actions
-                { m_Setting.GetOptionGroupLocaleID(Setting.CapacityGroup), "Capacidade de Alunos" },
-                { m_Setting.GetOptionGroupLocaleID(Setting.PresetGroup),   "Predefinições" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.CapacityGroup), "Capacidade de Alunos" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.PresetGroup),   "Predefinições" },
 
                 // Groups - About
-                { m_Setting.GetOptionGroupLocaleID(Setting.AboutInfoGroup),  "Informações" },
-                { m_Setting.GetOptionGroupLocaleID(Setting.AboutLinksGroup), "Ligações de Suporte" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutInfoGroup),  "Informações" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutLinksGroup), "Ligações de Suporte" },
 
                 // Sliders
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ElementarySlider)), "Escola primária" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementarySlider)), "Escola primária" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ElementarySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementarySlider)),
                     "**Escola primária** – ajusta a capacidade entre 10% e 1000% usando o slider.\n" +
                     "100% = capacidade padrão do jogo."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.HighSchoolSlider)), "Escola secundária" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolSlider)), "Escola secundária" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.HighSchoolSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolSlider)),
                     "**Escola secundária** – ajusta a capacidade entre 10% e 1000% usando o slider.\n" +
                     "100% = capacidade padrão do jogo."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.CollegeSlider)), "Faculdade" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.CollegeSlider)), "Faculdade" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.CollegeSlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.CollegeSlider)),
                     "**Faculdade** – ajusta a capacidade entre 10% e 500% usando o slider.\n" +
                     "100% = capacidade padrão do jogo."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.UniversitySlider)), "Universidade" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.UniversitySlider)), "Universidade" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.UniversitySlider)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.UniversitySlider)),
                     "**Universidade** – ajusta a capacidade entre 10% e 500% usando o slider.\n" +
                     "100% = capacidade padrão do jogo."
                 },
 
                 // Preset buttons
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToVanilla)), "Repor para Vanilla" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToVanilla)), "Repor para Vanilla" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToVanilla)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToVanilla)),
                     "Coloca todos os sliders de capacidade em 100% (capacidade padrão do jogo)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToModDefault)), "Predefinições de arranque rápido" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToModDefault)), "Predefinições de arranque rápido" },
                 {
-                    m_Setting.GetOptionDescLocaleID(nameof(Setting.ResetToModDefault)),
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToModDefault)),
                     "Aplicar predefinição de arranque rápido:\n" +
                     "**200 / 150 / 110 / 100**"
                 },
 
                 // About tab
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.NameDisplay)),    "Mod" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.NameDisplay)),     "Nome deste mod." },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.NameDisplay)),    "Mod" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.NameDisplay)),     "Nome deste mod." },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.VersionDisplay)), "Versão" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.VersionDisplay)),  "Versão atual do mod." },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.VersionDisplay)), "Versão" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.VersionDisplay)),  "Versão atual do mod." },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.OpenParadoxMods)), "Paradox Mods" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.OpenParadoxMods)),  "Abrir o site da Paradox com os mods deste autor." },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.OpenParadoxMods)), "Paradox Mods" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenParadoxMods)),  "Abrir o site da Paradox com os mods deste autor." },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(Setting.OpenDiscord)), "Discord" },
-                { m_Setting.GetOptionDescLocaleID(nameof(Setting.OpenDiscord)),  "Abrir o servidor Discord de suporte no navegador." },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.OpenDiscord)), "Discord" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenDiscord)),  "Abrir o servidor Discord de suporte no navegador." },
             };
         }
 

@@ -58,7 +58,7 @@ namespace AdjustSchoolCapacity
 
         protected override void OnUpdate()
         {
-            Setting? setting = Mod.Setting;
+            ASCSetting? setting = Mod.Setting;
             if (setting == null)
             {
                 Enabled = false;
@@ -134,7 +134,7 @@ namespace AdjustSchoolCapacity
             return false;
         }
 
-        private static double GetScalar(Setting setting, byte level)
+        private static double GetScalar(ASCSetting setting, byte level)
         {
             return (SchoolLevel)level switch
             {
