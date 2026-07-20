@@ -60,9 +60,8 @@ tags: city schools, education capacity, automatic increase school size controlle
 
 <ChangeLog>
 * Elementary and High School sliders now support up to 1000%.
-* Settings: preset buttons now save immediately.
 * Updated translations.
-* Internal refactor: improved stability and minor performance.
+* Internal refactor, cleanup.
 </ChangeLog>
   <!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
   <ExternalLink Type="discord" Url="https://discord.gg/gwXgvtyhjc" />
