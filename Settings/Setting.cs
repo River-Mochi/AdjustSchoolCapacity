@@ -91,28 +91,28 @@ namespace AdjustSchoolCapacity
 
         // Elementary / High School: 10–1000%. College / University: 10–500%.
 
-        [SettingsUISlider(min = 10, max = 1000, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 1000, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage, updateOnDragEnd = true)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int ElementarySlider
         {
             get; set;
         }
 
-        [SettingsUISlider(min = 10, max = 1000, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 1000, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage, updateOnDragEnd = true)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int HighSchoolSlider
         {
             get; set;
         }
 
-        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage, updateOnDragEnd = true)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int CollegeSlider
         {
             get; set;
         }
 
-        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage, updateOnDragEnd = true)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int UniversitySlider
         {
