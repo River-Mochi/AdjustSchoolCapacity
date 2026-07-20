@@ -12,17 +12,13 @@
 namespace AdjustSchoolCapacity
 {
     using System;                       // Exception
-
     using Colossal.IO.AssetDatabase;    // FileLocation
-
     using Game;                         // IsGame
     using Game.Modding;                 // IMod, ModSetting
     using Game.SceneFlow;               // GameManager
     using Game.Settings;                // Settings UI attributes
     using Game.UI;                      // Unit
-
     using Unity.Entities;               // World
-
     using UnityEngine;                  // Application.OpenURL
 
     [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]
