@@ -13,10 +13,6 @@ namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal;
-    using Game.Citizens;
-    using Game.City;
-    using UnityEngine;
-    using static Game.UI.Tooltip.TooltipGroup;
 
     public sealed class LocaleEN : IDictionarySource
     {
@@ -95,11 +91,11 @@ namespace AdjustSchoolCapacity
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ControlEducationFees)),
                     "OFF leaves the game's normal education fees unchanged.\n" +
                     "ON lets ASC control the city-wide fees below. Turning it OFF restores vanilla fees.\n" +
-                    "Negative fees pay a stipend to all enrolled student households and reduces the city budget.\n" +
-                    "This may ease financial pressure on poor families/decrease moving out. Phase 1, all households get the same fees.\n" +
-                    "This is not free or magic money.\n"+
-                    "Student household receives money, City treasury loses the same category income.\n" +
-                    "**------------------**\n"+
+                    "Negative fees pay a stipend to all enrolled student households and reduce the city budget.\n" +
+                    "This may ease financial pressure on poor families and reduce moving out. In this version, all households get the same fees.\n" +
+                    "This is not free or magic money.\n" +
+                    "Student households receive money; the city treasury loses the same category of income.\n" +
+                    "**------------------**\n" +
                     "100%: vanilla fee\n" +
                     "0%: households pay nothing\n" +
                     "-20%: households receive a stipend equal to 20% of the vanilla fee\n" +
@@ -113,8 +109,8 @@ namespace AdjustSchoolCapacity
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
                     "<100% = vanilla fee (100).>\n" +
-                    "<0% = no fee>  nothing is removed from the household.\n" +
-                    "-1% to -20% pays a student stipend while enrolled."
+                    "<0% = no fee> Nothing is removed from the household.\n" +
+                    "-5% to -20% pays a student stipend while enrolled."
                 },
 
                 {
@@ -124,23 +120,32 @@ namespace AdjustSchoolCapacity
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
                     "<100% = vanilla fee (200).>\n" +
-                    "<0% = no fee>  nothing is removed from the household.\n" +
-                    "-1% to -20% pays a student stipend while enrolled."
+                    "<0% = no fee> Nothing is removed from the household.\n" +
+                    "-5% to -20% pays a student stipend while enrolled."
                 },
 
                 {
                     m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
-                    "College + University fee"
+                    "College + University Fee"
                 },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
                     "College and University share one game fee.\n" +
-                    "<100% = vanilla fee (300)>\n" +
+                    "<100% = vanilla fee (300).>\n" +
                     "<0% = no fee.>\n" +
                     "Lower or zero fees may reduce dropout pressure, but fees do not directly make cims more likely to apply."
                 },
 
-                // Preset buttons
+                {
+                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Game Defaults"
+                },   
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetEducationFees)),
+                    "Reset all three education fee sliders to 100% and immediately restore the game's vanilla education fees."
+                },
+
+
+                // Capacity preset buttons
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToVanilla)), "Reset to Vanilla" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToVanilla)),

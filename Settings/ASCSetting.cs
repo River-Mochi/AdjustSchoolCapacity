@@ -163,7 +163,23 @@ namespace AdjustSchoolCapacity
             get; set;
         }
 
-        // Keep both buttons in the same UI row.
+        [SettingsUIButton]
+        [SettingsUISection(ActionsTab, FeeGroup)]
+        public bool ResetEducationFees
+        {
+            set
+            {
+                if (!value)
+                {
+                    return;
+                }
+
+                SetEducationFeesToGameDefaults();
+                ApplyAndSave();
+            }
+        }
+
+        // Keep both capacity buttons in the same UI row.
         [SettingsUIButtonGroup(PresetGroup)]
         [SettingsUIButton]
         [SettingsUISection(ActionsTab, PresetGroup)]
@@ -277,6 +293,16 @@ namespace AdjustSchoolCapacity
             HighSchoolSlider = 150;
             CollegeSlider = 110;
             UniversitySlider = 100;
+        }
+
+        public void SetEducationFeesToGameDefaults()
+        {
+            ElementaryFeePercent = 100;
+            HighSchoolFeePercent = 100;
+            HigherEducationFeePercent = 100;
+
+            // Restore the live city fees even when fee control is currently OFF.
+            m_RestoreVanillaFeesRequested = true;
         }
 
         internal bool ConsumeRestoreVanillaFeesRequest()
