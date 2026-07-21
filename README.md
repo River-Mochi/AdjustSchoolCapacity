@@ -14,12 +14,11 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
 ## 12 Languages
 - English, French, German, Spanish, Italian
 - Japanese, Korean, Polish, Portuguese (Brazil)
-- Simplified Chinese, Traditional Chinese
-- WIP: Portuguese (Portugal)
+- Simplified Chinese, Traditional Chinese, Portuguese (Portugal)
 
 ## Compatibility notes
 
-- Safe to remove anytime. For clean vanilla numbers: set all sliders to **100%**.
+- Before disabling or removing ASC, turn **Education Fees OFF** or press **Game Defaults**, and return all capacity sliders to **100%**.
 - No Harmony / no Reflection; safer and more reliable on game patch days.
 - Avoid using multiple mods that change school capacity at the same time.
 

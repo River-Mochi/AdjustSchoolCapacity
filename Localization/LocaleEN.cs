@@ -121,16 +121,14 @@ namespace AdjustSchoolCapacity
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolFeePercent)), "High School Fee" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
                     "<100% = vanilla fee (200).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
                     "**-5% to -20%** pays a student stipend while enrolled."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)), "College + University Fee" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
                     "College and University share one game fee.\n" +
                     "<100% = vanilla fee (300).>\n" +
                     "<0% = no fee.>\n" +
@@ -138,14 +136,17 @@ namespace AdjustSchoolCapacity
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Free Schools" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
-                    "Set all education fees to 0%. Student households pay no school fees."
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
+                    "Set all education fees to 0%. Student households pay no school fees.\n"+
+                    "This is not free or magic money.\n" +
+                    "The city treasury loses normal income from education fees.\n" +
+                    "**------------------**\n" +
+                    "<100%: vanilla fee>\n" +
+                    "<0%: households pay nothing.>"
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Game Defaults" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetEducationFees)),
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetEducationFees)),
                     "Reset all education fee sliders to 100% and restore the game's vanilla education fees."
                 },
 

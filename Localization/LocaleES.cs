@@ -138,9 +138,13 @@ namespace AdjustSchoolCapacity
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Escuelas gratuitas" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
-                    "Establece todas las cuotas educativas al 0%. Los hogares con estudiantes no pagan cuotas escolares."
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
+                    "Establece todas las cuotas educativas al 0%. Los hogares con estudiantes no pagan cuotas escolares.\n" +
+                    "No es dinero gratis ni mágico.\n" +
+                    "La tesorería de la ciudad pierde los ingresos normales de las cuotas educativas.\n" +
+                    "**------------------**\n" +
+                    "<100%: cuota Vanilla>\n" +
+                    "<0%: los hogares no pagan nada.>"
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Valores del juego" },

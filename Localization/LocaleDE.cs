@@ -138,9 +138,13 @@ namespace AdjustSchoolCapacity
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Kostenlose Bildung" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
-                    "Alle Bildungsgebühren auf 0% setzen. Haushalte mit Schülern oder Studierenden zahlen keine Schulgebühren."
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
+                "Alle Bildungsgebühren auf 0% setzen. Haushalte mit Schülern oder Studierenden zahlen keine Schulgebühren.\n" +
+                "Das Geld wird nicht kostenlos oder magisch erzeugt.\n" +
+                "Der Stadthaushalt verliert die normalen Einnahmen aus Bildungsgebühren.\n" +
+                "**------------------**\n" +
+                "<100%: Vanilla-Gebühr>\n" +
+                "<0%: Haushalte zahlen nichts.>"
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Spielstandard" },
