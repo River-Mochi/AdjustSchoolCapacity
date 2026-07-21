@@ -11,10 +11,10 @@ A **Cities: Skylines II** mod that scales how many students each school can hold
   - **Quick Start Presets:** **200 / 150 / 110 / 100**
 - Supports city switching (Load City / New City).
 
-## 12 Languages
+## 14 Languages
 - English, French, German, Spanish, Italian
-- Japanese, Korean, Polish, Portuguese (Brazil)
-- Simplified Chinese, Traditional Chinese, Portuguese (Portugal)
+- Japanese, Korean, Polish, Portuguese (Brazil), Portuguese (Portugal)
+- Simplified Chinese, Traditional Chinese, Ukrainian, Vietnamese
 
 ## Compatibility notes
 

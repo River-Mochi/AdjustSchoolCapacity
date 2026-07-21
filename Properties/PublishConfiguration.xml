@@ -8,40 +8,40 @@
   <!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
   <!--LongDescription Value="This is a long description" /-->
   <LongDescription>
-### Adjust School Capacity
+      ### Adjust School Capacity
 
-Change how many students your schools can handle without adding more buildings.
+      Change how many students your schools can handle without adding more buildings.
 
-- Lower or increase the number of students.
-- Buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
-- Increase or decrease the fees each student pays. Set all schools to free or double the fees.
-- Example: a negagive fee of -20% means the student household receives a stipend of 20% of the school fees.
-- This is not free or magic money. If a student households receive money, the city treasury loses that income from education fees.
-- Don't forget the like button, it helps people find this mod easier.
+      - Lower or increase the number of students.
+      - Buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
+      - Increase or decrease the fees each student pays. Set all schools to free or double the fees.
+      - Example: a negative fee of -20% means the student household receives a stipend equal to 20% of the normal school fee.
+      - This is not free or magic money. When student households receive money, the city treasury loses the same amount of education-fee income.
+      - Don't forget the like button, it helps people find this mod easier.
 
-### Notes
+      ### Notes
 
-- Remove other mods that do school student sizing to avoid conflicts.
-- Before disabling ASC, turn education fees off or press Game Defaults, and return the capacity sliders to 100%.
-- Mod is compatible with all my other mods.
-- Mod does not use Harmony patch; is more resilient to game updates.
+      - Remove other mods that do school student sizing to avoid conflicts.
+      - Before disabling ASC, turn education fees off or press Game Defaults, and return the capacity sliders to 100%.
+      - Mod is compatible with all my other mods.
+      - Mod does not use Harmony patch; means it's more resilient to game updates.
 
-### Support and Feedback
-- Report issues on Github or Discord links on the right side of this page.
+      ### Support and Feedback
+      - Report issues on Github or Discord links on the right side of this page.
 
-### 13+ Languages
-Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Привіт, Xin chào
+      ### 13+ Languages
+      Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Привіт, Xin chào
 
-### Credits
+      ### Credits
 
-- River-Mochi – mod author
-- Inspired by Wayz's original School Capacity (retired)
-- yenyang - technical support
-- Joksan, Obelix, Necko1996 – testing
+      - River-Mochi – mod author
+      - Inspired by Wayz's original School Capacity (retired)
+      - yenyang - technical support
+      - Joksan, Obelix, Necko1996 – testing
 
 
-tags: city schools, education capacity, automatic increase school size controller
-</LongDescription>
+      tags: city schools, education capacity, automatic increase school size controller
+  </LongDescription>
   <!--Thumbnail-->
   <Thumbnail Value="Properties/Thumbnail-ASC.jpg" />
   <!--Screenshot, can be set multiple times-->

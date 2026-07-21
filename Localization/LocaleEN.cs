@@ -113,8 +113,7 @@ namespace AdjustSchoolCapacity
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementaryFeePercent)), "Elementary Fee" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
                     "<100% = vanilla fee (100).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
                     "**-5% to -20%** pays a student stipend while enrolled."
@@ -132,14 +131,15 @@ namespace AdjustSchoolCapacity
                     "College and University share one game fee.\n" +
                     "<100% = vanilla fee (300).>\n" +
                     "<0% = no fee.>\n" +
+                    "**-5% to -20%** pays a student stipend while enrolled.\n" +
                     "Lower or zero fees may reduce dropout pressure, but fees do not directly make cims more likely to apply."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Free Schools" },
                 { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
-                    "Set all education fees to 0%. Student households pay no school fees.\n"+
-                    "This is not free or magic money.\n" +
-                    "The city treasury loses normal income from education fees.\n" +
+                    "Set all education fees to 0%.\n"+
+                    "This is not free or magic money to cover fees.\n" +
+                    "If Student households pay no fees, then the city treasury loses normal income from education fees.\n" +
                     "**------------------**\n" +
                     "<100%: vanilla fee>\n" +
                     "<0%: households pay nothing.>"
