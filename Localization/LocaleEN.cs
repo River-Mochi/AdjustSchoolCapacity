@@ -57,28 +57,28 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementarySlider)), "Elementary" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementarySlider)),
-                    "**Elementary school** – customize capacity 10% - 1000% using the slider.\n" +
+                    "**Elementary school** – customize capacity using the slider.\n" +
                     "100% = game's default capacity."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolSlider)), "High School" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolSlider)),
-                    "**High school** – customize capacity 10% - 1000% using the slider.\n" +
+                    "**High school** – customize capacity using the slider.\n" +
                     "100% = game's default capacity."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.CollegeSlider)), "College" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.CollegeSlider)),
-                    "**College** – customize capacity 10% - 500% using the slider.\n" +
+                    "**College** – customize capacity using the slider.\n" +
                     "100% = game's default capacity."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.UniversitySlider)), "University" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.UniversitySlider)),
-                    "**University** – customize capacity 10% - 500% using the slider.\n" +
+                    "**University** – customize capacity using the slider.\n" +
                     "100% = game's default capacity."
                 },
 
@@ -96,10 +96,10 @@ namespace AdjustSchoolCapacity
                     "This is not free or magic money.\n" +
                     "Student households receive money; the city treasury loses the same category of income.\n" +
                     "**------------------**\n" +
-                    "100%: vanilla fee\n" +
-                    "0%: households pay nothing\n" +
-                    "-20%: households receive a stipend equal to 20% of the vanilla fee\n" +
-                    "200%: twice the vanilla fee"
+                    "<100%: vanilla fee>\n" +
+                    "<0%: households pay nothing.>\n" +
+                    "<-20%: households receive a stipend equal to 20% of the vanilla fee.>\n" +
+                    "<200%: twice the vanilla fee>"
                 },
 
                 {
@@ -110,7 +110,7 @@ namespace AdjustSchoolCapacity
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
                     "<100% = vanilla fee (100).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
-                    "-5% to -20% pays a student stipend while enrolled."
+                    "**-5% to -20%** pays a student stipend while enrolled."
                 },
 
                 {
@@ -121,7 +121,7 @@ namespace AdjustSchoolCapacity
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
                     "<100% = vanilla fee (200).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
-                    "-5% to -20% pays a student stipend while enrolled."
+                    "**-5% to -20%** pays a student stipend while enrolled."
                 },
 
                 {
