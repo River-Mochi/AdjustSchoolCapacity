@@ -58,13 +58,12 @@ namespace AdjustSchoolCapacity
 
         protected override void OnUpdate()
         {
-            ASCSetting? setting = Mod.Setting;
-            if (setting == null)
+
+            if (Mod.Setting is not ASCSetting setting)
             {
                 Enabled = false;
                 return;
             }
-
             // Iterate directly without creating a temporary entity array.
             foreach ((RefRW<SchoolData> schoolRef, Entity entity) in SystemAPI
                          .Query<RefRW<SchoolData>>()
