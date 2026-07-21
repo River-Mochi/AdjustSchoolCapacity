@@ -12,11 +12,10 @@
 namespace AdjustSchoolCapacity
 {
     using System.Reflection;
-
     using Colossal.IO.AssetDatabase;
     using Colossal.Localization;
     using Colossal.Logging;
-
+    using CS2Shared.RiverMochi;
     using Game;
     using Game.Modding;
     using Game.SceneFlow;
@@ -43,10 +42,11 @@ namespace AdjustSchoolCapacity
 
         public void OnLoad(UpdateSystem updateSystem)
         {
+            LogUtils.Configure(ModId, s_Log);
             if (!s_BannerLogged)
             {
                 s_BannerLogged = true;
-                s_Log.Info($"{ModId} {ModTag} v{ModVersion} OnLoad");
+                LogUtils.Info($"{ModId} {ModTag} v{ModVersion} OnLoad");
             }
 
             ASCSetting setting = new ASCSetting(this);
@@ -70,7 +70,7 @@ namespace AdjustSchoolCapacity
             }
             else
             {
-                s_Log.Warn($"{ModTag} LocalizationManager is null; skipping locale registration.");
+                LogUtils.Warn($"{ModTag} LocalizationManager is null; skipping locale registration.");
             }
 
             AssetDatabase.global.LoadSettings(ModId, setting, new ASCSetting(this));
@@ -79,7 +79,7 @@ namespace AdjustSchoolCapacity
             if (setting.RepairInvalidValues())
             {
                 setting.ApplyAndSave();
-                s_Log.Info($"{ModTag} Repaired invalid slider values to vanilla settings.");
+                LogUtils.Info($"{ModTag} Repaired invalid slider values to vanilla settings.");
             }
 
             setting.RegisterInOptionsUI();

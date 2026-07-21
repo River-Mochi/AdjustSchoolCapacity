@@ -14,6 +14,7 @@ namespace AdjustSchoolCapacity
 {
     using Colossal.Entities;
     using Colossal.Serialization.Entities;
+    using CS2Shared.RiverMochi;
 
     using Game;
     using Game.Prefabs;
@@ -93,8 +94,9 @@ namespace AdjustSchoolCapacity
         public void RequestReapplyFromSettings()
         {
             Enabled = true;
+
 #if DEBUG
-            Mod.s_Log.Info("[ASC] Settings changed → reapply requested.");
+            LogUtils.Debug("[ASC] Settings changed → reapply requested.");
 #endif
         }
 
