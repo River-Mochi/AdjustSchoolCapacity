@@ -6,13 +6,12 @@
 // all copies or substantial portions of this code.
 // ================= </copyright> ======================
 
-// Localization/LocalePL.cs
+// File: Localization/LocalePL.cs
 // Polish (pl-PL) for Options UI.
 
 namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
-
     using Colossal;
 
     public sealed class LocalePL : IDictionarySource
@@ -38,63 +37,116 @@ namespace AdjustSchoolCapacity
 
             return new Dictionary<string, string>
             {
-
                 // Mod name in options
                 { m_Setting.GetSettingsLocaleID(), title },
 
                 // Tabs
-                { m_Setting.GetOptionTabLocaleID(ASCSetting.ActionsTab), "Opcje" },
+                { m_Setting.GetOptionTabLocaleID(ASCSetting.ActionsTab), "Działania" },
                 { m_Setting.GetOptionTabLocaleID(ASCSetting.AboutTab),   "O modzie" },
 
                 // Groups - Actions
-                { m_Setting.GetOptionGroupLocaleID(ASCSetting.CapacityGroup), "Pojemność uczniów" },
-                { m_Setting.GetOptionGroupLocaleID(ASCSetting.PresetGroup),   "Presety" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.CapacityGroup), "Pojemność szkół" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.FeeGroup),      "Opłaty za naukę" },
 
                 // Groups - About
                 { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutInfoGroup),  "Informacje" },
-                { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutLinksGroup), "Linki wsparcia" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutLinksGroup), "Łącza pomocy" },
 
-                // Sliders
+                // Capacity sliders
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementarySlider)), "Szkoła podstawowa" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementarySlider)),
-                    "**Szkoła podstawowa** – dostosuj pojemność od 10% do 1000% suwakiem.\n" +
-                    "100% = domyślna pojemność gry."
+                    "**Szkoła podstawowa** – dostosuj pojemność suwakiem.\n" +
+                    "100% = domyślna pojemność w grze."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolSlider)), "Liceum" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolSlider)), "Szkoła średnia" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolSlider)),
-                    "**Liceum** – dostosuj pojemność od 10% do 1000% suwakiem.\n" +
-                    "100% = domyślna pojemność gry."
+                    "**Szkoła średnia** – dostosuj pojemność suwakiem.\n" +
+                    "100% = domyślna pojemność w grze."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.CollegeSlider)), "Kolegium" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.CollegeSlider)), "College" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.CollegeSlider)),
-                    "**Kolegium** – dostosuj pojemność od 10% do 500% suwakiem.\n" +
-                    "100% = domyślna pojemność gry."
+                    "**College** – dostosuj pojemność suwakiem.\n" +
+                    "100% = domyślna pojemność w grze."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.UniversitySlider)), "Uniwersytet" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.UniversitySlider)),
-                    "**Uniwersytet** – dostosuj pojemność od 10% do 500% suwakiem.\n" +
-                    "100% = domyślna pojemność gry."
+                    "**Uniwersytet** – dostosuj pojemność suwakiem.\n" +
+                    "100% = domyślna pojemność w grze."
                 },
 
-                // Preset buttons
-                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToVanilla)), "Przywróć domyślne" },
+                // Capacity preset buttons
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToVanilla)), "Przywróć Vanilla" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToVanilla)),
-                    "Ustaw wszystkie suwaki pojemności z powrotem na 100% (domyślne wartości gry)."
+                    "Przywraca wszystkie suwaki pojemności do 100% (domyślne wartości gry)."
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToModDefault)), "Presety szybkiego startu" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToModDefault)), "Szybkie ustawienia" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToModDefault)),
-                    "Ustaw preset szybkiego startu:\n" +
+                    "Zastosuj szybkie ustawienia:\n" +
                     "**200 / 150 / 110 / 100**"
+                },
+
+                // School fees
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ControlEducationFees)), "Opłaty edukacyjne" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ControlEducationFees)),
+                    "OFF pozostawia standardowe opłaty edukacyjne gry bez zmian.\n" +
+                    "ON pozwala ASC sterować poniższymi opłatami w całym mieście. Wyłączenie przywraca opłaty Vanilla.\n" +
+                    "Ujemne opłaty wypłacają stypendium wszystkim gospodarstwom ze studentami i zmniejszają budżet miasta.\n" +
+                    "Może to zmniejszyć presję finansową na biedne rodziny i ograniczyć wyprowadzki. W tej wersji wszystkie gospodarstwa mają takie same opłaty.\n" +
+                    "Nie są to darmowe ani magicznie tworzone pieniądze.\n" +
+                    "Gospodarstwa otrzymują pieniądze; skarbiec miasta traci dochód w tej samej kategorii.\n" +
+                    "**------------------**\n" +
+                    "<100%: opłata Vanilla>\n" +
+                    "<0%: gospodarstwa nic nie płacą.>\n" +
+                    "<-20%: gospodarstwa otrzymują stypendium równe 20% opłaty Vanilla.>\n" +
+                    "<200%: podwójna opłata Vanilla>"
+                },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementaryFeePercent)), "Opłata za szkołę podstawową" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
+                    "<100% = opłata Vanilla (100).>\n" +
+                    "<0% = bez opłat> Nic nie jest pobierane z gospodarstwa.\n" +
+                    "**-5% do -20%** wypłaca stypendium podczas nauki."
+                },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolFeePercent)), "Opłata za szkołę średnią" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
+                    "<100% = opłata Vanilla (200).>\n" +
+                    "<0% = bez opłat> Nic nie jest pobierane z gospodarstwa.\n" +
+                    "**-5% do -20%** wypłaca stypendium podczas nauki."
+                },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)), "Opłata College + Uniwersytet" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
+                    "College i Uniwersytet korzystają z jednej wspólnej opłaty gry.\n" +
+                    "<100% = opłata Vanilla (300).>\n" +
+                    "<0% = bez opłat.>\n" +
+                    "Niższe lub zerowe opłaty mogą zmniejszyć ryzyko rezygnacji z nauki, ale nie zwiększają bezpośrednio szansy zgłoszenia."
+                },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Bezpłatna edukacja" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
+                    "Ustawia wszystkie opłaty edukacyjne na 0%. Gospodarstwa ze studentami nie płacą za naukę."
+                },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Domyślne gry" },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetEducationFees)),
+                    "Przywraca wszystkie trzy opłaty edukacyjne do 100% i odtwarza opłaty Vanilla gry."
                 },
 
                 // About tab
@@ -102,13 +154,13 @@ namespace AdjustSchoolCapacity
                 { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.NameDisplay)),     "Nazwa tego moda." },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.VersionDisplay)), "Wersja" },
-                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.VersionDisplay)),  "Aktualna wersja moda." },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.VersionDisplay)),  "Bieżąca wersja moda." },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.OpenParadoxMods)), "Paradox Mods" },
-                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenParadoxMods)),  "Otwórz ten mod na stronie Paradox Mods w przeglądarce." },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenParadoxMods)),  "Otwórz stronę modów autora w Paradox Mods." },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.OpenDiscord)), "Discord" },
-                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenDiscord)),  "Otwórz społeczność Discord w przeglądarce." },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.OpenDiscord)),  "Otwórz Discord społeczności w przeglądarce." },
             };
         }
 

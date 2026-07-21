@@ -25,14 +25,12 @@ namespace AdjustSchoolCapacity
     [SettingsUIGroupOrder(
         CapacityGroup,
         FeeGroup,
-        PresetGroup,
         AboutInfoGroup,
         AboutLinksGroup
     )]
     [SettingsUIShowGroupName(
         CapacityGroup,
         FeeGroup,
-        PresetGroup,
         AboutLinksGroup
     )]
     public sealed class ASCSetting : ModSetting
@@ -44,7 +42,6 @@ namespace AdjustSchoolCapacity
         // ---- Groups: Actions tab ----
         public const string CapacityGroup = "Student Capacity";
         public const string FeeGroup = "School Fees";
-        public const string PresetGroup = "Presets";
 
         // ---- Groups: About tab ----
         public const string AboutInfoGroup = "Info";
@@ -119,6 +116,41 @@ namespace AdjustSchoolCapacity
         public int UniversitySlider
         {
             get; set;
+        }
+
+        // Keep both capacity preset buttons below the capacity sliders.
+        [SettingsUIButtonGroup(CapacityGroup)]
+        [SettingsUIButton]
+        [SettingsUISection(ActionsTab, CapacityGroup)]
+        public bool ResetToVanilla
+        {
+            set
+            {
+                if (!value)
+                {
+                    return;
+                }
+
+                SetToVanilla();
+                ApplyAndSave();
+            }
+        }
+
+        [SettingsUIButtonGroup(CapacityGroup)]
+        [SettingsUIButton]
+        [SettingsUISection(ActionsTab, CapacityGroup)]
+        public bool ResetToModDefault
+        {
+            set
+            {
+                if (!value)
+                {
+                    return;
+                }
+
+                SetQuickStart();
+                ApplyAndSave();
+            }
         }
 
         // ---- School fees ----
@@ -199,40 +231,6 @@ namespace AdjustSchoolCapacity
                 }
 
                 SetEducationFeesToGameDefaults();
-                ApplyAndSave();
-            }
-        }
-
-        [SettingsUIButtonGroup(PresetGroup)]
-        [SettingsUIButton]
-        [SettingsUISection(ActionsTab, PresetGroup)]
-        public bool ResetToVanilla
-        {
-            set
-            {
-                if (!value)
-                {
-                    return;
-                }
-
-                SetToVanilla();
-                ApplyAndSave();
-            }
-        }
-
-        [SettingsUIButtonGroup(PresetGroup)]
-        [SettingsUIButton]
-        [SettingsUISection(ActionsTab, PresetGroup)]
-        public bool ResetToModDefault
-        {
-            set
-            {
-                if (!value)
-                {
-                    return;
-                }
-
-                SetQuickStart();
                 ApplyAndSave();
             }
         }
