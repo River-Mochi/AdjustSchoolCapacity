@@ -8,38 +8,39 @@
   <!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
   <!--LongDescription Value="This is a long description" /-->
   <LongDescription>
-### Adjust School Capacity (Redux)
+### Adjust School Capacity
 
 Change how many students your schools can handle without adding more buildings.
 
 - Lower or increase the number of students.
-- Convenient buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
-- Increase or decrease the fees each student enrolled pays.
-- Household receives a stipend of 20% of the school fees if slider is set to -20%.
-- This is not free or magic money. Student households receive money; the city treasury loses the same category of income.
-- Please hit the like button, it helps people can find this mod easier.
+- Buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
+- Increase or decrease the fees each student pays. Set all schools to free or double the fees.
+- Example: a negagive fee of -20% means the student household receives a stipend of 20% of the school fees.
+- This is not free or magic money. If a student households receive money, the city treasury loses that income from education fees.
+- Don't forget the like button, it helps people find this mod easier.
 
 ### Notes
 
 - Remove other mods that do school student sizing to avoid conflicts.
-- Before disabling ASC, turn Education Fees OFF or press Game Defaults, and return the capacity sliders to 100%.
+- Before disabling ASC, turn education fees off or press Game Defaults, and return the capacity sliders to 100%.
 - Mod is compatible with all my other mods.
 - Mod does not use Harmony patch; is more resilient to game updates.
 
 ### Support and Feedback
 - Report issues on Github or Discord links on the right side of this page.
 
-### 12+ Languages
-Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Olá
+### 13+ Languages
+Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Привіт, Xin chào
 
 ### Credits
 
 - River-Mochi – mod author
 - Inspired by Wayz's original School Capacity (retired)
-- Joksan, Obelix, Necko1996 – code update and testing
+- yenyang - technical support
+- Joksan, Obelix, Necko1996 – testing
+
 
 tags: city schools, education capacity, automatic increase school size controller
-
 </LongDescription>
   <!--Thumbnail-->
   <Thumbnail Value="Properties/Thumbnail-ASC.jpg" />
