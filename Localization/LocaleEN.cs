@@ -137,9 +137,9 @@ namespace AdjustSchoolCapacity
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Free Schools" },
                 { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
-                    "Set all education fees to 0%.\n"+
-                    "This is not free or magic money to cover fees.\n" +
-                    "If Student households pay no fees, then the city treasury loses normal income from education fees.\n" +
+                    "Set all education fees to 0%. Student households pay no school fees.\n" +
+                    "This is not free or magic money.\n" +
+                    "The city treasury loses normal income from education fees when schools are free.\n" +
                     "**------------------**\n" +
                     "<100%: vanilla fee>\n" +
                     "<0%: households pay nothing.>"
