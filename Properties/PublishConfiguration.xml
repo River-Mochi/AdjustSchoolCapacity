@@ -29,7 +29,7 @@ Change how many students your schools can handle without adding more buildings.
 ### Support and Feedback
 - Report issues on Github or Discord links on the right side of this page.
 
-### 12 Languages
+### 12+ Languages
 Hello, Bonjour, Hallo, Hola, Ciao, こんにちは, 안녕하세요, 你好, 你好, Cześć, Olá, Olá
 
 ### Credits
@@ -60,10 +60,12 @@ tags: city schools, education capacity, automatic increase school size controlle
   <!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 
 <ChangeLog>
+* Added languages Ukrainian and Vietnamese
+* Elementary and High School sliders now support up to 1000% (fills player request)
 * Added a school fees and subsidized stipend system.
-* Elementary and High School sliders now support up to 1000% (fills request by Nicux)
-* Settings changes now save immediately.
 * Updated translations.
+* Settings changes now save immediately.
+
 </ChangeLog>
   <!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
   <ExternalLink Type="discord" Url="https://discord.gg/gwXgvtyhjc" />

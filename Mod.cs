@@ -66,8 +66,11 @@ namespace AdjustSchoolCapacity
                 lm.AddSource("pl-PL", new LocalePL(setting));
                 lm.AddSource("pt-BR", new LocalePT_BR(setting));
                 lm.AddSource("pt-PT", new LocalePT_PT(setting));
+                lm.AddSource("uk-UA", new LocaleUK(setting));
+                lm.AddSource("vi-VN", new LocaleVI(setting));
                 lm.AddSource("zh-HANS", new LocaleZH_CN(setting));
                 lm.AddSource("zh-HANT", new LocaleZH_HANT(setting));
+
             }
             else
             {
