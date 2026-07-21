@@ -85,14 +85,14 @@ namespace AdjustSchoolCapacity
                 // School fees
                 {
                     m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ControlEducationFees)),
-                    "Control Education Fees"
+                    "Education Fees"
                 },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ControlEducationFees)),
                     "OFF leaves the game's normal education fees unchanged.\n" +
                     "ON lets ASC control the city-wide fees below. Turning it OFF restores vanilla fees.\n" +
                     "Negative fees pay a stipend to every enrolled student's household and reduce the city budget. " +
-                    "This can ease financial pressure on poor families, but this first version is not limited by household wealth."
+                    "This can ease financial pressure on poor families. This first version applies equally to all families."
                 },
 
                 {
@@ -117,11 +117,13 @@ namespace AdjustSchoolCapacity
 
                 {
                     m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
-                    "Higher Education Fee (College + University)"
+                    "College + University fee"
                 },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
-                    "College and University share one game fee. 100% = vanilla fee (300); 0% = no fee.\n" +
+                    "College and University share one game fee.\n" +
+                    "<100% = vanilla fee (300)>\n" +
+                    "<0% = no fee.>\n" +
                     "Lower or zero fees may reduce dropout pressure, but fees do not directly make cims more likely to apply."
                 },
 
