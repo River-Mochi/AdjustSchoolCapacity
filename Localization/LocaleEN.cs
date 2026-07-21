@@ -13,6 +13,10 @@ namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
     using Colossal;
+    using Game.Citizens;
+    using Game.City;
+    using UnityEngine;
+    using static Game.UI.Tooltip.TooltipGroup;
 
     public sealed class LocaleEN : IDictionarySource
     {
@@ -91,8 +95,15 @@ namespace AdjustSchoolCapacity
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ControlEducationFees)),
                     "OFF leaves the game's normal education fees unchanged.\n" +
                     "ON lets ASC control the city-wide fees below. Turning it OFF restores vanilla fees.\n" +
-                    "Negative fees pay a stipend to every enrolled student's household and reduce the city budget. " +
-                    "This can ease financial pressure on poor families. This first version applies equally to all families."
+                    "Negative fees pay a stipend to all enrolled student households and reduces the city budget.\n" +
+                    "This may ease financial pressure on poor families/decrease moving out. Phase 1, all households get the same fees.\n" +
+                    "This is not free or magic money.\n"+
+                    "Student household receives money, City treasury loses the same category income.\n" +
+                    "**------------------**\n"+
+                    "100%: vanilla fee\n" +
+                    "0%: households pay nothing\n" +
+                    "-20%: households receive a stipend equal to 20% of the vanilla fee\n" +
+                    "200%: twice the vanilla fee"
                 },
 
                 {
@@ -101,7 +112,8 @@ namespace AdjustSchoolCapacity
                 },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
-                    "100% = vanilla fee (100). 0% = no fee, so nothing is removed from the household.\n" +
+                    "<100% = vanilla fee (100).>\n" +
+                    "<0% = no fee>  nothing is removed from the household.\n" +
                     "-1% to -20% pays a student stipend while enrolled."
                 },
 
@@ -111,7 +123,8 @@ namespace AdjustSchoolCapacity
                 },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
-                    "100% = vanilla fee (200). 0% = no fee, so nothing is removed from the household.\n" +
+                    "<100% = vanilla fee (200).>\n" +
+                    "<0% = no fee>  nothing is removed from the household.\n" +
                     "-1% to -20% pays a student stipend while enrolled."
                 },
 
