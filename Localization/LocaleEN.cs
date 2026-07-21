@@ -6,13 +6,12 @@
 // all copies or substantial portions of this code.
 // ================= </copyright> ======================
 
-// Localization/LocaleEN.cs
+// File: Localization/LocaleEN.cs
 // English (en-US) for Options UI.
 
 namespace AdjustSchoolCapacity
 {
     using System.Collections.Generic;
-
     using Colossal;
 
     public sealed class LocaleEN : IDictionarySource
@@ -38,7 +37,6 @@ namespace AdjustSchoolCapacity
 
             return new Dictionary<string, string>
             {
-
                 // Mod name in options
                 { m_Setting.GetSettingsLocaleID(), title },
 
@@ -48,13 +46,14 @@ namespace AdjustSchoolCapacity
 
                 // Groups - Actions
                 { m_Setting.GetOptionGroupLocaleID(ASCSetting.CapacityGroup), "Student Capacity" },
+                { m_Setting.GetOptionGroupLocaleID(ASCSetting.FeeGroup),      "School Fees" },
                 { m_Setting.GetOptionGroupLocaleID(ASCSetting.PresetGroup),   "Presets" },
 
                 // Groups - About
                 { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutInfoGroup),  "Info" },
                 { m_Setting.GetOptionGroupLocaleID(ASCSetting.AboutLinksGroup), "Support Links" },
 
-                // Sliders
+                // Capacity sliders
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementarySlider)), "Elementary" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementarySlider)),
@@ -81,6 +80,49 @@ namespace AdjustSchoolCapacity
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.UniversitySlider)),
                     "**University** – customize capacity 10% - 500% using the slider.\n" +
                     "100% = game's default capacity."
+                },
+
+                // School fees
+                {
+                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ControlEducationFees)),
+                    "Control Education Fees"
+                },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ControlEducationFees)),
+                    "OFF leaves the game's normal education fees unchanged.\n" +
+                    "ON lets ASC control the city-wide fees below. Turning it OFF restores vanilla fees.\n" +
+                    "Negative fees pay a stipend to every enrolled student's household and reduce the city budget. " +
+                    "This can ease financial pressure on poor families, but this first version is not limited by household wealth."
+                },
+
+                {
+                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
+                    "Elementary Fee"
+                },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
+                    "100% = vanilla fee (100). 0% = no fee, so nothing is removed from the household.\n" +
+                    "-1% to -20% pays a student stipend while enrolled."
+                },
+
+                {
+                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
+                    "High School Fee"
+                },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
+                    "100% = vanilla fee (200). 0% = no fee, so nothing is removed from the household.\n" +
+                    "-1% to -20% pays a student stipend while enrolled."
+                },
+
+                {
+                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
+                    "Higher Education Fee (College + University)"
+                },
+                {
+                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
+                    "College and University share one game fee. 100% = vanilla fee (300); 0% = no fee.\n" +
+                    "Lower or zero fees may reduce dropout pressure, but fees do not directly make cims more likely to apply."
                 },
 
                 // Preset buttons

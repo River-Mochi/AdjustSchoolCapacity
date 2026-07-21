@@ -33,7 +33,7 @@ namespace AdjustSchoolCapacity
             Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "1.0.0";
 
         public static readonly ILog s_Log =
-            LogManager.GetLogger("AdjustSchoolCapacity").SetShowsErrorsInUI(false);
+            LogManager.GetLogger(ModId).SetShowsErrorsInUI(false);
 
         public static ASCSetting? Setting
         {
@@ -43,6 +43,7 @@ namespace AdjustSchoolCapacity
         public void OnLoad(UpdateSystem updateSystem)
         {
             LogUtils.Configure(ModId, s_Log);
+
             if (!s_BannerLogged)
             {
                 s_BannerLogged = true;
@@ -79,12 +80,12 @@ namespace AdjustSchoolCapacity
             if (setting.RepairInvalidValues())
             {
                 setting.ApplyAndSave();
-                LogUtils.Info($"{ModTag} Repaired invalid slider values to vanilla settings.");
+                LogUtils.Info($"{ModTag} Repaired invalid settings to vanilla values.");
             }
 
             setting.RegisterInOptionsUI();
 
-            // Prefab data must be ready before capacities are applied.
+            // Prefab data must be ready before capacities and education fees are applied.
             updateSystem.UpdateAfter<AdjustSchoolCapacitySystem>(SystemUpdatePhase.PrefabUpdate);
         }
 

@@ -51,7 +51,7 @@ tags: city schools, education capacity, automatic increase school size controlle
   <!--Link to the forum post where the mod can be discussed-->
   <ForumLink Value="https://forum.paradoxplaza.com/forum/threads/adjust-school-capacity-redux.1866531/" />
   <!--Version of the mod-->
-  <ModVersion Value="1.7.0" />
+  <ModVersion Value="1.8.0" />
   <!--Recommended version of the base game to use the mod-->
   <GameVersion Value="1.6.*" />
   <!--Dependency for the mod, can be set multiple times-->
@@ -59,10 +59,10 @@ tags: city schools, education capacity, automatic increase school size controlle
   <!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 
 <ChangeLog>
+* Added a school fees system.
 * Elementary and High School sliders now support up to 1000% (fills request by Nicux)
 * Settings changes now save immediately.
 * Updated translations.
-* Internal refactor, cleanup.
 </ChangeLog>
   <!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
   <ExternalLink Type="discord" Url="https://discord.gg/gwXgvtyhjc" />

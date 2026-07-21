@@ -11,7 +11,7 @@
 		<Nullable>enable</Nullable>
 
   <!-- Single source of truth -->
-	  <Version>1.7.0</Version>
+	  <Version>1.8.0</Version>
 	  <AssemblyVersion>$(Version).0</AssemblyVersion>
 	  <FileVersion>$(Version).0</FileVersion>  <!-- file properties -->
 
@@ -52,12 +52,10 @@
 		<Reference Include="Colossal.Localization">
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="Colossal.UI">
-			<Private>false</Private>
+		<Reference Include="Colossal.UI"><Private>false</Private>
 		</Reference>
-		<Reference Include="Colossal.UI.Binding">
-			<Private>false</Private>
-		</Reference>
+		<Reference Include="Colossal.UI.Binding"><Private>false</Private></Reference>
+        <Reference Include="Colossal.Collections"><Private>false</Private></Reference>
 		<Reference Include="UnityEngine.CoreModule">
 			<Private>false</Private>
 		</Reference>

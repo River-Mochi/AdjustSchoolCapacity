@@ -24,12 +24,14 @@ namespace AdjustSchoolCapacity
     [FileLocation("ModsSettings/AdjustSchoolCapacity/AdjustSchoolCapacity")]
     [SettingsUIGroupOrder(
         CapacityGroup,
+        FeeGroup,
         PresetGroup,
         AboutInfoGroup,
         AboutLinksGroup
     )]
     [SettingsUIShowGroupName(
         CapacityGroup,
+        FeeGroup,
         PresetGroup,
         AboutLinksGroup
     )]
@@ -41,6 +43,7 @@ namespace AdjustSchoolCapacity
 
         // ---- Groups: Actions tab ----
         public const string CapacityGroup = "Student Capacity";
+        public const string FeeGroup = "School Fees";
         public const string PresetGroup = "Presets";
 
         // ---- Groups: About tab ----
@@ -50,6 +53,9 @@ namespace AdjustSchoolCapacity
         private const string UrlParadox =
             "https://mods.paradoxplaza.com/authors/River-mochi/cities_skylines_2?games=cities_skylines_2&orderBy=desc&sortBy=best&time=alltime";
         private const string UrlDiscord = "https://discord.gg/gwXgvtyhjc";
+
+        private bool m_ControlEducationFees;
+        private bool m_RestoreVanillaFeesRequested;
 
         public ASCSetting(IMod mod) : base(mod)
         {
@@ -111,6 +117,48 @@ namespace AdjustSchoolCapacity
         [SettingsUISlider(min = 10, max = 500, step = 10, scalarMultiplier = 1, unit = Unit.kPercentage)]
         [SettingsUISection(ActionsTab, CapacityGroup)]
         public int UniversitySlider
+        {
+            get; set;
+        }
+
+        // ---- School fees ----
+
+        [SettingsUISection(ActionsTab, FeeGroup)]
+        public bool ControlEducationFees
+        {
+            get => m_ControlEducationFees;
+            set
+            {
+                if (m_ControlEducationFees && !value)
+                {
+                    // Restore vanilla fees the next time the city system runs.
+                    m_RestoreVanillaFeesRequested = true;
+                }
+
+                m_ControlEducationFees = value;
+            }
+        }
+
+        [SettingsUISlider(min = -20, max = 200, step = 5, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUIDisableByCondition(typeof(ASCSetting), nameof(DisableEducationFeeSliders))]
+        [SettingsUISection(ActionsTab, FeeGroup)]
+        public int ElementaryFeePercent
+        {
+            get; set;
+        }
+
+        [SettingsUISlider(min = -20, max = 200, step = 5, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUIDisableByCondition(typeof(ASCSetting), nameof(DisableEducationFeeSliders))]
+        [SettingsUISection(ActionsTab, FeeGroup)]
+        public int HighSchoolFeePercent
+        {
+            get; set;
+        }
+
+        [SettingsUISlider(min = -20, max = 200, step = 5, scalarMultiplier = 1, unit = Unit.kPercentage)]
+        [SettingsUIDisableByCondition(typeof(ASCSetting), nameof(DisableEducationFeeSliders))]
+        [SettingsUISection(ActionsTab, FeeGroup)]
+        public int HigherEducationFeePercent
         {
             get; set;
         }
@@ -207,6 +255,12 @@ namespace AdjustSchoolCapacity
         public override void SetDefaults()
         {
             SetToVanilla();
+
+            // Fee control is opt-in for new and existing players.
+            ControlEducationFees = false;
+            ElementaryFeePercent = 100;
+            HighSchoolFeePercent = 100;
+            HigherEducationFeePercent = 100;
         }
 
         public void SetToVanilla()
@@ -225,31 +279,52 @@ namespace AdjustSchoolCapacity
             UniversitySlider = 100;
         }
 
+        internal bool ConsumeRestoreVanillaFeesRequest()
+        {
+            bool requested = m_RestoreVanillaFeesRequested;
+            m_RestoreVanillaFeesRequested = false;
+            return requested;
+        }
+
         internal bool RepairInvalidValues()
         {
-            int elementary = SanitizePercent(ElementarySlider, 1000);
-            int highSchool = SanitizePercent(HighSchoolSlider, 1000);
-            int college = SanitizePercent(CollegeSlider, 500);
-            int uni = SanitizePercent(UniversitySlider, 500);
+            int elementary = SanitizePercent(ElementarySlider, 10, 1000);
+            int highSchool = SanitizePercent(HighSchoolSlider, 10, 1000);
+            int college = SanitizePercent(CollegeSlider, 10, 500);
+            int uni = SanitizePercent(UniversitySlider, 10, 500);
+            int elementaryFee = SanitizePercent(ElementaryFeePercent, -20, 200);
+            int highSchoolFee = SanitizePercent(HighSchoolFeePercent, -20, 200);
+            int higherEducationFee = SanitizePercent(HigherEducationFeePercent, -20, 200);
 
             bool changed =
                 elementary != ElementarySlider ||
                 highSchool != HighSchoolSlider ||
                 college != CollegeSlider ||
-                uni != UniversitySlider;
+                uni != UniversitySlider ||
+                elementaryFee != ElementaryFeePercent ||
+                highSchoolFee != HighSchoolFeePercent ||
+                higherEducationFee != HigherEducationFeePercent;
 
             ElementarySlider = elementary;
             HighSchoolSlider = highSchool;
             CollegeSlider = college;
             UniversitySlider = uni;
+            ElementaryFeePercent = elementaryFee;
+            HighSchoolFeePercent = highSchoolFee;
+            HigherEducationFeePercent = higherEducationFee;
 
             return changed;
         }
 
-        private static int SanitizePercent(int value, int maxPercent)
+        private bool DisableEducationFeeSliders()
+        {
+            return !ControlEducationFees;
+        }
+
+        private static int SanitizePercent(int value, int minPercent, int maxPercent)
         {
             // Invalid file values return to vanilla instead of an extreme limit.
-            return value < 10 || value > maxPercent ? 100 : value;
+            return value < minPercent || value > maxPercent ? 100 : value;
         }
     }
 }

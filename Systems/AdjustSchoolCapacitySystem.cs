@@ -7,29 +7,34 @@
 // ================= </copyright> ======================
 
 // File: Systems/AdjustSchoolCapacitySystem.cs
-// Applies ASC settings to school entities.
-// Base capacity is read from PrefabBase to prevent repeated multiplication.
+// Applies ASC capacity and education-fee settings.
+// Base school capacity is read from PrefabBase to prevent repeated multiplication.
 
 namespace AdjustSchoolCapacity
 {
     using Colossal.Entities;
     using Colossal.Serialization.Entities;
     using CS2Shared.RiverMochi;
-
     using Game;
+    using Game.City;
     using Game.Prefabs;
-
+    using Game.Simulation;
     using Unity.Entities;
+   
 
     public sealed partial class AdjustSchoolCapacitySystem : GameSystemBase
     {
         private PrefabSystem m_PrefabSystem = null!;
+        private CitySystem m_CitySystem = null!;
+        private EntityQuery m_FeeParameterQuery;
 
         protected override void OnCreate()
         {
             base.OnCreate();
 
             m_PrefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
+            m_CitySystem = World.GetOrCreateSystemManaged<CitySystem>();
+            m_FeeParameterQuery = GetEntityQuery(ComponentType.ReadOnly<ServiceFeeParameterData>());
 
             // Do not update until school service entities exist.
             RequireForUpdate(
@@ -59,12 +64,14 @@ namespace AdjustSchoolCapacity
 
         protected override void OnUpdate()
         {
-
             if (Mod.Setting is not ASCSetting setting)
             {
                 Enabled = false;
                 return;
             }
+
+            ApplyEducationFees(setting, setting.ConsumeRestoreVanillaFeesRequest());
+
             // Iterate directly without creating a temporary entity array.
             foreach ((RefRW<SchoolData> schoolRef, Entity entity) in SystemAPI
                          .Query<RefRW<SchoolData>>()
@@ -94,10 +101,53 @@ namespace AdjustSchoolCapacity
         public void RequestReapplyFromSettings()
         {
             Enabled = true;
-
 #if DEBUG
             LogUtils.Debug("[ASC] Settings changed → reapply requested.");
 #endif
+        }
+
+        private void ApplyEducationFees(ASCSetting setting, bool restoreVanillaFees)
+        {
+            if (!setting.ControlEducationFees && !restoreVanillaFees)
+            {
+                return;
+            }
+
+            Entity city = m_CitySystem.City;
+            if (city == Entity.Null ||
+                m_FeeParameterQuery.IsEmptyIgnoreFilter ||
+                !EntityManager.TryGetBuffer(
+                    city,
+                    isReadOnly: false,
+                    out DynamicBuffer<ServiceFee> fees))
+            {
+                return;
+            }
+
+            ServiceFeeParameterData feeParameters =
+                m_FeeParameterQuery.GetSingleton<ServiceFeeParameterData>();
+
+            int elementaryPercent =
+                restoreVanillaFees ? 100 : setting.ElementaryFeePercent;
+            int highSchoolPercent =
+                restoreVanillaFees ? 100 : setting.HighSchoolFeePercent;
+            int higherEducationPercent =
+                restoreVanillaFees ? 100 : setting.HigherEducationFeePercent;
+
+            ServiceFeeSystem.SetFee(
+                PlayerResource.BasicEducation,
+                fees,
+                feeParameters.m_BasicEducationFee.m_Default * elementaryPercent / 100f);
+
+            ServiceFeeSystem.SetFee(
+                PlayerResource.SecondaryEducation,
+                fees,
+                feeParameters.m_SecondaryEducationFee.m_Default * highSchoolPercent / 100f);
+
+            ServiceFeeSystem.SetFee(
+                PlayerResource.HigherEducation,
+                fees,
+                feeParameters.m_HigherEducationFee.m_Default * higherEducationPercent / 100f);
         }
 
         private bool TryGetSchoolBaseCapacity(Entity entity, out int baseCapacity)
