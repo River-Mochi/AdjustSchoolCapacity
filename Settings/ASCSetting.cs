@@ -6,7 +6,7 @@
 // all copies or substantial portions of this code.
 // ================= </copyright> ======================
 
-// File: Settings/Setting.cs
+// File: Settings/ASCSetting.cs
 // Options UI for "Adjust School Capacity [ASC]".
 
 namespace AdjustSchoolCapacity
@@ -146,7 +146,7 @@ namespace AdjustSchoolCapacity
                 }
 
                 SetQuickStart();
-                ApplyAndSave(); // Save immediately when the button is pressed.
+                ApplyAndSave();
             }
         }
 
