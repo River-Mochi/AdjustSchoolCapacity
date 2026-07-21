@@ -140,7 +140,7 @@ namespace AdjustSchoolCapacity
         }
 
         [SettingsUISlider(min = -20, max = 200, step = 5, scalarMultiplier = 1, unit = Unit.kPercentage)]
-        [SettingsUIDisableByCondition(typeof(ASCSetting), nameof(DisableEducationFeeSliders))]
+        [SettingsUIHideByCondition(typeof(ASCSetting), nameof(ControlEducationFees), true)]
         [SettingsUISection(ActionsTab, FeeGroup)]
         public int ElementaryFeePercent
         {
@@ -148,7 +148,7 @@ namespace AdjustSchoolCapacity
         }
 
         [SettingsUISlider(min = -20, max = 200, step = 5, scalarMultiplier = 1, unit = Unit.kPercentage)]
-        [SettingsUIDisableByCondition(typeof(ASCSetting), nameof(DisableEducationFeeSliders))]
+        [SettingsUIHideByCondition(typeof(ASCSetting), nameof(ControlEducationFees), true)]
         [SettingsUISection(ActionsTab, FeeGroup)]
         public int HighSchoolFeePercent
         {
@@ -156,15 +156,17 @@ namespace AdjustSchoolCapacity
         }
 
         [SettingsUISlider(min = -20, max = 200, step = 5, scalarMultiplier = 1, unit = Unit.kPercentage)]
-        [SettingsUIDisableByCondition(typeof(ASCSetting), nameof(DisableEducationFeeSliders))]
+        [SettingsUIHideByCondition(typeof(ASCSetting), nameof(ControlEducationFees), true)]
         [SettingsUISection(ActionsTab, FeeGroup)]
         public int HigherEducationFeePercent
         {
             get; set;
         }
 
+
         [SettingsUIButtonGroup(FeeGroup)]
         [SettingsUIButton]
+        [SettingsUIHideByCondition(typeof(ASCSetting), nameof(ControlEducationFees), true)]
         [SettingsUISection(ActionsTab, FeeGroup)]
         public bool FreeSchools
         {
@@ -185,6 +187,7 @@ namespace AdjustSchoolCapacity
 
         [SettingsUIButtonGroup(FeeGroup)]
         [SettingsUIButton]
+        [SettingsUIHideByCondition(typeof(ASCSetting), nameof(ControlEducationFees), true)]
         [SettingsUISection(ActionsTab, FeeGroup)]
         public bool ResetEducationFees
         {
@@ -360,11 +363,6 @@ namespace AdjustSchoolCapacity
             HigherEducationFeePercent = higherEducationFee;
 
             return changed;
-        }
-
-        private bool DisableEducationFeeSliders()
-        {
-            return !ControlEducationFees;
         }
 
         private static int SanitizePercent(int value, int minPercent, int maxPercent)
