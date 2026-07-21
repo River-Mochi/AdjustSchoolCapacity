@@ -4,7 +4,7 @@
   <!--Name of the mod to display to players-->
   <DisplayName Value="Adjust School Capacity" />
   <!--Short description of the mod-->
-  <ShortDescription Value="Adjust school sizes. Increase the number of students." />
+  <ShortDescription Value="Adjust school sizes. Increase the number of students, adjust fees" />
   <!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
   <!--LongDescription Value="This is a long description" /-->
   <LongDescription>
@@ -12,20 +12,21 @@
 
 Change how many students your schools can handle without adding more buildings.
 
-- **Separate sliders** for Elementary, High School, College, and University
 - Lower or increase the number of students.
 - Convenient buttons to **Reset to Vanilla** defaults or **Quick Start** preset values.
+- Increase or decrease the fees each student enrolled pays.
+- Household receives a stipend of 20% of the school fees if slider is set to -20%.
+- This is not free or magic money. Student households receive money; the city treasury loses the same category of income.
+- Please hit the like button, it helps people can find this mod easier.
 
 ### Notes
 
 - Safe to remove or disable any time (set sliders to 100% for vanilla values)
 - Remove other mods that do school student sizing to avoid conflicts.
 - Mod is compatible with all my other mods.
-- Mod does not use Harmony or Reflection; more resilient to game updates.
+- Mod does not use Harmony patch and is more resilient to game updates.
 
 ### Support and Feedback
-
-- If the mod helps you, give it a Like :)
 - Report issues on Github link, Forum link, or Discord.
 
 ### 12 Languages
@@ -59,7 +60,7 @@ tags: city schools, education capacity, automatic increase school size controlle
   <!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 
 <ChangeLog>
-* Added a school fees system.
+* Added a school fees and subsidized stipend system.
 * Elementary and High School sliders now support up to 1000% (fills request by Nicux)
 * Settings changes now save immediately.
 * Updated translations.
