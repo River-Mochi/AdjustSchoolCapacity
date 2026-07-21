@@ -163,6 +163,27 @@ namespace AdjustSchoolCapacity
             get; set;
         }
 
+        [SettingsUIButtonGroup(FeeGroup)]
+        [SettingsUIButton]
+        [SettingsUISection(ActionsTab, FeeGroup)]
+        public bool FreeSchools
+        {
+            set
+            {
+                if (!value)
+                {
+                    return;
+                }
+
+                ControlEducationFees = true;
+                ElementaryFeePercent = 0;
+                HighSchoolFeePercent = 0;
+                HigherEducationFeePercent = 0;
+                ApplyAndSave();
+            }
+        }
+
+        [SettingsUIButtonGroup(FeeGroup)]
         [SettingsUIButton]
         [SettingsUISection(ActionsTab, FeeGroup)]
         public bool ResetEducationFees
@@ -179,7 +200,6 @@ namespace AdjustSchoolCapacity
             }
         }
 
-        // Keep both capacity buttons in the same UI row.
         [SettingsUIButtonGroup(PresetGroup)]
         [SettingsUIButton]
         [SettingsUISection(ActionsTab, PresetGroup)]

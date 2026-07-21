@@ -83,10 +83,7 @@ namespace AdjustSchoolCapacity
                 },
 
                 // School fees
-                {
-                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ControlEducationFees)),
-                    "Education Fees"
-                },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ControlEducationFees)),"Education Fees" },
                 {
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ControlEducationFees)),
                     "OFF leaves the game's normal education fees unchanged.\n" +
@@ -102,46 +99,40 @@ namespace AdjustSchoolCapacity
                     "<200%: twice the vanilla fee>"
                 },
 
-                {
-                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
-                    "Elementary Fee"
-                },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementaryFeePercent)),"Elementary Fee" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
                     "<100% = vanilla fee (100).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
                     "**-5% to -20%** pays a student stipend while enrolled."
                 },
 
-                {
-                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
                     "High School Fee"
                 },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
                     "<100% = vanilla fee (200).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
                     "**-5% to -20%** pays a student stipend while enrolled."
                 },
 
-                {
-                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
                     "College + University Fee"
                 },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HigherEducationFeePercent)),
                     "College and University share one game fee.\n" +
                     "<100% = vanilla fee (300).>\n" +
                     "<0% = no fee.>\n" +
                     "Lower or zero fees may reduce dropout pressure, but fees do not directly make cims more likely to apply."
                 },
 
-                {
-                    m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Game Defaults"
-                },   
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetEducationFees)),
-                    "Reset all three education fee sliders to 100% and immediately restore the game's vanilla education fees."
+                {m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Free Schools" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
+                    "Set all education fees to 0%. Student households pay no school fees."
+                },
+
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Game Defaults" },
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetEducationFees)),
+                    "Reset all education fee sliders to 100% and restore the game's vanilla education fees."
                 },
 
 
@@ -153,8 +144,7 @@ namespace AdjustSchoolCapacity
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetToModDefault)), "Quick Start Presets" },
-                {
-                    m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToModDefault)),
+                { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetToModDefault)),
                     "Set Quick Start preset:\n" +
                     "**200 / 150 / 110 / 100**"
                 },
