@@ -101,29 +101,31 @@ namespace AdjustSchoolCapacity
                     m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ControlEducationFees)),
                     "OFF leaves the game's normal education fees unchanged.\n" +
                     "ON lets ASC control the city-wide fees below. Turning it OFF restores vanilla fees.\n" +
-                    "Negative fees pay a stipend to all enrolled student households and reduce the city budget.\n" +
+                    "Negative fees pays a stipend to all enrolled student households and reduces the city budget.\n" +
                     "This may ease financial pressure on poor families and reduce moving out. In this version, all households get the same fees.\n" +
                     "This is not free or magic money.\n" +
                     "Student households receive money; the city treasury loses the same category of income.\n" +
                     "**------------------**\n" +
-                    "<100%: vanilla fee>\n" +
-                    "<0%: households pay nothing.>\n" +
-                    "<-20%: households receive a stipend equal to 20% of the vanilla fee.>\n" +
-                    "<200%: twice the vanilla fee>"
+                    "<200%: twice the game's normal fee> charged to all student households." +
+                    "<100%: game default fees>\n" +
+                    "<0%: households pay nothing.>\n" + 
+                    "<-20%: stipend equal to 20% of the game's default fee.> goes to student households and increases city education expenses."
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ElementaryFeePercent)), "Elementary Fee" },
                 { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ElementaryFeePercent)),
                     "<100% = vanilla fee (100).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
-                    "**-5% to -20%** pays a student stipend while enrolled."
+                    "**-5% to -20%** pays a student stipend while enrolled.\n"+
+                    "Note: stipends increase  Education Expenses budget (it's not free/magic)"
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HighSchoolFeePercent)), "High School Fee" },
                 { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.HighSchoolFeePercent)),
                     "<100% = vanilla fee (200).>\n" +
                     "<0% = no fee> Nothing is removed from the household.\n" +
-                    "**-5% to -20%** pays a student stipend while enrolled."
+                    "**-5% to -20%** pays a student stipend while enrolled.\n"+
+                    "Note: stipends increase  Education Expenses budget (it's not free/magic)"
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.HigherEducationFeePercent)), "College + University Fee" },
@@ -131,23 +133,27 @@ namespace AdjustSchoolCapacity
                     "College and University share one game fee.\n" +
                     "<100% = vanilla fee (300).>\n" +
                     "<0% = no fee.>\n" +
-                    "**-5% to -20%** pays a student stipend while enrolled.\n" +
-                    "Lower or zero fees may reduce dropout pressure, but fees do not directly make cims more likely to apply."
+                    "**-5% to -20%** pays students a stipend while enrolled.\n" +
+                    "Lower or zero fees may reduce dropout pressure, but fees do not directly make cims more likely to apply."+
+                    "Note: stipends increase  Education Expenses budget (it's not free/magic)"
                 },
 
-                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "Free Schools" },
+                { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.FreeSchools)), "All Free Schools" },
                 { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.FreeSchools)),
                     "Set all education fees to 0%. Student households pay no school fees.\n" +
                     "This is not free or magic money.\n" +
-                    "The city treasury loses normal income from education fees when schools are free.\n" +
+                    "The city loses the normal income from education fees when schools are free. Check your Budget.\n" +
                     "**------------------**\n" +
-                    "<100%: vanilla fee>\n" +
-                    "<0%: households pay nothing.>"
+                    "<0%: households pay nothing.>\n"+
+                    "<100%: game default fee>\n" +
+                    "Background: default game does not have free public schools, every enrolled student household pays."
+       
                 },
 
                 { m_Setting.GetOptionLabelLocaleID(nameof(ASCSetting.ResetEducationFees)), "Game Defaults" },
                 { m_Setting.GetOptionDescLocaleID(nameof(ASCSetting.ResetEducationFees)),
-                    "Reset all education fee sliders to 100% and restore the game's vanilla education fees."
+                    "Reset all education fee sliders to 100% and restore the game's vanilla education fees.\n" +
+                    "<100%: game default fee> to households."
                 },
 
                 // About tab

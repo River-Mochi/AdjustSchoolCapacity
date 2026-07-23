@@ -45,7 +45,7 @@ tags: city schools, education capacity, automatic increase school size controlle
   <!--Thumbnail-->
   <Thumbnail Value="Properties/Thumbnail-ASC.jpg" />
   <!--Screenshot, can be set multiple times-->
-  <Screenshot Value="Properties/10-image-EN.jpg" />
+  <Screenshot Value="Properties/10-image-ASC-cap-fees.jpg" />
   <Screenshot Value="Properties/30-image-CN.jpg" />
   <Screenshot Value="Properties/40-image-ElemSchool.jpg" />
   <!--Tag, can be set multiple times-->
